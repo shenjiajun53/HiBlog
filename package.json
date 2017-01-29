@@ -1,0 +1,39 @@
+{
+  "name": "HiBlog",
+  "version": "0.1.0",
+  "private": true,
+  "engines": {
+    "node": "^7.4.0",
+    "npm": ">= 3.x.x"
+  },
+  "devDependencies": {
+    "babel-plugin-transform-react-jsx": "^6.22.0",
+    "concurrently": "^3.1.0",
+    "react-hot-loader": "^1.3.1",
+    "react-scripts": "^0.8.5",
+    "svg-loader": "0.0.2",
+    "svg-react-loader": "^0.3.7",
+    "svg-url-loader": "^1.1.1"
+  },
+  "dependencies": {
+    "babel-core": "^6.22.1",
+    "babel-loader": "^6.2.10",
+    "babel-preset-es2015": "^6.22.0",
+    "babel-preset-react": "^6.22.0",
+    "css-loader": "^0.26.1",
+    "ejs": "^2.5.5",
+    "express": "^4.14.0",
+    "jsx-loader": "^0.13.2",
+    "react": "^15.4.2",
+    "react-dom": "^15.4.2",
+    "style-loader": "^0.13.1",
+    "webpack": "^1.14.0"
+  },
+  "scripts": {
+    "start": "concurrently \"npm run start-server\" \"npm run build\"",
+    "start-server": "supervisor --harmony server",
+    "build": "webpack --watch",
+    "install": "npm install",
+    "react-start": "react-scripts start"
+  }
+}
