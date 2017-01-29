@@ -30,8 +30,9 @@
     "webpack": "^1.14.0"
   },
   "scripts": {
-    "start": "concurrently \"npm run start-server\" \"npm run build\"",
-    "start-server": "supervisor --harmony server",
+    "start": "node server.js",
+    "start-dev":"concurrently \"npm run start-server\" \"npm run build\"",
+    "start-server":"supervisor --harmony server",
     "build": "webpack --watch",
     "install": "npm install",
     "react-start": "react-scripts start"
