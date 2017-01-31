@@ -11,31 +11,40 @@ import SignIn from "./components/SignIn";
 import SignUp from "./components/SignUp";
 import UserCenter from "./components/UserCenter";
 import WriteBlog from "./components/WriteBlog";
+import injectTapEventPlugin from 'react-tap-event-plugin';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
+injectTapEventPlugin();
 class App extends Component {
     render() {
         return (
-            <div>
-                <h1>App</h1>
-                <ul>
-                    <li><Link to="/home">Home</Link></li>
-                    <li><Link to="/blog-detail">BlogDetail</Link></li>
-                </ul>
-                {this.props.children}
-                <Home/>
-            </div>
+            <MuiThemeProvider>
+                <div>
+                    <h1>App</h1>
+                    <ul>
+                        <li><Link to="/UserCenter">UserCenter</Link></li>
+                        <li><Link to="/SignUp">SignUp</Link></li>
+                    </ul>
+                    {this.props.children}
+                </div>
+            </MuiThemeProvider>
         );
     }
 }
 
 render(
     <Router history={hashHistory}>
-        <Route path="/" component={Home}>
+        <Route path="/" component={App}>
+            <IndexRoute component={Home}/>
+            <Route path="BlogDetail/:blogId" component={BlogDetail}/>
+            <Route path="SignUp" component={SignUp}/>
+            <Route path="SignIn" component={SignIn}/>
+            <Route path="UserCenter" component={UserCenter}/>
         </Route>
-        <Route path="/blog-detail" component={BlogDetail}/>
-        <Route path="/user-center" component={UserCenter}/>
     </Router>
-    , document.getElementById('root')
-);
+    ,
+    document.getElementById('root')
+)
+;
 
 export default App;

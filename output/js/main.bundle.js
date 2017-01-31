@@ -92,6 +92,14 @@
 
 	var _WriteBlog2 = _interopRequireDefault(_WriteBlog);
 
+	var _reactTapEventPlugin = __webpack_require__(476);
+
+	var _reactTapEventPlugin2 = _interopRequireDefault(_reactTapEventPlugin);
+
+	var _MuiThemeProvider = __webpack_require__(278);
+
+	var _MuiThemeProvider2 = _interopRequireDefault(_MuiThemeProvider);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -99,6 +107,8 @@
 	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	(0, _reactTapEventPlugin2.default)();
 
 	var App = function (_Component) {
 	    _inherits(App, _Component);
@@ -113,37 +123,40 @@
 	        key: 'render',
 	        value: function render() {
 	            return _react2.default.createElement(
-	                'div',
+	                _MuiThemeProvider2.default,
 	                null,
 	                _react2.default.createElement(
-	                    'h1',
-	                    null,
-	                    'App'
-	                ),
-	                _react2.default.createElement(
-	                    'ul',
+	                    'div',
 	                    null,
 	                    _react2.default.createElement(
-	                        'li',
+	                        'h1',
 	                        null,
-	                        _react2.default.createElement(
-	                            _reactRouter.Link,
-	                            { to: '/home' },
-	                            'Home'
-	                        )
+	                        'App'
 	                    ),
 	                    _react2.default.createElement(
-	                        'li',
+	                        'ul',
 	                        null,
 	                        _react2.default.createElement(
-	                            _reactRouter.Link,
-	                            { to: '/blog-detail' },
-	                            'BlogDetail'
+	                            'li',
+	                            null,
+	                            _react2.default.createElement(
+	                                _reactRouter.Link,
+	                                { to: '/UserCenter' },
+	                                'UserCenter'
+	                            )
+	                        ),
+	                        _react2.default.createElement(
+	                            'li',
+	                            null,
+	                            _react2.default.createElement(
+	                                _reactRouter.Link,
+	                                { to: '/SignUp' },
+	                                'SignUp'
+	                            )
 	                        )
-	                    )
-	                ),
-	                this.props.children,
-	                _react2.default.createElement(_Home2.default, null)
+	                    ),
+	                    this.props.children
+	                )
 	            );
 	        }
 	    }]);
@@ -154,9 +167,15 @@
 	(0, _reactDom.render)(_react2.default.createElement(
 	    _reactRouter.Router,
 	    { history: _reactRouter.hashHistory },
-	    _react2.default.createElement(_reactRouter.Route, { path: '/', component: _Home2.default }),
-	    _react2.default.createElement(_reactRouter.Route, { path: '/blog-detail', component: _BlogDetail2.default }),
-	    _react2.default.createElement(_reactRouter.Route, { path: '/user-center', component: _UserCenter2.default })
+	    _react2.default.createElement(
+	        _reactRouter.Route,
+	        { path: '/', component: App },
+	        _react2.default.createElement(_reactRouter.IndexRoute, { component: _Home2.default }),
+	        _react2.default.createElement(_reactRouter.Route, { path: 'BlogDetail/:blogId', component: _BlogDetail2.default }),
+	        _react2.default.createElement(_reactRouter.Route, { path: 'SignUp', component: _SignUp2.default }),
+	        _react2.default.createElement(_reactRouter.Route, { path: 'SignIn', component: _SignIn2.default }),
+	        _react2.default.createElement(_reactRouter.Route, { path: 'UserCenter', component: _UserCenter2.default })
+	    )
 	), document.getElementById('root'));
 
 	exports.default = App;
@@ -28288,8 +28307,7 @@
 	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                */
 
 
-	(0, _reactTapEventPlugin2.default)();
-
+	// injectTapEventPlugin();
 	var Home = function (_Component) {
 	    _inherits(Home, _Component);
 
@@ -28303,14 +28321,10 @@
 	        key: 'render',
 	        value: function render() {
 	            return _react2.default.createElement(
-	                _MuiThemeProvider2.default,
+	                'div',
 	                null,
-	                _react2.default.createElement(
-	                    'div',
-	                    null,
-	                    _react2.default.createElement(_TopBar2.default, null),
-	                    _react2.default.createElement(_RaisedButton2.default, { label: 'Default' })
-	                )
+	                _react2.default.createElement(_TopBar2.default, null),
+	                _react2.default.createElement(_RaisedButton2.default, { label: 'Default' })
 	            );
 	        }
 	    }]);
@@ -40978,8 +40992,8 @@
 
 	var myMenu = void 0;
 
-	var TopBar = function (_Component) {
-	    _inherits(TopBar, _Component);
+	var TopBar = function (_React$Component) {
+	    _inherits(TopBar, _React$Component);
 
 	    function TopBar(props) {
 	        _classCallCheck(this, TopBar);
@@ -41003,40 +41017,54 @@
 	        value: function render() {
 	            return _react2.default.createElement(
 	                _materialUi.Card,
-	                { style: {
-	                        display: "flex",
-	                        flex: 1,
-	                        height: "48px",
-	                        backgroundColor: "#E91E63",
-	                        justifyContent: "left",
-	                        alignItems: "center",
-	                        flexDirection: "row",
-	                        paddingLeft: "1em",
-	                        paddingRight: "1em"
-	                    } },
+	                null,
 	                _react2.default.createElement(
-	                    _materialUi.FlatButton,
-	                    { style: { color: "#ffffff", marginRight: "10px" } },
-	                    '\u53D1\u73B0'
-	                ),
-	                _react2.default.createElement(
-	                    _materialUi.FlatButton,
-	                    { style: { color: "#ffffff", marginRight: "10px" } },
-	                    '\u5173\u6CE8'
-	                ),
-	                _react2.default.createElement(
-	                    _materialUi.FlatButton,
-	                    { style: { color: "#ffffff", marginRight: "10px" },
-	                        onTouchTap: this.handleOpenMenu },
-	                    '\u6211\u7684'
-	                ),
-	                _react2.default.createElement(_MyMenu2.default, { style: {}, ref: 'my_menu' })
+	                    'div',
+	                    { style: {
+	                            display: "flex",
+	                            flex: 1,
+	                            height: "48px",
+	                            backgroundColor: "#E91E63",
+	                            justifyContent: "left",
+	                            alignItems: "center",
+	                            flexDirection: "row",
+	                            paddingLeft: "1em",
+	                            paddingRight: "1em"
+	                        } },
+	                    _react2.default.createElement(
+	                        _materialUi.FlatButton,
+	                        { style: { color: "#ffffff", marginRight: "10px" } },
+	                        '\u53D1\u73B0'
+	                    ),
+	                    _react2.default.createElement(
+	                        _materialUi.FlatButton,
+	                        { style: { color: "#ffffff", marginRight: "10px" } },
+	                        '\u5173\u6CE8'
+	                    ),
+	                    _react2.default.createElement(
+	                        _materialUi.FlatButton,
+	                        { style: { color: "#ffffff", marginRight: "10px" },
+	                            onTouchTap: this.handleOpenMenu },
+	                        '\u6211\u7684'
+	                    ),
+	                    _react2.default.createElement(
+	                        'div',
+	                        { style: {
+	                                display: "flex",
+	                                flex: 1,
+	                                flexDirection: "row",
+	                                justifyContent: "right"
+	                            } },
+	                        _react2.default.createElement('span', { style: { flex: 1 } }),
+	                        _react2.default.createElement(_MyMenu2.default, { style: {}, ref: 'my_menu' })
+	                    )
+	                )
 	            );
 	        }
 	    }]);
 
 	    return TopBar;
-	}(_react.Component);
+	}(_react2.default.Component);
 
 	exports.default = TopBar;
 
@@ -68425,6 +68453,8 @@
 
 	var _moreVert2 = _interopRequireDefault(_moreVert);
 
+	var _reactRouter = __webpack_require__(222);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -68438,8 +68468,8 @@
 
 	var iconMenu = void 0;
 
-	var MyMenu = function (_Component) {
-	    _inherits(MyMenu, _Component);
+	var MyMenu = function (_React$Component) {
+	    _inherits(MyMenu, _React$Component);
 
 	    function MyMenu(props) {
 	        _classCallCheck(this, MyMenu);
@@ -68474,14 +68504,26 @@
 	            iconMenu = this.refs.icon_menu;
 	        }
 	    }, {
+	        key: 'onItemClick',
+	        value: function onItemClick(value) {
+	            switch (value) {
+	                case "SignUp":
+	                    window.location.hash = '/SignUp';
+	                    break;
+	                case "SignIn":
+	                    window.location.hash = '/SignIn';
+	                    break;
+	                default:
+	                    break;
+	            }
+	        }
+	    }, {
 	        key: 'render',
 	        value: function render() {
 	            var _this2 = this;
 
-	            return _react2.default.createElement(
-	                'div',
-	                null,
-	                _react2.default.createElement(
+	            if (this.props.hasLogin) {
+	                return _react2.default.createElement(
 	                    _IconMenu2.default,
 	                    {
 	                        ref: 'icon_menu',
@@ -68497,18 +68539,41 @@
 	                        anchorOrigin: { horizontal: 'right', vertical: 'top' },
 	                        targetOrigin: { horizontal: 'right', vertical: 'top' }
 	                    },
-	                    _react2.default.createElement(_MenuItem2.default, { primaryText: 'Refresh' }),
-	                    _react2.default.createElement(_MenuItem2.default, { primaryText: 'Send feedback' }),
-	                    _react2.default.createElement(_MenuItem2.default, { primaryText: 'Settings' }),
-	                    _react2.default.createElement(_MenuItem2.default, { primaryText: 'Help' }),
-	                    _react2.default.createElement(_MenuItem2.default, { primaryText: 'Sign out' })
-	                )
-	            );
+	                    _react2.default.createElement(_MenuItem2.default, { primaryText: '\u6211\u7684\u4E3B\u9875' }),
+	                    _react2.default.createElement(_MenuItem2.default, { primaryText: '\u6536\u85CF' }),
+	                    _react2.default.createElement(_MenuItem2.default, { primaryText: '\u8BBE\u7F6E' }),
+	                    _react2.default.createElement(_MenuItem2.default, { primaryText: '\u9000\u51FA' })
+	                );
+	            } else {
+	                return _react2.default.createElement(
+	                    _IconMenu2.default,
+	                    {
+	                        ref: 'icon_menu',
+	                        open: this.state.openMenu,
+	                        onRequestChange: function onRequestChange(value) {
+	                            return _this2.handleOnRequestChange(value);
+	                        },
+	                        iconButtonElement: _react2.default.createElement(
+	                            _IconButton2.default,
+	                            null,
+	                            _react2.default.createElement(_moreVert2.default, null)
+	                        ),
+	                        anchorOrigin: { horizontal: 'right', vertical: 'top' },
+	                        targetOrigin: { horizontal: 'right', vertical: 'top' }
+	                    },
+	                    _react2.default.createElement(_MenuItem2.default, { primaryText: '\u767B\u5F55', onTouchTap: function onTouchTap() {
+	                            return _this2.onItemClick("SignIn");
+	                        } }),
+	                    _react2.default.createElement(_MenuItem2.default, { primaryText: '\u6CE8\u518C', onTouchTap: function onTouchTap() {
+	                            return _this2.onItemClick("SignUp");
+	                        } })
+	                );
+	            }
 	        }
 	    }]);
 
 	    return MyMenu;
-	}(_react.Component);
+	}(_react2.default.Component);
 
 	exports.default = MyMenu;
 
@@ -68650,7 +68715,7 @@
 	                _react2.default.createElement(
 	                    'h1',
 	                    null,
-	                    'SignIn'
+	                    '\u767B\u5F55'
 	                )
 	            );
 	        }
@@ -68665,7 +68730,7 @@
 /* 655 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
+	"use strict";
 
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
@@ -68676,6 +68741,8 @@
 	var _react = __webpack_require__(1);
 
 	var _react2 = _interopRequireDefault(_react);
+
+	var _materialUi = __webpack_require__(483);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -68688,8 +68755,8 @@
 	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                */
 
 
-	var SignUp = function (_Component) {
-	    _inherits(SignUp, _Component);
+	var SignUp = function (_React$Component) {
+	    _inherits(SignUp, _React$Component);
 
 	    function SignUp() {
 	        _classCallCheck(this, SignUp);
@@ -68698,22 +68765,27 @@
 	    }
 
 	    _createClass(SignUp, [{
-	        key: 'render',
+	        key: "render",
 	        value: function render() {
 	            return _react2.default.createElement(
-	                'div',
+	                "div",
 	                null,
 	                _react2.default.createElement(
-	                    'h1',
+	                    "h1",
 	                    null,
-	                    'SignUp'
+	                    "\u6CE8\u518C"
+	                ),
+	                _react2.default.createElement(
+	                    "div",
+	                    null,
+	                    _react2.default.createElement(_materialUi.Card, null)
 	                )
 	            );
 	        }
 	    }]);
 
 	    return SignUp;
-	}(_react.Component);
+	}(_react2.default.Component);
 
 	exports.default = SignUp;
 

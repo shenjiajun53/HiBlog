@@ -8,16 +8,14 @@ import AppBar from 'material-ui/AppBar';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import TopBar from "./TopBar";
 
-injectTapEventPlugin();
+// injectTapEventPlugin();
 class Home extends Component {
     render() {
         return (
-            <MuiThemeProvider>
-                <div>
-                    <TopBar/>
-                    <RaisedButton label="Default"/>
-                </div>
-            </MuiThemeProvider>
+            <div>
+                <TopBar/>
+                <RaisedButton label="Default"/>
+            </div>
         );
     }
 }

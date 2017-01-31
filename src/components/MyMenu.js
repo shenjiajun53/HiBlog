@@ -7,13 +7,14 @@ import MenuItem from 'material-ui/MenuItem';
 import Menu from 'material-ui/Menu';
 import IconButton from 'material-ui/IconButton';
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
+import {Router, Route, IndexRoute, Link, IndexLink, browserHistory, hashHistory} from 'react-router';
 
 let iconMenu;
-export default class MyMenu extends Component {
+export default class MyMenu extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            openMenu: false
+            openMenu: false,
         }
     }
 
@@ -25,7 +26,7 @@ export default class MyMenu extends Component {
         });
     }
 
-    handleOnRequestChange(value){
+    handleOnRequestChange(value) {
         this.setState({
             openMenu: value,
         });
@@ -35,24 +36,51 @@ export default class MyMenu extends Component {
         iconMenu = this.refs.icon_menu;
     }
 
+    onItemClick(value) {
+        switch (value) {
+            case "SignUp":
+                window.location.hash = '/SignUp';
+                break;
+            case "SignIn":
+                window.location.hash = '/SignIn';
+                break;
+            default:
+                break;
+        }
+    }
+
     render() {
-        return (
-            <div>
+        if (this.props.hasLogin) {
+            return (
                 <IconMenu
                     ref="icon_menu"
                     open={this.state.openMenu}
-                    onRequestChange={(value)=>this.handleOnRequestChange(value)}
+                    onRequestChange={(value) => this.handleOnRequestChange(value)}
                     iconButtonElement={<IconButton><MoreVertIcon /></IconButton>}
                     anchorOrigin={{horizontal: 'right', vertical: 'top'}}
                     targetOrigin={{horizontal: 'right', vertical: 'top'}}
                 >
-                    <MenuItem primaryText="Refresh"/>
-                    <MenuItem primaryText="Send feedback"/>
-                    <MenuItem primaryText="Settings"/>
-                    <MenuItem primaryText="Help"/>
-                    <MenuItem primaryText="Sign out"/>
+                    <MenuItem primaryText="我的主页"/>
+                    <MenuItem primaryText="收藏"/>
+                    <MenuItem primaryText="设置"/>
+                    <MenuItem primaryText="退出"/>
                 </IconMenu>
-            </div>
-        );
+            );
+        } else {
+            return (
+                <IconMenu
+                    ref="icon_menu"
+                    open={this.state.openMenu}
+                    onRequestChange={(value) => this.handleOnRequestChange(value)}
+                    iconButtonElement={<IconButton><MoreVertIcon /></IconButton>}
+                    anchorOrigin={{horizontal: 'right', vertical: 'top'}}
+                    targetOrigin={{horizontal: 'right', vertical: 'top'}}
+                >
+                    <MenuItem primaryText="登录" onTouchTap={() => this.onItemClick("SignIn")}/>
+                    <MenuItem primaryText="注册" onTouchTap={() => this.onItemClick("SignUp")}/>
+                </IconMenu>
+            );
+        }
+
     }
 }
