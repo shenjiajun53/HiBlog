@@ -13,7 +13,7 @@ class Home extends Component {
     render() {
         return (
             <div>
-                <TopBar/>
+                <h1>Home</h1>
                 <RaisedButton label="Default"/>
             </div>
         );

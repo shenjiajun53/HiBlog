@@ -3,11 +3,11 @@
  */
 import React, {Component} from 'react';
 
-class BlogDetail extends Component {
+class BlogDetail extends React.Component {
     render() {
         return (
             <div>
-                <h1>BlogDetail</h1>
+                <h1>BlogDetail {this.props.params.blogId}</h1>
             </div>
         );
     }

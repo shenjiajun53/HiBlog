@@ -11,6 +11,8 @@ import SignIn from "./components/SignIn";
 import SignUp from "./components/SignUp";
 import UserCenter from "./components/UserCenter";
 import WriteBlog from "./components/WriteBlog";
+import TopBar from "./components/TopBar";
+
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
@@ -20,11 +22,7 @@ class App extends Component {
         return (
             <MuiThemeProvider>
                 <div>
-                    <h1>App</h1>
-                    <ul>
-                        <li><Link to="/UserCenter">UserCenter</Link></li>
-                        <li><Link to="/SignUp">SignUp</Link></li>
-                    </ul>
+                    <TopBar/>
                     {this.props.children}
                 </div>
             </MuiThemeProvider>

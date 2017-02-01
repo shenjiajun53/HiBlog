@@ -8,6 +8,8 @@ import AppBar from 'material-ui/AppBar';
 import {Card, FlatButton} from "material-ui";
 import MyMenu from "./MyMenu";
 
+const ON_TITLE_CLICKED = 111;
+const ON_CARE_CLICKED = 112;
 let myMenu;
 class TopBar extends React.Component {
     constructor(props) {
@@ -23,6 +25,18 @@ class TopBar extends React.Component {
         myMenu.open();
     }
 
+    onTitleClick(value) {
+        switch (value) {
+            case ON_TITLE_CLICKED:
+                window.location.hash = '';
+                break;
+            case ON_CARE_CLICKED:
+                window.location.hash = '/';
+                break;
+            default:
+                break;
+        }
+    }
 
     render() {
         return (
@@ -38,10 +52,19 @@ class TopBar extends React.Component {
                     paddingLeft: "1em",
                     paddingRight: "1em",
                 }}>
-                    <FlatButton style={{color: "#ffffff", marginRight: "10px"}}>发现</FlatButton>
-                    <FlatButton style={{color: "#ffffff", marginRight: "10px"}}>关注</FlatButton>
-                    <FlatButton style={{color: "#ffffff", marginRight: "10px"}}
-                                onTouchTap={this.handleOpenMenu}>
+                    <FlatButton
+                        style={{color: "#ffffff", marginRight: "10px"}}
+                        onTouchTap={() => this.onTitleClick(ON_TITLE_CLICKED)}>
+                        HiBlog
+                    </FlatButton>
+                    <FlatButton
+                        style={{color: "#ffffff", marginRight: "10px"}}
+                        onTouchTap={() => this.onTitleClick(ON_CARE_CLICKED)}>
+                        关注
+                    </FlatButton>
+                    <FlatButton
+                        style={{color: "#ffffff", marginRight: "10px"}}
+                        onMouseEnter={this.handleOpenMenu}>
                         我的
                     </FlatButton>
                     <div style={{

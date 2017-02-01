@@ -92,6 +92,10 @@
 
 	var _WriteBlog2 = _interopRequireDefault(_WriteBlog);
 
+	var _TopBar = __webpack_require__(482);
+
+	var _TopBar2 = _interopRequireDefault(_TopBar);
+
 	var _reactTapEventPlugin = __webpack_require__(476);
 
 	var _reactTapEventPlugin2 = _interopRequireDefault(_reactTapEventPlugin);
@@ -128,33 +132,7 @@
 	                _react2.default.createElement(
 	                    'div',
 	                    null,
-	                    _react2.default.createElement(
-	                        'h1',
-	                        null,
-	                        'App'
-	                    ),
-	                    _react2.default.createElement(
-	                        'ul',
-	                        null,
-	                        _react2.default.createElement(
-	                            'li',
-	                            null,
-	                            _react2.default.createElement(
-	                                _reactRouter.Link,
-	                                { to: '/UserCenter' },
-	                                'UserCenter'
-	                            )
-	                        ),
-	                        _react2.default.createElement(
-	                            'li',
-	                            null,
-	                            _react2.default.createElement(
-	                                _reactRouter.Link,
-	                                { to: '/SignUp' },
-	                                'SignUp'
-	                            )
-	                        )
-	                    ),
+	                    _react2.default.createElement(_TopBar2.default, null),
 	                    this.props.children
 	                )
 	            );
@@ -28323,7 +28301,11 @@
 	            return _react2.default.createElement(
 	                'div',
 	                null,
-	                _react2.default.createElement(_TopBar2.default, null),
+	                _react2.default.createElement(
+	                    'h1',
+	                    null,
+	                    'Home'
+	                ),
 	                _react2.default.createElement(_RaisedButton2.default, { label: 'Default' })
 	            );
 	        }
@@ -40990,6 +40972,8 @@
 	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                */
 
 
+	var ON_TITLE_CLICKED = 111;
+	var ON_CARE_CLICKED = 112;
 	var myMenu = void 0;
 
 	var TopBar = function (_React$Component) {
@@ -41013,8 +40997,24 @@
 	            myMenu.open();
 	        }
 	    }, {
+	        key: 'onTitleClick',
+	        value: function onTitleClick(value) {
+	            switch (value) {
+	                case ON_TITLE_CLICKED:
+	                    window.location.hash = '';
+	                    break;
+	                case ON_CARE_CLICKED:
+	                    window.location.hash = '/';
+	                    break;
+	                default:
+	                    break;
+	            }
+	        }
+	    }, {
 	        key: 'render',
 	        value: function render() {
+	            var _this2 = this;
+
 	            return _react2.default.createElement(
 	                _materialUi.Card,
 	                null,
@@ -41033,18 +41033,27 @@
 	                        } },
 	                    _react2.default.createElement(
 	                        _materialUi.FlatButton,
-	                        { style: { color: "#ffffff", marginRight: "10px" } },
-	                        '\u53D1\u73B0'
+	                        {
+	                            style: { color: "#ffffff", marginRight: "10px" },
+	                            onTouchTap: function onTouchTap() {
+	                                return _this2.onTitleClick(ON_TITLE_CLICKED);
+	                            } },
+	                        'HiBlog'
 	                    ),
 	                    _react2.default.createElement(
 	                        _materialUi.FlatButton,
-	                        { style: { color: "#ffffff", marginRight: "10px" } },
+	                        {
+	                            style: { color: "#ffffff", marginRight: "10px" },
+	                            onTouchTap: function onTouchTap() {
+	                                return _this2.onTitleClick(ON_CARE_CLICKED);
+	                            } },
 	                        '\u5173\u6CE8'
 	                    ),
 	                    _react2.default.createElement(
 	                        _materialUi.FlatButton,
-	                        { style: { color: "#ffffff", marginRight: "10px" },
-	                            onTouchTap: this.handleOpenMenu },
+	                        {
+	                            style: { color: "#ffffff", marginRight: "10px" },
+	                            onMouseEnter: this.handleOpenMenu },
 	                        '\u6211\u7684'
 	                    ),
 	                    _react2.default.createElement(
@@ -68641,8 +68650,8 @@
 	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                */
 
 
-	var BlogDetail = function (_Component) {
-	    _inherits(BlogDetail, _Component);
+	var BlogDetail = function (_React$Component) {
+	    _inherits(BlogDetail, _React$Component);
 
 	    function BlogDetail() {
 	        _classCallCheck(this, BlogDetail);
@@ -68659,14 +68668,15 @@
 	                _react2.default.createElement(
 	                    'h1',
 	                    null,
-	                    'BlogDetail'
+	                    'BlogDetail ',
+	                    this.props.params.blogId
 	                )
 	            );
 	        }
 	    }]);
 
 	    return BlogDetail;
-	}(_react.Component);
+	}(_react2.default.Component);
 
 	exports.default = BlogDetail;
 
@@ -68742,7 +68752,25 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _materialUi = __webpack_require__(483);
+	var _TextField = __webpack_require__(486);
+
+	var _TextField2 = _interopRequireDefault(_TextField);
+
+	var _Card = __webpack_require__(525);
+
+	var _Card2 = _interopRequireDefault(_Card);
+
+	var _SelectField = __webpack_require__(603);
+
+	var _SelectField2 = _interopRequireDefault(_SelectField);
+
+	var _RaisedButton = __webpack_require__(425);
+
+	var _RaisedButton2 = _interopRequireDefault(_RaisedButton);
+
+	var _MenuItem = __webpack_require__(504);
+
+	var _MenuItem2 = _interopRequireDefault(_MenuItem);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -68755,18 +68783,58 @@
 	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                */
 
 
+	var uploadInput = void 0;
+
 	var SignUp = function (_React$Component) {
 	    _inherits(SignUp, _React$Component);
 
-	    function SignUp() {
+	    function SignUp(props) {
 	        _classCallCheck(this, SignUp);
 
-	        return _possibleConstructorReturn(this, (SignUp.__proto__ || Object.getPrototypeOf(SignUp)).apply(this, arguments));
+	        var _this = _possibleConstructorReturn(this, (SignUp.__proto__ || Object.getPrototypeOf(SignUp)).call(this, props));
+
+	        _this.state = {
+	            selectedGender: 1,
+	            avatarUrl: ""
+	        };
+	        return _this;
 	    }
 
 	    _createClass(SignUp, [{
+	        key: "componentDidMount",
+	        value: function componentDidMount() {
+	            uploadInput = this.refs.uploadInput;
+	        }
+	    }, {
+	        key: "genderSelected",
+	        value: function genderSelected(event, index, value) {
+	            // console.log("genderSelected="+value);
+	            this.setState({
+	                selectedGender: value
+	            });
+	        }
+	    }, {
+	        key: "onUpLoadClick",
+	        value: function onUpLoadClick() {
+	            // console.info("onUpLoadClick=");
+	            uploadInput.click();
+	        }
+	    }, {
+	        key: "avatarSelected",
+	        value: function avatarSelected(event) {
+	            console.info("event=" + uploadInput.files.length);
+	            var objectURL = window.URL.createObjectURL(uploadInput.files[0]);
+	            console.info("event=" + objectURL);
+	            this.setState({
+	                avatarUrl: objectURL
+	            });
+	            window.URL.revokeObjectURL(objectURL);
+	        }
+	    }, {
 	        key: "render",
 	        value: function render() {
+	            var _this2 = this;
+
 	            return _react2.default.createElement(
 	                "div",
 	                null,
@@ -68778,7 +68846,65 @@
 	                _react2.default.createElement(
 	                    "div",
 	                    null,
-	                    _react2.default.createElement(_materialUi.Card, null)
+	                    _react2.default.createElement(
+	                        _Card2.default,
+	                        { style: { width: "20em", padding: "1em" } },
+	                        _react2.default.createElement(
+	                            "div",
+	                            null,
+	                            "\u7528\u6237\u540D*"
+	                        ),
+	                        _react2.default.createElement(_TextField2.default, null),
+	                        _react2.default.createElement(
+	                            "div",
+	                            null,
+	                            "\u5BC6\u7801*"
+	                        ),
+	                        _react2.default.createElement(_TextField2.default, null),
+	                        _react2.default.createElement(
+	                            "div",
+	                            null,
+	                            "\u91CD\u590D\u5BC6\u7801*"
+	                        ),
+	                        _react2.default.createElement(_TextField2.default, null),
+	                        _react2.default.createElement(
+	                            _SelectField2.default,
+	                            {
+	                                floatingLabelText: "\u6027\u522B*",
+	                                value: this.state.selectedGender,
+	                                onChange: function onChange(event, index, value) {
+	                                    return _this2.genderSelected(event, index, value);
+	                                }
+	                            },
+	                            _react2.default.createElement(_MenuItem2.default, { value: 1, primaryText: "\u7537" }),
+	                            _react2.default.createElement(_MenuItem2.default, { value: 2, primaryText: "\u5973" }),
+	                            _react2.default.createElement(_MenuItem2.default, { value: 3, primaryText: "\u4FDD\u5BC6" })
+	                        ),
+	                        _react2.default.createElement(
+	                            "div",
+	                            null,
+	                            "\u5934\u50CF*"
+	                        ),
+	                        _react2.default.createElement(_RaisedButton2.default, { onTouchTap: function onTouchTap() {
+	                                return _this2.onUpLoadClick();
+	                            }, label: "选择文件" }),
+	                        _react2.default.createElement("input", { type: "file",
+	                            multiple: "multiple",
+	                            accept: "image/*",
+	                            ref: "uploadInput",
+	                            style: { display: "none" },
+	                            onChange: function onChange(event) {
+	                                return _this2.avatarSelected(event);
+	                            }
+	                        }),
+	                        _react2.default.createElement(
+	                            "div",
+	                            null,
+	                            "\u4E2A\u4EBA\u7B80\u4ECB*"
+	                        ),
+	                        _react2.default.createElement("img", { src: this.state.avatarUrl }),
+	                        _react2.default.createElement(_TextField2.default, null)
+	                    )
 	                )
 	            );
 	        }
