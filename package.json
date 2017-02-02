@@ -44,9 +44,9 @@
   },
   "scripts": {
     "start": "node server.js",
-    "start-dev1": "concurrently \"npm run start\" \"npm run build\"",
-    "start-dev2": "concurrently \"npm run start-server\" \"npm run build\"",
-    "start-server": "supervisor --harmony server",
-    "build": "webpack --watch"
+    "start-supervisor": "supervisor --harmony server",
+    "build": "webpack --watch",
+    "start-dev": "concurrently \"npm run start\" \"npm run build\"",
+    "start-dev-supervisor": "concurrently \"npm run start-supervisor\" \"npm run build\""
   }
 }
