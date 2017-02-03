@@ -8,18 +8,28 @@ import SelectField from 'material-ui/SelectField';
 import RaisedButton from 'material-ui/RaisedButton';
 import MenuItem from 'material-ui/MenuItem';
 
+
 let uploadInput;
+let userNameTF;
+let passTF;
+let passConfirmTF;
+let userIntroTF;
 class SignUp extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             selectedGender: 1,
-            avatarUrl: ""
+            avatarUrl: "",
+            selectedFileName: ""
         }
     }
 
     componentDidMount() {
         uploadInput = this.refs.uploadInput;
+        userNameTF = this.refs.userNameTF;
+        passTF = this.refs.passTF;
+        passConfirmTF = this.refs.passConfirmTF;
+        userIntroTF = this.refs.userIntroTF;
     }
 
     genderSelected(event, index, value) {
@@ -35,59 +45,109 @@ class SignUp extends React.Component {
     }
 
     avatarSelected(event) {
-        console.info("event=" + uploadInput.files.length);
-        let objectURL = window.URL.createObjectURL(uploadInput.files[0]);
-        console.info("event=" + objectURL);
+        // console.info("event=" + uploadInput.files.length);
+        let file = uploadInput.files[0];
+        console.info("file=" + file.name);
         this.setState({
-            avatarUrl: objectURL
+            selectedFileName: file.name
         });
-        window.URL.revokeObjectURL(objectURL);
+        // let objectURL = window.URL.createObjectURL(file);
+        // console.info("event=" + objectURL);
+        // window.URL.revokeObjectURL(objectURL);
+    }
+
+    onSignUp() {
+        let userNameStr = userNameTF.getValue();
+        let passStr = passTF.getValue();
+        let passConfirmStr = passConfirmTF.getValue();
+        let userIntroStr = userIntroTF.getValue();
+
+
+        console.info("upload =" + userNameStr + passStr + passConfirmStr + userIntroStr);
+
+        fetch("http://localhost:5006/#/SignUp1")
+            .then(
+                (response) => {
+                    console.log(response);
+                }
+            ).then(
+
+        ).catch(
+            (ex) => {
+                console.error('parsing failed', ex);
+            });
+
     }
 
     render() {
         return (
-            <div>
-                <h1>注册</h1>
+            <div style={{display: "flex", flexDirection: "column", alignItems: "center"}}>
+                <h1 style={{display: "none"}}>注册</h1>
                 <div>
-                    <Card style={{width: "20em", padding: "1em"}}>
-                        <div>
-                            用户名*
-                        </div>
-                        <TextField/>
-                        <div>
-                            密码*
-                        </div>
-                        <TextField/>
-                        <div>
-                            重复密码*
-                        </div>
-                        <TextField/>
+                    <Card style={{
+                        marginTop: "1em",
+                        width: "20em",
+                    }}>
+                        <div style={{
+                            padding: "1em",
+                            display: "flex",
+                            flexDirection: "column",
+                        }}>
+                            <div >
+                                用户名*
+                            </div>
+                            <TextField style={{marginBottom: "1em", flex: 1}} ref="userNameTF"/>
+                            <div>
+                                密码*
+                            </div>
+                            <TextField style={{marginBottom: "1em"}} ref="passTF"/>
+                            <div>
+                                重复密码*
+                            </div>
+                            <TextField style={{marginBottom: "1em"}} ref="passConfirmTF"/>
 
-                        <SelectField
-                            floatingLabelText="性别*"
-                            value={this.state.selectedGender}
-                            onChange={(event, index, value) => this.genderSelected(event, index, value)}
-                        >
-                            <MenuItem value={1} primaryText="男"/>
-                            <MenuItem value={2} primaryText="女"/>
-                            <MenuItem value={3} primaryText="保密"/>
-                        </SelectField>
-                        <div>
-                            头像*
+                            <SelectField
+                                floatingLabelText="性别*"
+                                value={this.state.selectedGender}
+                                style={{marginBottom: "1em"}}
+                                onChange={(event, index, value) => this.genderSelected(event, index, value)}
+                            >
+                                <MenuItem value={1} primaryText="男"/>
+                                <MenuItem value={2} primaryText="女"/>
+                                <MenuItem value={3} primaryText="保密"/>
+                            </SelectField>
+                            <div style={{marginBottom: "1em"}}>
+                                <span>头像*</span>
+                                <RaisedButton onTouchTap={() => this.onUpLoadClick()}
+                                              label={"选择文件"}
+                                              secondary={true}
+                                              style={{marginLeft: "0.5em"}}
+                                />
+                            </div>
+                            <div style={{marginBottom: "1em",}}>
+                                {this.state.selectedFileName}
+                            </div>
+                            <input type="file"
+                                   multiple="multiple"
+                                   accept="image/*"
+                                   ref="uploadInput"
+                                   style={{display: "none"}}
+                                   onChange={(event) => this.avatarSelected(event)}
+                            />
+                            <div>
+                                个人简介*
+                            </div>
+                            <TextField style={{marginBottom: "1em"}}
+                                       multiLine="true"
+                                       rows={5}
+                                       ref="userIntroTF"/>
+
+                            <RaisedButton onTouchTap={() => this.onSignUp()}
+                                          primary={true}
+                                          label={"注册"}
+                                          style={{width: "10em", alignSelf: "center"}}
+                            />
                         </div>
-                        <RaisedButton onTouchTap={() => this.onUpLoadClick()} label={"选择文件"}/>
-                        <input type="file"
-                               multiple="multiple"
-                               accept="image/*"
-                               ref="uploadInput"
-                               style={{display: "none"}}
-                               onChange={(event) => this.avatarSelected(event)}
-                        />
-                        <div>
-                            个人简介*
-                        </div>
-                        <img src={this.state.avatarUrl}/>
-                        <TextField/>
                     </Card>
                 </div>
             </div>

@@ -5,7 +5,8 @@ import React, {Component} from 'react';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import RaisedButton from 'material-ui/RaisedButton';
 import AppBar from 'material-ui/AppBar';
-import {Card, FlatButton} from "material-ui";
+import Card from "material-ui/Card";
+import FlatButton from "material-ui/FlatButton";
 import MyMenu from "./MyMenu";
 
 const ON_TITLE_CLICKED = 111;

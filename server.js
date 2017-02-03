@@ -18,6 +18,10 @@ app.engine('html', ejs.renderFile);
 app.use('/', homeRouter);
 app.use('/users', userRouter);
 
+app.get("/#/SignUp1", function (req, res) {
+    res.send("get 111111113333111");
+});
+
 // app.use配置
 app.use('/output', express.static(path.join(__dirname, '/output')));
 app.use('/src', express.static(path.join(__dirname, '/src')));
