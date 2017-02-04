@@ -65,18 +65,43 @@ class SignUp extends React.Component {
 
         console.info("upload =" + userNameStr + passStr + passConfirmStr + userIntroStr);
 
-        fetch("http://localhost:5006/#/SignUp1")
-            .then(
-                (response) => {
-                    console.log(response);
-                }
-            ).then(
+        console.log("url=" + location.href);
 
+        // let request = new Request(location.href);
+        // request.append("userNameStr", userNameStr);
+        // request.append("passStr", passStr);
+        // request.append("passConfirmStr", passConfirmStr);
+        // request.append("userIntroStr", userIntroStr);
+        var header = new Headers();
+        header.append("Content-Type", "application/json");
+        let body = {
+            "userName": userNameStr,
+            "pass": passStr,
+            "passConfirm": passConfirmStr,
+            "userIntro": userIntroStr
+        };
+        let demoBody = {
+            "userName": "shenjiajun",
+            "pass": "12345",
+            "passConfirm": "12345",
+            "userIntro": "啦啦啦"
+        };
+        fetch(location.href, {
+            method: "post",
+            body: demoBody,
+            header: header
+        }).then(
+            (response) => {
+                return response.json();
+            }
+        ).then(
+            (json) => {
+                console.log(JSON.stringify(json));
+            }
         ).catch(
             (ex) => {
                 console.error('parsing failed', ex);
             });
-
     }
 
     render() {
@@ -96,15 +121,24 @@ class SignUp extends React.Component {
                             <div >
                                 用户名*
                             </div>
-                            <TextField style={{marginBottom: "1em", flex: 1}} ref="userNameTF"/>
+                            <TextField style={{marginBottom: "1em", flex: 1}}
+                                       ref="userNameTF"
+                                       id="userNameTF"
+                                       name="userNameTF"/>
                             <div>
                                 密码*
                             </div>
-                            <TextField style={{marginBottom: "1em"}} ref="passTF"/>
+                            <TextField style={{marginBottom: "1em"}}
+                                       ref="passTF"
+                                       id="passTF"
+                                       name="passTF"/>
                             <div>
                                 重复密码*
                             </div>
-                            <TextField style={{marginBottom: "1em"}} ref="passConfirmTF"/>
+                            <TextField style={{marginBottom: "1em"}}
+                                       ref="passConfirmTF"
+                                       id="passConfirmTF"
+                                       name="passConfirmTF"/>
 
                             <SelectField
                                 floatingLabelText="性别*"
@@ -138,9 +172,11 @@ class SignUp extends React.Component {
                                 个人简介*
                             </div>
                             <TextField style={{marginBottom: "1em"}}
-                                       multiLine="true"
+                                       multiLine={true}
                                        rows={5}
-                                       ref="userIntroTF"/>
+                                       ref="userIntroTF"
+                                       id="userIntroTF"
+                                       name="userIntroTF"/>
 
                             <RaisedButton onTouchTap={() => this.onSignUp()}
                                           primary={true}

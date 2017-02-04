@@ -5,6 +5,7 @@ var express = require('express');
 var router = express.Router();
 
 router.get('/', function(req, res) {
+    console.log("homepage on render");
     res.render('index');
 });
 

@@ -39,10 +39,10 @@ export default class MyMenu extends React.Component {
     onItemClick(value) {
         switch (value) {
             case "SignUp":
-                window.location.hash = '/SignUp';
+                window.location.pathname = '/SignUp';
                 break;
             case "SignIn":
-                window.location.hash = '/SignIn';
+                window.location.pathname = '/SignIn';
                 break;
             default:
                 break;

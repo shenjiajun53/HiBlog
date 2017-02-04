@@ -10,6 +10,7 @@ import BlogDetail from "./components/BlogDetail";
 import SignIn from "./components/SignIn";
 import SignUp from "./components/SignUp";
 import UserCenter from "./components/UserCenter";
+import MyFollow from "./components/MyFollow";
 import WriteBlog from "./components/WriteBlog";
 import TopBar from "./components/TopBar";
 
@@ -31,13 +32,14 @@ class App extends Component {
 }
 
 render(
-    <Router history={hashHistory}>
+    <Router history={browserHistory}>
         <Route path="/" component={App}>
             <IndexRoute component={Home}/>
             <Route path="BlogDetail/:blogId" component={BlogDetail}/>
             <Route path="SignUp" component={SignUp}/>
             <Route path="SignIn" component={SignIn}/>
             <Route path="UserCenter" component={UserCenter}/>
+            <Route path="MyFollow" component={MyFollow}/>
         </Route>
     </Router>
     ,

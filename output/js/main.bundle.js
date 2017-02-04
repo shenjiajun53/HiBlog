@@ -88,7 +88,11 @@
 
 	var _UserCenter2 = _interopRequireDefault(_UserCenter);
 
-	var _WriteBlog = __webpack_require__(544);
+	var _MyFollow = __webpack_require__(544);
+
+	var _MyFollow2 = _interopRequireDefault(_MyFollow);
+
+	var _WriteBlog = __webpack_require__(545);
 
 	var _WriteBlog2 = _interopRequireDefault(_WriteBlog);
 
@@ -144,7 +148,7 @@
 
 	(0, _reactDom.render)(_react2.default.createElement(
 	    _reactRouter.Router,
-	    { history: _reactRouter.hashHistory },
+	    { history: _reactRouter.browserHistory },
 	    _react2.default.createElement(
 	        _reactRouter.Route,
 	        { path: '/', component: App },
@@ -152,7 +156,8 @@
 	        _react2.default.createElement(_reactRouter.Route, { path: 'BlogDetail/:blogId', component: _BlogDetail2.default }),
 	        _react2.default.createElement(_reactRouter.Route, { path: 'SignUp', component: _SignUp2.default }),
 	        _react2.default.createElement(_reactRouter.Route, { path: 'SignIn', component: _SignIn2.default }),
-	        _react2.default.createElement(_reactRouter.Route, { path: 'UserCenter', component: _UserCenter2.default })
+	        _react2.default.createElement(_reactRouter.Route, { path: 'UserCenter', component: _UserCenter2.default }),
+	        _react2.default.createElement(_reactRouter.Route, { path: 'MyFollow', component: _MyFollow2.default })
 	    )
 	), document.getElementById('root'));
 
@@ -40980,6 +40985,7 @@
 
 	var ON_TITLE_CLICKED = 111;
 	var ON_CARE_CLICKED = 112;
+	var ON_MINE_CLICKED = 113;
 	var myMenu = void 0;
 
 	var TopBar = function (_React$Component) {
@@ -41007,10 +41013,14 @@
 	        value: function onTitleClick(value) {
 	            switch (value) {
 	                case ON_TITLE_CLICKED:
-	                    window.location.hash = '';
+	                    console.log("hostname=" + window.location.hostname + " hash=" + window.location.hash + " href=" + window.location.href + " host=" + window.location.host + " pathname=" + window.location.pathname);
+	                    location.pathname = '/';
 	                    break;
 	                case ON_CARE_CLICKED:
-	                    window.location.hash = '/';
+	                    location.pathname = '/MyFollow';
+	                    break;
+	                case ON_MINE_CLICKED:
+	                    location.pathname = '/UserCenter';
 	                    break;
 	                default:
 	                    break;
@@ -41059,7 +41069,9 @@
 	                        _FlatButton2.default,
 	                        {
 	                            style: { color: "#ffffff", marginRight: "10px" },
-	                            onMouseEnter: this.handleOpenMenu },
+	                            onTouchTap: function onTouchTap() {
+	                                return _this2.onTitleClick(ON_MINE_CLICKED);
+	                            } },
 	                        '\u6211\u7684'
 	                    ),
 	                    _react2.default.createElement(
@@ -43120,10 +43132,10 @@
 	        value: function onItemClick(value) {
 	            switch (value) {
 	                case "SignUp":
-	                    window.location.hash = '/SignUp';
+	                    window.location.pathname = '/SignUp';
 	                    break;
 	                case "SignIn":
-	                    window.location.hash = '/SignIn';
+	                    window.location.pathname = '/SignIn';
 	                    break;
 	                default:
 	                    break;
@@ -47970,9 +47982,36 @@
 
 	            console.info("upload =" + userNameStr + passStr + passConfirmStr + userIntroStr);
 
-	            fetch("http://localhost:5006/#/SignUp1").then(function (response) {
-	                console.log(response);
-	            }).then().catch(function (ex) {
+	            console.log("url=" + location.href);
+
+	            // let request = new Request(location.href);
+	            // request.append("userNameStr", userNameStr);
+	            // request.append("passStr", passStr);
+	            // request.append("passConfirmStr", passConfirmStr);
+	            // request.append("userIntroStr", userIntroStr);
+	            var header = new Headers();
+	            header.append("Content-Type", "application/json");
+	            var body = {
+	                "userName": userNameStr,
+	                "pass": passStr,
+	                "passConfirm": passConfirmStr,
+	                "userIntro": userIntroStr
+	            };
+	            var demoBody = {
+	                "userName": "shenjiajun",
+	                "pass": "12345",
+	                "passConfirm": "12345",
+	                "userIntro": "啦啦啦"
+	            };
+	            fetch(location.href, {
+	                method: "post",
+	                body: demoBody,
+	                header: header
+	            }).then(function (response) {
+	                return response.json();
+	            }).then(function (json) {
+	                console.log(JSON.stringify(json));
+	            }).catch(function (ex) {
 	                console.error('parsing failed', ex);
 	            });
 	        }
@@ -48010,19 +48049,28 @@
 	                                null,
 	                                "\u7528\u6237\u540D*"
 	                            ),
-	                            _react2.default.createElement(_TextField2.default, { style: { marginBottom: "1em", flex: 1 }, ref: "userNameTF" }),
+	                            _react2.default.createElement(_TextField2.default, { style: { marginBottom: "1em", flex: 1 },
+	                                ref: "userNameTF",
+	                                id: "userNameTF",
+	                                name: "userNameTF" }),
 	                            _react2.default.createElement(
 	                                "div",
 	                                null,
 	                                "\u5BC6\u7801*"
 	                            ),
-	                            _react2.default.createElement(_TextField2.default, { style: { marginBottom: "1em" }, ref: "passTF" }),
+	                            _react2.default.createElement(_TextField2.default, { style: { marginBottom: "1em" },
+	                                ref: "passTF",
+	                                id: "passTF",
+	                                name: "passTF" }),
 	                            _react2.default.createElement(
 	                                "div",
 	                                null,
 	                                "\u91CD\u590D\u5BC6\u7801*"
 	                            ),
-	                            _react2.default.createElement(_TextField2.default, { style: { marginBottom: "1em" }, ref: "passConfirmTF" }),
+	                            _react2.default.createElement(_TextField2.default, { style: { marginBottom: "1em" },
+	                                ref: "passConfirmTF",
+	                                id: "passConfirmTF",
+	                                name: "passConfirmTF" }),
 	                            _react2.default.createElement(
 	                                _SelectField2.default,
 	                                {
@@ -48073,9 +48121,11 @@
 	                                "\u4E2A\u4EBA\u7B80\u4ECB*"
 	                            ),
 	                            _react2.default.createElement(_TextField2.default, { style: { marginBottom: "1em" },
-	                                multiLine: "true",
+	                                multiLine: true,
 	                                rows: 5,
-	                                ref: "userIntroTF" }),
+	                                ref: "userIntroTF",
+	                                id: "userIntroTF",
+	                                name: "userIntroTF" }),
 	                            _react2.default.createElement(_RaisedButton2.default, { onTouchTap: function onTouchTap() {
 	                                    return _this2.onSignUp();
 	                                },
@@ -50583,6 +50633,62 @@
 
 /***/ },
 /* 544 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /**
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * Created by shenjj on 2017/2/4.
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                */
+
+
+	var BlogDetail = function (_React$Component) {
+	    _inherits(BlogDetail, _React$Component);
+
+	    function BlogDetail() {
+	        _classCallCheck(this, BlogDetail);
+
+	        return _possibleConstructorReturn(this, (BlogDetail.__proto__ || Object.getPrototypeOf(BlogDetail)).apply(this, arguments));
+	    }
+
+	    _createClass(BlogDetail, [{
+	        key: 'render',
+	        value: function render() {
+	            return _react2.default.createElement(
+	                'div',
+	                null,
+	                _react2.default.createElement(
+	                    'h1',
+	                    null,
+	                    '\u5173\u6CE8'
+	                )
+	            );
+	        }
+	    }]);
+
+	    return BlogDetail;
+	}(_react2.default.Component);
+
+	exports.default = BlogDetail;
+
+/***/ },
+/* 545 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';

@@ -11,6 +11,7 @@ import MyMenu from "./MyMenu";
 
 const ON_TITLE_CLICKED = 111;
 const ON_CARE_CLICKED = 112;
+const ON_MINE_CLICKED = 113;
 let myMenu;
 class TopBar extends React.Component {
     constructor(props) {
@@ -29,10 +30,18 @@ class TopBar extends React.Component {
     onTitleClick(value) {
         switch (value) {
             case ON_TITLE_CLICKED:
-                window.location.hash = '';
+                console.log("hostname=" + window.location.hostname +
+                    " hash=" + window.location.hash +
+                    " href=" + window.location.href +
+                    " host=" + window.location.host +
+                    " pathname=" + window.location.pathname);
+                location.pathname = '/';
                 break;
             case ON_CARE_CLICKED:
-                window.location.hash = '/';
+                location.pathname = '/MyFollow';
+                break;
+            case ON_MINE_CLICKED:
+                location.pathname = '/UserCenter';
                 break;
             default:
                 break;
@@ -65,7 +74,7 @@ class TopBar extends React.Component {
                     </FlatButton>
                     <FlatButton
                         style={{color: "#ffffff", marginRight: "10px"}}
-                        onMouseEnter={this.handleOpenMenu}>
+                        onTouchTap={() => this.onTitleClick(ON_MINE_CLICKED)}>
                         我的
                     </FlatButton>
                     <div style={{
