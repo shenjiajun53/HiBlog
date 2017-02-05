@@ -72,24 +72,29 @@ class SignUp extends React.Component {
         // request.append("passStr", passStr);
         // request.append("passConfirmStr", passConfirmStr);
         // request.append("userIntroStr", userIntroStr);
-        var header = new Headers();
-        header.append("Content-Type", "application/json");
+
         let body = {
             "userName": userNameStr,
             "pass": passStr,
             "passConfirm": passConfirmStr,
             "userIntro": userIntroStr
         };
-        let demoBody = {
-            "userName": "shenjiajun",
-            "pass": "12345",
-            "passConfirm": "12345",
-            "userIntro": "啦啦啦"
-        };
+        // let demoBody = {
+        //     "userName": "shenjiajun",
+        //     "pass": "12345",
+        //     "passConfirm": "12345",
+        //     "userIntro": "啦啦啦"
+        // };
+
+        // let data = new FormData();
+        // data.append("userName", "aaaaaa");
+
         fetch(location.href, {
             method: "post",
-            body: demoBody,
-            header: header
+            body: JSON.stringify(body),
+            headers: {
+                'Content-Type': 'application/json'
+            },
         }).then(
             (response) => {
                 return response.json();

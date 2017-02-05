@@ -29,13 +29,15 @@ let json = {
         fdfd: "dfdfdf"
     }
 };
-app.use(bodyParser.urlencoded({extended: true}));
+
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: true}));
 
 app.post("/SignUp",
     (req, res) => {
-        console.log("on Receive " + req.body);
-        res.json(req.body);
+        console.log("on Receive " + req.body.userName);
+        // console.log("on Receive " + JSON.parse(req.body));
+        res.send(req.body);
     }
 );
 
