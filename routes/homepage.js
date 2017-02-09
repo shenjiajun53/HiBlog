@@ -11,14 +11,17 @@ router.post("/SignUp",
         console.log("on Receive " + req.body.userName);
         // console.log("on Receive " + JSON.parse(req.body));
         let user = req.body;
-        res.send(user);
+
         let dealSignUp = new DealSignUp(user.userName, user.pass, user.userIntro);
         dealSignUp.restoreUser().then(
             () => {
-                console.log("user save success 3333");
-                return res.redirect('/SignIn');
+                console.log("user save success 2222");
+                // res.redirect('http://localhost:5006/users/shenjiajun');
+                res.send({redirect: "/"});
             }
-        );
+        ).catch((e) => {
+            console.error(e);
+        });
     }
 );
 

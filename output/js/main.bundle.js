@@ -48016,6 +48016,7 @@
 	                return response.json();
 	            }).then(function (json) {
 	                console.log(JSON.stringify(json));
+	                window.location = json.redirect;
 	            }).catch(function (ex) {
 	                console.error('parsing failed', ex);
 	            });

@@ -102,6 +102,7 @@ class SignUp extends React.Component {
         ).then(
             (json) => {
                 console.log(JSON.stringify(json));
+                window.location = json.redirect;
             }
         ).catch(
             (ex) => {
