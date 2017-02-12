@@ -6,6 +6,14 @@ class LoginCheck {
 
     }
 
+    checkLogin(req, res) {
+        if (req.session.user) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     hasLogin(req, res, next) {
         if (!req.session.user) {
             req.flash('error', '未登录');

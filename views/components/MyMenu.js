@@ -45,9 +45,44 @@ export default class MyMenu extends React.Component {
             case "SignIn":
                 window.location.pathname = '/SignIn';
                 break;
+            case "UserCenter":
+                window.location.pathname = '/UserCenter';
+                break;
+            case "MyFollow":
+                window.location.pathname = '/MyFollow';
+                break;
+            case "Favorites":
+                window.location.pathname = '/Favorites';
+                break;
+            case "Settings":
+                window.location.pathname = '/Settings';
+                break;
             default:
                 break;
         }
+    }
+
+    SignOut() {
+        console.log("SIgnOut");
+        let url = "/api/SignOut";
+        fetch(url, {
+            method: "post",
+            credentials: 'include'     //很重要，设置session,cookie可用
+        }).then(
+            (response) => {
+                return response.json();
+            }
+        ).then(
+            (json) => {
+                console.log(JSON.stringify(json));
+                if (json.redirect) {
+                    window.location = json.redirect;
+                }
+            }
+        ).catch(
+            (ex) => {
+                console.error('parsing failed', ex);
+            });
     }
 
     render() {
@@ -61,10 +96,11 @@ export default class MyMenu extends React.Component {
                     anchorOrigin={{horizontal: 'right', vertical: 'top'}}
                     targetOrigin={{horizontal: 'right', vertical: 'top'}}
                 >
-                    <MenuItem primaryText="我的主页"/>
-                    <MenuItem primaryText="收藏"/>
-                    <MenuItem primaryText="设置"/>
-                    <MenuItem primaryText="退出"/>
+                    <MenuItem primaryText="我的主页" onTouchTap={() => this.onItemClick("UserCenter")}/>
+                    <MenuItem primaryText="关注" onTouchTap={() => this.onItemClick("MyFollow")}/>
+                    <MenuItem primaryText="收藏" onTouchTap={() => this.onItemClick("Favorites")}/>
+                    <MenuItem primaryText="设置" onTouchTap={() => this.onItemClick("Settings")}/>
+                    <MenuItem primaryText="退出" onTouchTap={() => this.SignOut()}/>
                 </IconMenu>
             );
         } else {

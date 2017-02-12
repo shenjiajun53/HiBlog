@@ -10,6 +10,10 @@ import TopBar from "./TopBar";
 
 // injectTapEventPlugin();
 class Home extends Component {
+    componentDidMount() {
+
+    }
+
     render() {
         return (
             <div>

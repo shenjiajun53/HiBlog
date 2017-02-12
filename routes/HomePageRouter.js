@@ -15,13 +15,11 @@ class HomePageRouter extends BaseRouter {
     setUpRouter() {
         router.get('/', function (req, res) {
             console.log("homepage on render");
-            res.render('index', {
-                value1: 123,
-                value2: 456
-            });
+            res.render('index');
             // res.render('');
             // res.redirect("/SignUp");
         });
+
     }
 
     getRouter() {

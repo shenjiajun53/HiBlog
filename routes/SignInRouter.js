@@ -14,9 +14,10 @@ class SignInRouter extends BaseRouter {
     // }
 
     setUpRouter() {
-        // router.get("/", (req, res) => {
-        //     return res.redirect("/UserCenter");
-        // })
+        router.get("/api", (req, res, next) => {
+            res.send({value1: 123, value2: 456});
+            next();
+        })
     }
 
     getRouter() {

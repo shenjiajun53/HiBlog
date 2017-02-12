@@ -87,7 +87,7 @@ class SignUp extends React.Component {
         };
         let data = "userName=shenjiajun&pass=12345&userIntro=啦啦啦";
 
-        let url = "/SignUp";
+        let url = "/api/SignUp";
         // let url = location.href;
 
         document.cookie = "cookie1=5006";

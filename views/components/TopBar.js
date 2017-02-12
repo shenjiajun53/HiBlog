@@ -12,6 +12,7 @@ import MyMenu from "./MyMenu";
 const ON_TITLE_CLICKED = 111;
 const ON_CARE_CLICKED = 112;
 const ON_MINE_CLICKED = 113;
+const ON_WRITE_CLICKED = 114;
 let myMenu;
 class TopBar extends React.Component {
     constructor(props) {
@@ -42,6 +43,13 @@ class TopBar extends React.Component {
                 break;
             case ON_MINE_CLICKED:
                 location.pathname = '/UserCenter';
+                break;
+            case ON_WRITE_CLICKED:
+                if (this.props.hasLogin) {
+                    location.pathname = '/WriteBlog';
+                } else {
+                    location.pathname = '/SignUp';
+                }
                 break;
             default:
                 break;
@@ -77,6 +85,11 @@ class TopBar extends React.Component {
                         onTouchTap={() => this.onTitleClick(ON_MINE_CLICKED)}>
                         我的
                     </FlatButton>
+                    <FlatButton
+                        style={{color: "#ffffff", marginRight: "10px"}}
+                        onTouchTap={() => this.onTitleClick(ON_WRITE_CLICKED)}>
+                        写文章
+                    </FlatButton>
                     <div style={{
                         display: "flex",
                         flex: 1,
@@ -84,7 +97,10 @@ class TopBar extends React.Component {
                         justifyContent: "right",
                     }}>
                         <span style={{flex: 1}}/>
-                        <MyMenu style={{}} ref="my_menu"/>
+                        <MyMenu
+                            hasLogin={this.props.hasLogin}
+                            style={{}}
+                            ref="my_menu"/>
                     </div>
                 </div>
             </Card>

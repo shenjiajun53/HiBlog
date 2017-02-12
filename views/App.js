@@ -21,14 +21,39 @@ injectTapEventPlugin();
 class App extends Component {
     constructor(props) {
         super(props);
-        console.log("value1=" + this.props.location);
+        this.state = {
+            hasLogin: false
+        }
+    }
+
+    componentWillMount() {
+        let url = "/api/checkLogin";
+        fetch(url, {
+            method: "post",
+            credentials: 'include'     //很重要，设置session,cookie可用
+        }).then(
+            (response) => {
+                return response.json();
+            }
+        ).then(
+            (json) => {
+                console.log(JSON.stringify(json));
+                this.setState({
+                    hasLogin: json.hasLogin
+                });
+                console.log("state=" + this.state.hasLogin);
+            }
+        ).catch(
+            (ex) => {
+                console.error('parsing failed', ex);
+            });
     }
 
     render() {
         return (
             <MuiThemeProvider>
                 <div>
-                    <TopBar/>
+                    <TopBar hasLogin={this.state.hasLogin}/>
                     {this.props.children}
                 </div>
             </MuiThemeProvider>
@@ -45,6 +70,7 @@ render(
             <Route path="SignIn" component={SignIn}/>
             <Route path="UserCenter" component={UserCenter}/>
             <Route path="MyFollow" component={MyFollow}/>
+            <Route path="WriteBlog" component={WriteBlog}/>
         </Route>
     </Router>
     ,

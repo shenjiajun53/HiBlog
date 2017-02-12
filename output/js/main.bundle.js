@@ -126,11 +126,34 @@
 
 	        var _this = _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).call(this, props));
 
-	        console.log("value1=" + _this.props.location);
+	        _this.state = {
+	            hasLogin: false
+	        };
 	        return _this;
 	    }
 
 	    _createClass(App, [{
+	        key: 'componentWillMount',
+	        value: function componentWillMount() {
+	            var _this2 = this;
+
+	            var url = "/api/checkLogin";
+	            fetch(url, {
+	                method: "post",
+	                credentials: 'include' //很重要，设置session,cookie可用
+	            }).then(function (response) {
+	                return response.json();
+	            }).then(function (json) {
+	                console.log(JSON.stringify(json));
+	                _this2.setState({
+	                    hasLogin: json.hasLogin
+	                });
+	                console.log("state=" + _this2.state.hasLogin);
+	            }).catch(function (ex) {
+	                console.error('parsing failed', ex);
+	            });
+	        }
+	    }, {
 	        key: 'render',
 	        value: function render() {
 	            return _react2.default.createElement(
@@ -139,7 +162,7 @@
 	                _react2.default.createElement(
 	                    'div',
 	                    null,
-	                    _react2.default.createElement(_TopBar2.default, null),
+	                    _react2.default.createElement(_TopBar2.default, { hasLogin: this.state.hasLogin }),
 	                    this.props.children
 	                )
 	            );
@@ -160,7 +183,8 @@
 	        _react2.default.createElement(_reactRouter.Route, { path: 'SignUp', component: _SignUp2.default }),
 	        _react2.default.createElement(_reactRouter.Route, { path: 'SignIn', component: _SignIn2.default }),
 	        _react2.default.createElement(_reactRouter.Route, { path: 'UserCenter', component: _UserCenter2.default }),
-	        _react2.default.createElement(_reactRouter.Route, { path: 'MyFollow', component: _MyFollow2.default })
+	        _react2.default.createElement(_reactRouter.Route, { path: 'MyFollow', component: _MyFollow2.default }),
+	        _react2.default.createElement(_reactRouter.Route, { path: 'WriteBlog', component: _WriteBlog2.default })
 	    )
 	), document.getElementById('root'));
 
@@ -28304,6 +28328,9 @@
 	    }
 
 	    _createClass(Home, [{
+	        key: 'componentDidMount',
+	        value: function componentDidMount() {}
+	    }, {
 	        key: 'render',
 	        value: function render() {
 	            return _react2.default.createElement(
@@ -40989,6 +41016,7 @@
 	var ON_TITLE_CLICKED = 111;
 	var ON_CARE_CLICKED = 112;
 	var ON_MINE_CLICKED = 113;
+	var ON_WRITE_CLICKED = 114;
 	var myMenu = void 0;
 
 	var TopBar = function (_React$Component) {
@@ -41024,6 +41052,13 @@
 	                    break;
 	                case ON_MINE_CLICKED:
 	                    location.pathname = '/UserCenter';
+	                    break;
+	                case ON_WRITE_CLICKED:
+	                    if (this.props.hasLogin) {
+	                        location.pathname = '/WriteBlog';
+	                    } else {
+	                        location.pathname = '/SignUp';
+	                    }
 	                    break;
 	                default:
 	                    break;
@@ -41078,6 +41113,15 @@
 	                        '\u6211\u7684'
 	                    ),
 	                    _react2.default.createElement(
+	                        _FlatButton2.default,
+	                        {
+	                            style: { color: "#ffffff", marginRight: "10px" },
+	                            onTouchTap: function onTouchTap() {
+	                                return _this2.onTitleClick(ON_WRITE_CLICKED);
+	                            } },
+	                        '\u5199\u6587\u7AE0'
+	                    ),
+	                    _react2.default.createElement(
 	                        'div',
 	                        { style: {
 	                                display: "flex",
@@ -41086,7 +41130,10 @@
 	                                justifyContent: "right"
 	                            } },
 	                        _react2.default.createElement('span', { style: { flex: 1 } }),
-	                        _react2.default.createElement(_MyMenu2.default, { style: {}, ref: 'my_menu' })
+	                        _react2.default.createElement(_MyMenu2.default, {
+	                            hasLogin: this.props.hasLogin,
+	                            style: {},
+	                            ref: 'my_menu' })
 	                    )
 	                )
 	            );
@@ -43141,9 +43188,40 @@
 	                case "SignIn":
 	                    window.location.pathname = '/SignIn';
 	                    break;
+	                case "UserCenter":
+	                    window.location.pathname = '/UserCenter';
+	                    break;
+	                case "MyFollow":
+	                    window.location.pathname = '/MyFollow';
+	                    break;
+	                case "Favorites":
+	                    window.location.pathname = '/Favorites';
+	                    break;
+	                case "Settings":
+	                    window.location.pathname = '/Settings';
+	                    break;
 	                default:
 	                    break;
 	            }
+	        }
+	    }, {
+	        key: 'SignOut',
+	        value: function SignOut() {
+	            console.log("SIgnOut");
+	            var url = "/api/SignOut";
+	            fetch(url, {
+	                method: "post",
+	                credentials: 'include' //很重要，设置session,cookie可用
+	            }).then(function (response) {
+	                return response.json();
+	            }).then(function (json) {
+	                console.log(JSON.stringify(json));
+	                if (json.redirect) {
+	                    window.location = json.redirect;
+	                }
+	            }).catch(function (ex) {
+	                console.error('parsing failed', ex);
+	            });
 	        }
 	    }, {
 	        key: 'render',
@@ -43167,10 +43245,21 @@
 	                        anchorOrigin: { horizontal: 'right', vertical: 'top' },
 	                        targetOrigin: { horizontal: 'right', vertical: 'top' }
 	                    },
-	                    _react2.default.createElement(_MenuItem2.default, { primaryText: '\u6211\u7684\u4E3B\u9875' }),
-	                    _react2.default.createElement(_MenuItem2.default, { primaryText: '\u6536\u85CF' }),
-	                    _react2.default.createElement(_MenuItem2.default, { primaryText: '\u8BBE\u7F6E' }),
-	                    _react2.default.createElement(_MenuItem2.default, { primaryText: '\u9000\u51FA' })
+	                    _react2.default.createElement(_MenuItem2.default, { primaryText: '\u6211\u7684\u4E3B\u9875', onTouchTap: function onTouchTap() {
+	                            return _this2.onItemClick("UserCenter");
+	                        } }),
+	                    _react2.default.createElement(_MenuItem2.default, { primaryText: '\u5173\u6CE8', onTouchTap: function onTouchTap() {
+	                            return _this2.onItemClick("MyFollow");
+	                        } }),
+	                    _react2.default.createElement(_MenuItem2.default, { primaryText: '\u6536\u85CF', onTouchTap: function onTouchTap() {
+	                            return _this2.onItemClick("Favorites");
+	                        } }),
+	                    _react2.default.createElement(_MenuItem2.default, { primaryText: '\u8BBE\u7F6E', onTouchTap: function onTouchTap() {
+	                            return _this2.onItemClick("Settings");
+	                        } }),
+	                    _react2.default.createElement(_MenuItem2.default, { primaryText: '\u9000\u51FA', onTouchTap: function onTouchTap() {
+	                            return _this2.SignOut();
+	                        } })
 	                );
 	            } else {
 	                return _react2.default.createElement(
@@ -47845,10 +47934,10 @@
 	var SignIn = function (_Component) {
 	    _inherits(SignIn, _Component);
 
-	    function SignIn() {
+	    function SignIn(props) {
 	        _classCallCheck(this, SignIn);
 
-	        return _possibleConstructorReturn(this, (SignIn.__proto__ || Object.getPrototypeOf(SignIn)).apply(this, arguments));
+	        return _possibleConstructorReturn(this, (SignIn.__proto__ || Object.getPrototypeOf(SignIn)).call(this, props));
 	    }
 
 	    _createClass(SignIn, [{
@@ -48008,7 +48097,7 @@
 	            };
 	            var data = "userName=shenjiajun&pass=12345&userIntro=啦啦啦";
 
-	            var url = "/SignUp";
+	            var url = "/api/SignUp";
 	            // let url = location.href;
 
 	            document.cookie = "cookie1=5006";
