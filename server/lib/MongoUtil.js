@@ -41,13 +41,17 @@ class MongoUtil {
         }
 
         let model = new Model(modelValue);
-        return model.save(function (err, model) {
-            if (err) {
-                return console.error(err);
-            } else {
-                console.log(modelName + "save success");
-            }
-        });
+        // let promise = model.save();
+        // return promise;
+        return model.save();   //promise 返回model
+        // return model.save(function (err, model) {
+        //     if (err) {
+        //         return console.error(err);
+        //     } else {
+        //         console.log(modelName + "save success" + model._id);
+        //
+        //     }
+        // });
     }
 }
 

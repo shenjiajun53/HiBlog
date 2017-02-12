@@ -37,10 +37,11 @@ class UserRouter extends BaseRouter {
                 let user = req.body;
                 let dealSignUp = new DealSignUp(user.userName, user.pass, user.userIntro);
                 dealSignUp.restoreUser().then(
-                    () => {
+                    (model) => {
                         delete user.pass;
-                        req.session.user = user;
+                        req.session.user = model;
                         // 写入 flash
+                        console.log("保存成功 model id=" + req.session.user._id + " name=" + req.session.user.userName);
                         req.flash('success', '注册成功');
 
                         // 跳转到首页

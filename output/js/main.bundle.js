@@ -47851,7 +47851,7 @@
 /* 526 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
+	"use strict";
 
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
@@ -47884,15 +47884,43 @@
 	    }
 
 	    _createClass(BlogDetail, [{
-	        key: 'render',
+	        key: "componentDidMount",
+	        value: function componentDidMount() {
+	            var url = "/api/getBlog";
+	            var blog = {
+	                blogId: this.props.params.blogId
+	            };
+	            fetch(url, {
+	                method: "post",
+	                // body: data,
+	                body: JSON.stringify(blog),
+	                headers: {
+	                    'Content-Type': 'application/json'
+	                },
+	                credentials: 'include' //很重要，设置session,cookie可用
+	            }).then(function (response) {
+	                return response.json();
+	            }).then(function (json) {
+	                console.log(JSON.stringify(json));
+	                if (json.redirect) {
+	                    if (json.blogId) {
+	                        window.location = json.redirect + "/" + json.blogId;
+	                    }
+	                }
+	            }).catch(function (ex) {
+	                console.error('parsing failed', ex);
+	            });
+	        }
+	    }, {
+	        key: "render",
 	        value: function render() {
 	            return _react2.default.createElement(
-	                'div',
+	                "div",
 	                null,
 	                _react2.default.createElement(
-	                    'h1',
+	                    "h1",
 	                    null,
-	                    'BlogDetail ',
+	                    "BlogDetail ",
 	                    this.props.params.blogId
 	                )
 	            );
@@ -50798,7 +50826,7 @@
 /* 545 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
+	"use strict";
 
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
@@ -50809,6 +50837,18 @@
 	var _react = __webpack_require__(1);
 
 	var _react2 = _interopRequireDefault(_react);
+
+	var _TextField = __webpack_require__(529);
+
+	var _TextField2 = _interopRequireDefault(_TextField);
+
+	var _Card = __webpack_require__(483);
+
+	var _Card2 = _interopRequireDefault(_Card);
+
+	var _RaisedButton = __webpack_require__(425);
+
+	var _RaisedButton2 = _interopRequireDefault(_RaisedButton);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -50821,25 +50861,108 @@
 	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                */
 
 
+	var titleTF = void 0;
+	var contentTF = void 0;
+
 	var WriteBlog = function (_Component) {
 	    _inherits(WriteBlog, _Component);
 
-	    function WriteBlog() {
+	    function WriteBlog(props) {
 	        _classCallCheck(this, WriteBlog);
 
-	        return _possibleConstructorReturn(this, (WriteBlog.__proto__ || Object.getPrototypeOf(WriteBlog)).apply(this, arguments));
+	        return _possibleConstructorReturn(this, (WriteBlog.__proto__ || Object.getPrototypeOf(WriteBlog)).call(this, props));
 	    }
 
 	    _createClass(WriteBlog, [{
-	        key: 'render',
+	        key: "componentDidMount",
+	        value: function componentDidMount() {
+	            titleTF = this.refs.titleTF;
+	            contentTF = this.refs.contentTF;
+	        }
+	    }, {
+	        key: "sendBlog",
+	        value: function sendBlog() {
+	            var titleStr = titleTF.getValue();
+	            var contentStr = contentTF.getValue();
+
+	            console.log("titleStr=" + titleStr + " contentStr=" + contentStr);
+
+	            var blog = {
+	                blogTitle: titleStr,
+	                blogContent: contentStr
+	            };
+
+	            var url = "/api/sendBlog";
+	            fetch(url, {
+	                method: "post",
+	                // body: data,
+	                body: JSON.stringify(blog),
+	                headers: {
+	                    'Content-Type': 'application/json'
+	                },
+	                credentials: 'include' //很重要，设置session,cookie可用
+	            }).then(function (response) {
+	                return response.json();
+	            }).then(function (json) {
+	                console.log(JSON.stringify(json));
+	                if (json.redirect) {
+	                    if (json.blogId) {
+	                        window.location = json.redirect + "/" + json.blogId;
+	                    }
+	                }
+	            }).catch(function (ex) {
+	                console.error('parsing failed', ex);
+	            });
+	        }
+	    }, {
+	        key: "render",
 	        value: function render() {
+	            var _this2 = this;
+
 	            return _react2.default.createElement(
-	                'div',
-	                null,
+	                "div",
+	                { style: { display: "flex", flexDirection: "column", alignItems: "center" } },
 	                _react2.default.createElement(
-	                    'h1',
-	                    null,
-	                    'WriteBlog'
+	                    _Card2.default,
+	                    { style: {
+	                            marginTop: "1em",
+	                            width: "20em"
+	                        } },
+	                    _react2.default.createElement(
+	                        "div",
+	                        { style: {
+	                                padding: "1em",
+	                                display: "flex",
+	                                flexDirection: "column"
+	                            } },
+	                        _react2.default.createElement(
+	                            "div",
+	                            null,
+	                            "\u6807\u9898"
+	                        ),
+	                        _react2.default.createElement(_TextField2.default, { style: { marginBottom: "1em" },
+	                            ref: "titleTF",
+	                            id: "titleTF",
+	                            name: "titleTF" }),
+	                        _react2.default.createElement(
+	                            "div",
+	                            null,
+	                            "\u5185\u5BB9"
+	                        ),
+	                        _react2.default.createElement(_TextField2.default, { style: { marginBottom: "1em" },
+	                            multiLine: true,
+	                            rows: 5,
+	                            ref: "contentTF",
+	                            id: "contentTF",
+	                            name: "contentTF" }),
+	                        _react2.default.createElement(_RaisedButton2.default, { onTouchTap: function onTouchTap() {
+	                                return _this2.sendBlog();
+	                            },
+	                            primary: true,
+	                            label: "发布",
+	                            style: { width: "10em", alignSelf: "center" }
+	                        })
+	                    )
 	                )
 	            );
 	        }
