@@ -9,11 +9,14 @@ let bodyParser = require("body-parser");
 let MongoUtil = require("./server/lib/MongoUtil");
 var session = require('express-session');
 var MongoStore = require('connect-mongo')(session);
+let cookieParser=require("cookie-parser");
 var config = require('config-lite');
 var flash = require('connect-flash');
-let homeRouter = require('./routes/homepage');
+let homeRouter = require('./routes/HomePageRouter');
 let userRouter = require('./routes/userInfo');
 // let signRouter = require("./server/signUp").signUp;
+// let DealSignUp = require("./server/DealSignUp");
+let RouterManager = require("./routes/RouterManager");
 
 // 设置模板目录
 app.set('views', './views');
@@ -26,7 +29,7 @@ app.engine('html', ejs.renderFile);
 app.use('/output', express.static(path.join(__dirname, '/output')));
 app.use('/views', express.static(path.join(__dirname, '/views')));
 
-
+app.use(cookieParser());
 
 app.use(session({
     name: config.session.key,// 设置 cookie 中保存 session id 的字段名称
@@ -48,7 +51,7 @@ app.use(function (req, res, next) {
     res.locals.user = req.session.user;
     res.locals.success = req.flash('success').toString();
     res.locals.error = req.flash('error').toString();
-    console.log("11111 user=" + req.session.user);
+    console.log("server session.user=" + req.session.user);
     next();
 });
 
@@ -61,10 +64,12 @@ app.use(function (req, res, next) {
     next();
 });
 
-// app.post('/SignUp', signRouter);
-
-app.use('/', homeRouter);
+// app.use('/', homeRouter);
 app.use('/users', userRouter);
+
+let routerManager = new RouterManager(app);
+routerManager.startRouters();
+
 
 app.get('*', function (request, response) {
     response.sendFile(path.resolve(__dirname, 'views', 'index.html'))

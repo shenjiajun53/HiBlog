@@ -19,6 +19,11 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 injectTapEventPlugin();
 class App extends Component {
+    constructor(props) {
+        super(props);
+        console.log("value1=" + this.props.location);
+    }
+
     render() {
         return (
             <MuiThemeProvider>

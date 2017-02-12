@@ -121,10 +121,13 @@
 	var App = function (_Component) {
 	    _inherits(App, _Component);
 
-	    function App() {
+	    function App(props) {
 	        _classCallCheck(this, App);
 
-	        return _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).apply(this, arguments));
+	        var _this = _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).call(this, props));
+
+	        console.log("value1=" + _this.props.location);
+	        return _this;
 	    }
 
 	    _createClass(App, [{
@@ -43133,6 +43136,7 @@
 	            switch (value) {
 	                case "SignUp":
 	                    window.location.pathname = '/SignUp';
+	                    // location.hash="/SignUp";
 	                    break;
 	                case "SignIn":
 	                    window.location.pathname = '/SignIn';
@@ -48002,21 +48006,29 @@
 	                "passConfirm": "12345",
 	                "userIntro": "啦啦啦"
 	            };
+	            var data = "userName=shenjiajun&pass=12345&userIntro=啦啦啦";
 
-	            // let data = new FormData();
-	            // data.append("userName", "aaaaaa");
+	            var url = "/SignUp";
+	            // let url = location.href;
 
-	            fetch(location.href, {
+	            document.cookie = "cookie1=5006";
+
+	            fetch(url, {
 	                method: "post",
-	                body: JSON.stringify(demoBody),
+	                // body: data,
+	                body: JSON.stringify(body),
 	                headers: {
 	                    'Content-Type': 'application/json'
-	                }
+	                    // 'Content-Type': 'application/x-www-form-urlencoded'
+	                },
+	                credentials: 'include' //很重要，设置session,cookie可用
 	            }).then(function (response) {
 	                return response.json();
 	            }).then(function (json) {
 	                console.log(JSON.stringify(json));
-	                window.location = json.redirect;
+	                if (json.redirect) {
+	                    window.location = json.redirect;
+	                }
 	            }).catch(function (ex) {
 	                console.error('parsing failed', ex);
 	            });

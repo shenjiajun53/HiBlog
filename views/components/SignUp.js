@@ -85,16 +85,22 @@ class SignUp extends React.Component {
             "passConfirm": "12345",
             "userIntro": "啦啦啦"
         };
+        let data = "userName=shenjiajun&pass=12345&userIntro=啦啦啦";
 
-        // let data = new FormData();
-        // data.append("userName", "aaaaaa");
+        let url = "/SignUp";
+        // let url = location.href;
 
-        fetch(location.href, {
+        document.cookie = "cookie1=5006";
+
+        fetch(url, {
             method: "post",
-            body: JSON.stringify(demoBody),
+            // body: data,
+            body: JSON.stringify(body),
             headers: {
                 'Content-Type': 'application/json'
+                // 'Content-Type': 'application/x-www-form-urlencoded'
             },
+            credentials: 'include'     //很重要，设置session,cookie可用
         }).then(
             (response) => {
                 return response.json();
@@ -102,7 +108,9 @@ class SignUp extends React.Component {
         ).then(
             (json) => {
                 console.log(JSON.stringify(json));
-                window.location = json.redirect;
+                if (json.redirect) {
+                    window.location = json.redirect;
+                }
             }
         ).catch(
             (ex) => {

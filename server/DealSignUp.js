@@ -1,7 +1,7 @@
 /**
  * Created by shenjj on 2017/2/9.
  */
-let MongoUtil = require("./lib/MongoUtil");
+// let MongoUtil = require("./lib/MongoUtil");
 let UserModel = require("./models/UserModel");
 
 class DealSignUp {
@@ -12,7 +12,7 @@ class DealSignUp {
     }
 
     restoreUser() {
-        console.log("userName=" + this.userName + " pass=" + this.pass);
+        // console.log("userName=" + this.userName + " pass=" + this.pass);
         // let mongoUtil = new MongoUtil();
         // mongoUtil.connect();
         let userModel = new UserModel(this.userName, this.pass, this.userIntro);
