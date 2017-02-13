@@ -5,6 +5,7 @@ let express = require('express');
 let LoginCheck = require('../server/middlewares/LoginCheck');
 let BaseRouter = require("./BaseRouter");
 let router = express.Router();
+let BlogModel = require("../server/models/BlogModel");
 
 class HomePageRouter extends BaseRouter {
     // constructor() {
@@ -20,6 +21,17 @@ class HomePageRouter extends BaseRouter {
             // res.redirect("/SignUp");
         });
 
+        router.get("/api/getAllBlogs", (req, res) => {
+            let blogModel = new BlogModel();
+            blogModel.findBlogs().then((models) => {
+                console.log(models);
+                return res.send({
+                    blogList: models
+                });
+            }).catch((e) => {
+                console.error(e);
+            });
+        });
     }
 
     getRouter() {

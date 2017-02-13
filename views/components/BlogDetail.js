@@ -2,21 +2,27 @@
  * Created by shenjiajun on 2017/1/29.
  */
 import React, {Component} from 'react';
+import UrlUtil from "../utils/UrlUtil";
 
 class BlogDetail extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            blogTitle: "",
+            blogContent: ""
+        }
+    }
 
     componentDidMount() {
         let url = "/api/getBlog";
         let blog = {
             blogId: this.props.params.blogId,
         };
+        url = new UrlUtil().json2Url(url, blog);
+        console.log("url=" + url);
+
         fetch(url, {
-            method: "post",
-            // body: data,
-            body: JSON.stringify(blog),
-            headers: {
-                'Content-Type': 'application/json'
-            },
+            method: "get",
             credentials: 'include'     //很重要，设置session,cookie可用
         }).then(
             (response) => {
@@ -25,10 +31,11 @@ class BlogDetail extends React.Component {
         ).then(
             (json) => {
                 console.log(JSON.stringify(json));
-                if (json.redirect) {
-                    if (json.blogId) {
-                        window.location = json.redirect + "/" + json.blogId;
-                    }
+                if (json.blogTitle) {
+                    this.setState({
+                        blogTitle: json.blogTitle,
+                        blogContent: json.blogContent
+                    })
                 }
             }
         ).catch(
@@ -40,7 +47,8 @@ class BlogDetail extends React.Component {
     render() {
         return (
             <div>
-                <h1>BlogDetail {this.props.params.blogId}</h1>
+                <h1>{this.state.blogTitle}</h1>
+                <div>{this.state.blogContent}</div>
             </div>
         );
     }

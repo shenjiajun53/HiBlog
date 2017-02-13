@@ -76,23 +76,23 @@
 
 	var _BlogDetail2 = _interopRequireDefault(_BlogDetail);
 
-	var _SignIn = __webpack_require__(527);
+	var _SignIn = __webpack_require__(528);
 
 	var _SignIn2 = _interopRequireDefault(_SignIn);
 
-	var _SignUp = __webpack_require__(528);
+	var _SignUp = __webpack_require__(529);
 
 	var _SignUp2 = _interopRequireDefault(_SignUp);
 
-	var _UserCenter = __webpack_require__(543);
+	var _UserCenter = __webpack_require__(544);
 
 	var _UserCenter2 = _interopRequireDefault(_UserCenter);
 
-	var _MyFollow = __webpack_require__(544);
+	var _MyFollow = __webpack_require__(545);
 
 	var _MyFollow2 = _interopRequireDefault(_MyFollow);
 
-	var _WriteBlog = __webpack_require__(545);
+	var _WriteBlog = __webpack_require__(546);
 
 	var _WriteBlog2 = _interopRequireDefault(_WriteBlog);
 
@@ -28321,27 +28321,76 @@
 	var Home = function (_Component) {
 	    _inherits(Home, _Component);
 
-	    function Home() {
+	    function Home(props) {
 	        _classCallCheck(this, Home);
 
-	        return _possibleConstructorReturn(this, (Home.__proto__ || Object.getPrototypeOf(Home)).apply(this, arguments));
+	        var _this = _possibleConstructorReturn(this, (Home.__proto__ || Object.getPrototypeOf(Home)).call(this, props));
+
+	        _this.state = {
+	            blogList: null
+	        };
+	        return _this;
 	    }
 
 	    _createClass(Home, [{
 	        key: 'componentDidMount',
-	        value: function componentDidMount() {}
+	        value: function componentDidMount() {
+	            var _this2 = this;
+
+	            var url = "/api/getAllBlogs";
+	            console.log("url=" + url);
+
+	            fetch(url, {
+	                method: "get",
+	                credentials: 'include' //很重要，设置session,cookie可用
+	            }).then(function (response) {
+	                return response.json();
+	            }).then(function (json) {
+	                console.log(JSON.stringify(json));
+	                _this2.setState({
+	                    blogList: json.blogList
+	                });
+	            }).catch(function (ex) {
+	                console.error('parsing failed', ex);
+	            });
+	        }
 	    }, {
 	        key: 'render',
 	        value: function render() {
+	            var blogListView = void 0;
+
+	            // if(null != this.state.blogList){
+	            //     for (let i = 0; i < this.state.blogList.length; i++) {
+	            //         blogListView.push(<div key={this.state.blogList[i]._id}>
+	            //             <h1>{this.state.blogList[i].blogTitle}</h1>
+	            //             <div>{this.state.blogList[i].blogContent}</div>
+	            //         </div>);
+	            //     }
+	            // }
+
+	            if (null != this.state.blogList) {
+	                blogListView = this.state.blogList.map(function (blog) {
+	                    console.log("blog=" + blog.blogTitle);
+	                    return _react2.default.createElement(
+	                        'div',
+	                        { key: blog._id },
+	                        _react2.default.createElement(
+	                            'h1',
+	                            null,
+	                            blog.blogTitle
+	                        ),
+	                        _react2.default.createElement(
+	                            'div',
+	                            null,
+	                            blog.blogContent
+	                        )
+	                    );
+	                });
+	            }
 	            return _react2.default.createElement(
 	                'div',
 	                null,
-	                _react2.default.createElement(
-	                    'h1',
-	                    null,
-	                    'Home'
-	                ),
-	                _react2.default.createElement(_RaisedButton2.default, { label: 'Default' })
+	                blogListView
 	            );
 	        }
 	    }]);
@@ -47863,6 +47912,10 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
+	var _UrlUtil = __webpack_require__(527);
+
+	var _UrlUtil2 = _interopRequireDefault(_UrlUtil);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -47877,35 +47930,42 @@
 	var BlogDetail = function (_React$Component) {
 	    _inherits(BlogDetail, _React$Component);
 
-	    function BlogDetail() {
+	    function BlogDetail(props) {
 	        _classCallCheck(this, BlogDetail);
 
-	        return _possibleConstructorReturn(this, (BlogDetail.__proto__ || Object.getPrototypeOf(BlogDetail)).apply(this, arguments));
+	        var _this = _possibleConstructorReturn(this, (BlogDetail.__proto__ || Object.getPrototypeOf(BlogDetail)).call(this, props));
+
+	        _this.state = {
+	            blogTitle: "",
+	            blogContent: ""
+	        };
+	        return _this;
 	    }
 
 	    _createClass(BlogDetail, [{
 	        key: "componentDidMount",
 	        value: function componentDidMount() {
+	            var _this2 = this;
+
 	            var url = "/api/getBlog";
 	            var blog = {
 	                blogId: this.props.params.blogId
 	            };
+	            url = new _UrlUtil2.default().json2Url(url, blog);
+	            console.log("url=" + url);
+
 	            fetch(url, {
-	                method: "post",
-	                // body: data,
-	                body: JSON.stringify(blog),
-	                headers: {
-	                    'Content-Type': 'application/json'
-	                },
+	                method: "get",
 	                credentials: 'include' //很重要，设置session,cookie可用
 	            }).then(function (response) {
 	                return response.json();
 	            }).then(function (json) {
 	                console.log(JSON.stringify(json));
-	                if (json.redirect) {
-	                    if (json.blogId) {
-	                        window.location = json.redirect + "/" + json.blogId;
-	                    }
+	                if (json.blogTitle) {
+	                    _this2.setState({
+	                        blogTitle: json.blogTitle,
+	                        blogContent: json.blogContent
+	                    });
 	                }
 	            }).catch(function (ex) {
 	                console.error('parsing failed', ex);
@@ -47920,8 +47980,12 @@
 	                _react2.default.createElement(
 	                    "h1",
 	                    null,
-	                    "BlogDetail ",
-	                    this.props.params.blogId
+	                    this.state.blogTitle
+	                ),
+	                _react2.default.createElement(
+	                    "div",
+	                    null,
+	                    this.state.blogContent
 	                )
 	            );
 	        }
@@ -47934,6 +47998,55 @@
 
 /***/ },
 /* 527 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	/**
+	 * Created by shenjj on 2017/2/13.
+	 */
+	var UrlUtil = function () {
+	    function UrlUtil() {
+	        _classCallCheck(this, UrlUtil);
+	    }
+
+	    _createClass(UrlUtil, [{
+	        key: 'json2Url',
+	        value: function json2Url(rawUrl, json) {
+	            var href = Object.keys(json).map(function (key) {
+	                return encodeURIComponent(key) + '=' + encodeURIComponent(json[key]);
+	            }).join('&');
+	            return rawUrl + "?" + href;
+	        }
+	    }, {
+	        key: 'url2Json',
+	        value: function url2Json(url) {
+	            var hash = void 0;
+	            var myJson = {};
+	            var hashes = url.slice(url.indexOf('?') + 1).split('&');
+	            for (var i = 0; i < hashes.length; i++) {
+	                hash = hashes[i].split('=');
+	                myJson[hash[0]] = hash[1];
+	            }
+	            return myJson;
+	        }
+	    }]);
+
+	    return UrlUtil;
+	}();
+
+	exports.default = UrlUtil;
+
+/***/ },
+/* 528 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -47989,7 +48102,7 @@
 	exports.default = SignIn;
 
 /***/ },
-/* 528 */
+/* 529 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -48004,7 +48117,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _TextField = __webpack_require__(529);
+	var _TextField = __webpack_require__(530);
 
 	var _TextField2 = _interopRequireDefault(_TextField);
 
@@ -48012,7 +48125,7 @@
 
 	var _Card2 = _interopRequireDefault(_Card);
 
-	var _SelectField = __webpack_require__(535);
+	var _SelectField = __webpack_require__(536);
 
 	var _SelectField2 = _interopRequireDefault(_SelectField);
 
@@ -48281,7 +48394,7 @@
 	exports.default = SignUp;
 
 /***/ },
-/* 529 */
+/* 530 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -48291,7 +48404,7 @@
 	});
 	exports.default = undefined;
 
-	var _TextField = __webpack_require__(530);
+	var _TextField = __webpack_require__(531);
 
 	var _TextField2 = _interopRequireDefault(_TextField);
 
@@ -48300,7 +48413,7 @@
 	exports.default = _TextField2.default;
 
 /***/ },
-/* 530 */
+/* 531 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -48357,19 +48470,19 @@
 
 	var _transitions2 = _interopRequireDefault(_transitions);
 
-	var _EnhancedTextarea = __webpack_require__(531);
+	var _EnhancedTextarea = __webpack_require__(532);
 
 	var _EnhancedTextarea2 = _interopRequireDefault(_EnhancedTextarea);
 
-	var _TextFieldHint = __webpack_require__(532);
+	var _TextFieldHint = __webpack_require__(533);
 
 	var _TextFieldHint2 = _interopRequireDefault(_TextFieldHint);
 
-	var _TextFieldLabel = __webpack_require__(533);
+	var _TextFieldLabel = __webpack_require__(534);
 
 	var _TextFieldLabel2 = _interopRequireDefault(_TextFieldLabel);
 
-	var _TextFieldUnderline = __webpack_require__(534);
+	var _TextFieldUnderline = __webpack_require__(535);
 
 	var _TextFieldUnderline2 = _interopRequireDefault(_TextFieldUnderline);
 
@@ -48881,7 +48994,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
 
 /***/ },
-/* 531 */
+/* 532 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -49127,7 +49240,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
 
 /***/ },
-/* 532 */
+/* 533 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -49209,7 +49322,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
 
 /***/ },
-/* 533 */
+/* 534 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -49328,7 +49441,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
 
 /***/ },
-/* 534 */
+/* 535 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -49466,7 +49579,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
 
 /***/ },
-/* 535 */
+/* 536 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -49476,7 +49589,7 @@
 	});
 	exports.default = undefined;
 
-	var _SelectField = __webpack_require__(536);
+	var _SelectField = __webpack_require__(537);
 
 	var _SelectField2 = _interopRequireDefault(_SelectField);
 
@@ -49485,7 +49598,7 @@
 	exports.default = _SelectField2.default;
 
 /***/ },
-/* 536 */
+/* 537 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -49530,11 +49643,11 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _TextField = __webpack_require__(529);
+	var _TextField = __webpack_require__(530);
 
 	var _TextField2 = _interopRequireDefault(_TextField);
 
-	var _DropDownMenu = __webpack_require__(537);
+	var _DropDownMenu = __webpack_require__(538);
 
 	var _DropDownMenu2 = _interopRequireDefault(_DropDownMenu);
 
@@ -49776,7 +49889,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
 
 /***/ },
-/* 537 */
+/* 538 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -49786,7 +49899,7 @@
 	});
 	exports.default = exports.MenuItem = exports.DropDownMenu = undefined;
 
-	var _DropDownMenu2 = __webpack_require__(538);
+	var _DropDownMenu2 = __webpack_require__(539);
 
 	var _DropDownMenu3 = _interopRequireDefault(_DropDownMenu2);
 
@@ -49801,7 +49914,7 @@
 	exports.default = _DropDownMenu3.default;
 
 /***/ },
-/* 538 */
+/* 539 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -49854,7 +49967,7 @@
 
 	var _transitions2 = _interopRequireDefault(_transitions);
 
-	var _arrowDropDown = __webpack_require__(539);
+	var _arrowDropDown = __webpack_require__(540);
 
 	var _arrowDropDown2 = _interopRequireDefault(_arrowDropDown);
 
@@ -49862,7 +49975,7 @@
 
 	var _Menu2 = _interopRequireDefault(_Menu);
 
-	var _ClearFix = __webpack_require__(540);
+	var _ClearFix = __webpack_require__(541);
 
 	var _ClearFix2 = _interopRequireDefault(_ClearFix);
 
@@ -49870,7 +49983,7 @@
 
 	var _Popover2 = _interopRequireDefault(_Popover);
 
-	var _PopoverAnimationVertical = __webpack_require__(542);
+	var _PopoverAnimationVertical = __webpack_require__(543);
 
 	var _PopoverAnimationVertical2 = _interopRequireDefault(_PopoverAnimationVertical);
 
@@ -50301,7 +50414,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
 
 /***/ },
-/* 539 */
+/* 540 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -50338,7 +50451,7 @@
 	exports.default = NavigationArrowDropDown;
 
 /***/ },
-/* 540 */
+/* 541 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -50359,7 +50472,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _BeforeAfterWrapper = __webpack_require__(541);
+	var _BeforeAfterWrapper = __webpack_require__(542);
 
 	var _BeforeAfterWrapper2 = _interopRequireDefault(_BeforeAfterWrapper);
 
@@ -50406,7 +50519,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
 
 /***/ },
-/* 541 */
+/* 542 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -50562,7 +50675,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
 
 /***/ },
-/* 542 */
+/* 543 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -50711,7 +50824,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
 
 /***/ },
-/* 543 */
+/* 544 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -50767,7 +50880,7 @@
 	exports.default = UserCenter;
 
 /***/ },
-/* 544 */
+/* 545 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -50823,7 +50936,7 @@
 	exports.default = BlogDetail;
 
 /***/ },
-/* 545 */
+/* 546 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -50838,7 +50951,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _TextField = __webpack_require__(529);
+	var _TextField = __webpack_require__(530);
 
 	var _TextField2 = _interopRequireDefault(_TextField);
 

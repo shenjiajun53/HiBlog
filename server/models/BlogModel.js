@@ -27,8 +27,34 @@ class BlogModel {
         return mongoUtil.createModel("blog", blogSechma, blogValue);
     }
 
-    findBlogById(blogId) {
+    findBlogs() {
+        let blogSechma = {
+            author: String,
+            blogTitle: String,
+            blogContent: String,
+        };
+        let mongoUtil = new MongoUtil();
+        return mongoUtil.findModel("blog", blogSechma);
+    }
 
+    findBlogByUser(userId) {
+        let blogSechma = {
+            author: String,
+            blogTitle: String,
+            blogContent: String,
+        };
+        let mongoUtil = new MongoUtil();
+        return mongoUtil.findModelById("blog", blogSechma, userId);
+    }
+
+    findBlogById(blogId) {
+        let blogSechma = {
+            author: String,
+            blogTitle: String,
+            blogContent: String,
+        };
+        let mongoUtil = new MongoUtil();
+        return mongoUtil.findModelById("blog", blogSechma, blogId);
     }
 }
 

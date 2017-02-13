@@ -2,7 +2,7 @@
  * Created by Administrator on 2017/2/11.
  */
 let express = require('express');
-let DealSignUp = require("../server/DealSignUp");
+let UserModel = require("../server/models/UserModel");
 let BaseRouter = require("./BaseRouter");
 let LoginCheck = require('../server/middlewares/LoginCheck');
 
@@ -20,8 +20,8 @@ class SignUpRouter extends BaseRouter {
                 console.log("on Receive " + req.body.userName);
                 // console.log("on Receive " + JSON.parse(req.body));
                 let user = req.body;
-                let dealSignUp = new DealSignUp(user.userName, user.pass, user.userIntro);
-                dealSignUp.restoreUser().then(
+                let userModel = new UserModel(user.userName, user.pass, user.userIntro);
+                userModel.createUser().then(
                     () => {
                         delete user.pass;
                         req.session.user = user;

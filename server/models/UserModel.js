@@ -34,6 +34,10 @@ class UserModel {
     findUserByName(userName) {
 
     }
+
+    findUserById(_id) {
+
+    }
 }
 
 module.exports = UserModel;

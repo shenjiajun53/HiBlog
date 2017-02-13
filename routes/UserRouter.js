@@ -5,7 +5,7 @@ let express = require('express');
 let LoginCheck = require('../server/middlewares/LoginCheck');
 let BaseRouter = require("./BaseRouter");
 let router = express.Router();
-let DealSignUp = require("../server/DealSignUp");
+let UserModel = require("../server/models/UserModel");
 
 class UserRouter extends BaseRouter {
     // constructor() {
@@ -35,8 +35,8 @@ class UserRouter extends BaseRouter {
                 console.log("on Receive " + req.body.userName);
                 // console.log("on Receive " + JSON.parse(req.body));
                 let user = req.body;
-                let dealSignUp = new DealSignUp(user.userName, user.pass, user.userIntro);
-                dealSignUp.restoreUser().then(
+                let userModel = new UserModel(user.userName, user.pass, user.userIntro);
+                userModel.createUser().then(
                     (model) => {
                         delete user.pass;
                         req.session.user = model;

@@ -53,6 +53,32 @@ class MongoUtil {
         //     }
         // });
     }
+
+    findModel(modelName, schema) {
+        let modelSchema = mongoose.Schema(schema);
+
+        let Model;
+        try {
+            Model = mongoose.model(modelName);                //判断Model是不是已存在
+        } catch (error) {
+            Model = mongoose.model(modelName, modelSchema);
+        }
+        return Model.find({});
+        // return model.save();   //promise 返回model
+    }
+
+    findModelById(modelName, schema, id) {
+        let modelSchema = mongoose.Schema(schema);
+
+        let Model;
+        try {
+            Model = mongoose.model(modelName);                //判断Model是不是已存在
+        } catch (error) {
+            Model = mongoose.model(modelName, modelSchema);
+        }
+        return Model.find({_id: id});
+        // return model.save();   //promise 返回model
+    }
 }
 
 module.exports = MongoUtil;
