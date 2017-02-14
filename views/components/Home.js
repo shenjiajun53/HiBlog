@@ -7,6 +7,7 @@ import RaisedButton from 'material-ui/RaisedButton';
 import AppBar from 'material-ui/AppBar';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import TopBar from "./TopBar";
+import moment from "moment";
 
 // injectTapEventPlugin();
 class Home extends Component {
@@ -42,7 +43,7 @@ class Home extends Component {
     }
 
     render() {
-        let blogListView ;
+        let blogListView;
 
         // if(null != this.state.blogList){
         //     for (let i = 0; i < this.state.blogList.length; i++) {
@@ -57,18 +58,22 @@ class Home extends Component {
             blogListView = this.state.blogList.map(
                 (blog) => {
                     console.log("blog=" + blog.blogTitle);
+                    let time = blog.time;
+                    let date = new Date(time);
+                    let dateStr = moment(date).format("YYYY-MM-DD HH:mm:ss");
                     return (<div key={blog._id}>
                         <h1>{blog.blogTitle}</h1>
                         <div>{blog.blogContent}</div>
+                        <div>{dateStr}</div>
                     </div>);
                 }
             );
         }
-            return (
-                <div>
-                    {blogListView}
-                </div>
-            );
+        return (
+            <div>
+                {blogListView}
+            </div>
+        );
     }
 }
 export default Home;

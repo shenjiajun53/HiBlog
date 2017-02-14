@@ -3,6 +3,13 @@
  */
 let MongoUtil = require("../lib/MongoUtil");
 
+let blogSechma = {
+    author: String,
+    blogTitle: String,
+    blogContent: String,
+    time: Number
+};
+let modelName = "blog";
 class BlogModel {
     constructor(blog) {
         this.blog = blog;
@@ -13,48 +20,29 @@ class BlogModel {
     }
 
     createBlog() {
-        let blogSechma = {
-            author: String,
-            blogTitle: String,
-            blogContent: String,
-        };
         let blogValue = {
             author: this.blog.author,
             blogTitle: this.blog.blogTitle,
             blogContent: this.blog.blogContent,
+            time: Date.now()
         };
         let mongoUtil = new MongoUtil();
-        return mongoUtil.createModel("blog", blogSechma, blogValue);
+        return mongoUtil.createModel(modelName, blogSechma, blogValue);
     }
 
     findBlogs() {
-        let blogSechma = {
-            author: String,
-            blogTitle: String,
-            blogContent: String,
-        };
         let mongoUtil = new MongoUtil();
-        return mongoUtil.findModel("blog", blogSechma);
+        return mongoUtil.findModelSort(modelName, blogSechma, {_id: -1});
     }
 
     findBlogByUser(userId) {
-        let blogSechma = {
-            author: String,
-            blogTitle: String,
-            blogContent: String,
-        };
         let mongoUtil = new MongoUtil();
-        return mongoUtil.findModelById("blog", blogSechma, userId);
+        return mongoUtil.findModelById(modelName, blogSechma, userId);
     }
 
     findBlogById(blogId) {
-        let blogSechma = {
-            author: String,
-            blogTitle: String,
-            blogContent: String,
-        };
         let mongoUtil = new MongoUtil();
-        return mongoUtil.findModelById("blog", blogSechma, blogId);
+        return mongoUtil.findModelById(modelName, blogSechma, blogId);
     }
 }
 

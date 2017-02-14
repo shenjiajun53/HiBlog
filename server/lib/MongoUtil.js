@@ -67,6 +67,19 @@ class MongoUtil {
         // return model.save();   //promise 返回model
     }
 
+    findModelSort(modelName, schema, sort) {
+        let modelSchema = mongoose.Schema(schema);
+
+        let Model;
+        try {
+            Model = mongoose.model(modelName);                //判断Model是不是已存在
+        } catch (error) {
+            Model = mongoose.model(modelName, modelSchema);
+        }
+        return Model.find({}).sort(sort);
+        // return model.save();   //promise 返回model
+    }
+
     findModelById(modelName, schema, id) {
         let modelSchema = mongoose.Schema(schema);
 
