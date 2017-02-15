@@ -6,6 +6,7 @@ let LoginCheck = require('../server/middlewares/LoginCheck');
 let BaseRouter = require("./BaseRouter");
 let router = express.Router();
 let BlogModel = require("../server/models/BlogModel");
+let ResponseUtil = require("../server/lib/ResponseUtil");
 
 class HomePageRouter extends BaseRouter {
     // constructor() {
@@ -25,9 +26,9 @@ class HomePageRouter extends BaseRouter {
             let blogModel = new BlogModel();
             blogModel.findBlogs().then((models) => {
                 console.log(models);
-                return res.send({
+                return res.send(new ResponseUtil({
                     blogList: models
-                });
+                }, null));
             }).catch((e) => {
                 console.error(e);
             });

@@ -45,9 +45,10 @@ class WriteBlog extends Component {
         ).then(
             (json) => {
                 console.log(JSON.stringify(json));
-                if (json.redirect) {
-                    if (json.blogId) {
-                        window.location = json.redirect + "/" + json.blogId;
+                if (json.result) {
+                    let result = json.result;
+                    if (result.blogId) {
+                        window.location = result.redirect + "/" + result.blogId;
                     }
                 }
             }

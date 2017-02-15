@@ -37,12 +37,12 @@ class BlogModel {
 
     findBlogByUser(userId) {
         let mongoUtil = new MongoUtil();
-        return mongoUtil.findModelById(modelName, blogSechma, userId);
+        return mongoUtil.findModelByKeyMap(modelName, blogSechma, {"_id": userId});
     }
 
     findBlogById(blogId) {
         let mongoUtil = new MongoUtil();
-        return mongoUtil.findModelById(modelName, blogSechma, blogId);
+        return mongoUtil.findModelByKeyMap(modelName, blogSechma, {"_id": blogId});
     }
 }
 

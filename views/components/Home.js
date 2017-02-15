@@ -33,7 +33,7 @@ class Home extends Component {
             (json) => {
                 console.log(JSON.stringify(json));
                 this.setState({
-                    blogList: json.blogList
+                    blogList: json.result.blogList
                 })
             }
         ).catch(

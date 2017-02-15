@@ -31,10 +31,10 @@ class BlogDetail extends React.Component {
         ).then(
             (json) => {
                 console.log(JSON.stringify(json));
-                if (json.blogTitle) {
+                if (json.result) {
                     this.setState({
-                        blogTitle: json.blogTitle,
-                        blogContent: json.blogContent
+                        blogTitle: json.result.blogTitle,
+                        blogContent: json.result.blogContent
                     })
                 }
             }

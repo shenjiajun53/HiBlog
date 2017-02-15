@@ -1,6 +1,8 @@
 /**
  * Created by shenjiajun on 2017/1/29.
  */
+let UserModel = require("../models/UserModel");
+let ResponseUtil = require("../lib/ResponseUtil");
 class LoginCheck {
     constructor() {
 
@@ -35,6 +37,22 @@ class LoginCheck {
             console.log("未登录");
         }
         next();
+    }
+
+    userNameHasOccupied(req, res, next) {
+        console.log("check has occupied" + req.body.userName);
+        let user = req.body;
+        let userModel = new UserModel();
+        userModel.findUserByName(user.userName)
+            .then(
+                (models) => {
+                    if (models.length > 0) {
+                        return res.json(new ResponseUtil({userOccupied: true}, null));
+                    } else {
+                        next();
+                    }
+                }
+            )
     }
 }
 module.exports = LoginCheck;

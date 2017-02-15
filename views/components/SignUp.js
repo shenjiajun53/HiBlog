@@ -97,17 +97,7 @@ class SignUp extends React.Component {
             return;
         }
 
-
         console.info("upload =" + userNameStr + passStr + passConfirmStr + userIntroStr);
-
-        console.log("url=" + location.href);
-
-
-        // let request = new Request(location.href);
-        // request.append("userNameStr", userNameStr);
-        // request.append("passStr", passStr);
-        // request.append("passConfirmStr", passConfirmStr);
-        // request.append("userIntroStr", userIntroStr);
 
         let body = {
             "userName": userNameStr,
@@ -123,9 +113,6 @@ class SignUp extends React.Component {
         };
         let data = "userName=shenjiajun&pass=12345&userIntro=啦啦啦";
 
-        let url = "/api/SignUp";
-        // let url = location.href;
-
         document.cookie = "cookie1=5006";
 
         let formData = new FormData();
@@ -135,7 +122,7 @@ class SignUp extends React.Component {
         formData.append('passConfirm', passConfirmStr);
         formData.append('userIntro', userIntroStr);
 
-
+        let url = "/api/SignUp";
         fetch(url, {
             method: "post",
             // body: data,
@@ -152,8 +139,16 @@ class SignUp extends React.Component {
         ).then(
             (json) => {
                 console.log(JSON.stringify(json));
-                if (json.redirect) {
-                    window.location = json.redirect;
+                if (json.result) {
+                    let result=json.result;
+                    if (result.redirect) {
+                        window.location = result.redirect;
+                    } else if (result.userOccupied) {
+                        // window.alert("用户名已被占用");
+                        this.setState({
+                            nameError: "用户名已被占用"
+                        })
+                    }
                 }
             }
         ).catch(

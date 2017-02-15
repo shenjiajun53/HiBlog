@@ -6,6 +6,7 @@ let LoginCheck = require('../server/middlewares/LoginCheck');
 let BaseRouter = require("./BaseRouter");
 let router = express.Router();
 let BlogModel = require("../server/models/BlogModel");
+let ResponseUtil = require("../server/lib/ResponseUtil");
 
 class BlogRouter extends BaseRouter {
     // constructor() {
@@ -30,10 +31,10 @@ class BlogRouter extends BaseRouter {
                     req.flash('success', '注册成功');
 
                     // 跳转到首页
-                    return res.send({
+                    return res.send(new ResponseUtil({
                         redirect: "/BlogDetail",
                         blogId: model._id
-                    });
+                    }, null));
                 }
             ).catch((e) => {
                 console.error(e);
@@ -46,10 +47,10 @@ class BlogRouter extends BaseRouter {
             blogModel.findBlogById(req.query.blogId).then((models) => {
                 console.log(models);
                 let model = models[0];
-                return res.send({
+                return res.send(new ResponseUtil({
                     blogTitle: model.blogTitle,
                     blogContent: model.blogContent
-                });
+                }, null));
             }).catch((e) => {
                 console.error(e);
             });

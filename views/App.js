@@ -38,9 +38,11 @@ class App extends Component {
         ).then(
             (json) => {
                 console.log(JSON.stringify(json));
-                this.setState({
-                    hasLogin: json.hasLogin
-                });
+                if (json.result) {
+                    this.setState({
+                        hasLogin: json.result.hasLogin
+                    });
+                }
                 console.log("state=" + this.state.hasLogin);
             }
         ).catch(

@@ -3,6 +3,13 @@
  */
 let MongoUtil = require("../lib/MongoUtil");
 
+let userSechma = {
+    userName: String,
+    pass: String,
+    userIntro: String,
+    fileName: String
+};
+let modelName = "user";
 class UserModel {
     constructor(userName, pass, userIntro, fileName) {
         this.userName = userName;
@@ -19,12 +26,6 @@ class UserModel {
     }
 
     createUser() {
-        let userSechma = {
-            userName: String,
-            pass: String,
-            userIntro: String,
-            fileName: String
-        };
         let userValue = {
             userName: this.userName,
             pass: this.pass,
@@ -32,11 +33,12 @@ class UserModel {
             fileName: this.fileName
         };
         let mongoUtil = new MongoUtil();
-        return mongoUtil.createModel("user", userSechma, userValue);
+        return mongoUtil.createModel(modelName, userSechma, userValue);
     }
 
     findUserByName(userName) {
-
+        let mongoUtil = new MongoUtil();
+        return mongoUtil.findModelByKeyMap(modelName, userSechma, {userName, userName});
     }
 
     findUserById(_id) {

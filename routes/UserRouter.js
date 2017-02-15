@@ -6,6 +6,7 @@ let LoginCheck = require('../server/middlewares/LoginCheck');
 let BaseRouter = require("./BaseRouter");
 let router = express.Router();
 let UserModel = require("../server/models/UserModel");
+let ResponseUtil = require("../server/lib/ResponseUtil");
 let multer = require('multer');
 let storage = multer.diskStorage({
     destination: './uploadFiles/avatars',
@@ -27,8 +28,18 @@ class UserRouter extends BaseRouter {
     // }
 
     setUpRouter() {
+        router.post("/checkLogin", (req, res) => {
+            let hasLogin = new LoginCheck().checkLogin(req, res);
+            console.log("hasLogin=" + hasLogin);
+            res.json(
+                new ResponseUtil({
+                    hasLogin: hasLogin
+                }, null));
+        });
+
         router.post("/SignUp", new LoginCheck().hasNotLogin,
             upload.single('avatar'),
+            new LoginCheck().userNameHasOccupied,
             (req, res) => {
                 // console.log("user save success 3333 " + req.session.user.userName);
                 console.log("on Receive " + req.body.userName);
@@ -44,7 +55,7 @@ class UserRouter extends BaseRouter {
                         req.flash('success', '注册成功');
 
                         // 跳转到首页
-                        return res.send({redirect: "/"});
+                        return res.send(new ResponseUtil({redirect: "/"}, null));
                         // res.redirect("/");
                         // return res.send(user);
                     }
@@ -54,13 +65,36 @@ class UserRouter extends BaseRouter {
             }
         );
 
-        router.post("/checkLogin", (req, res) => {
-            let hasLogin = new LoginCheck().checkLogin(req, res);
-            console.log("hasLogin=" + hasLogin);
-            res.json({
-                hasLogin: hasLogin
-            });
-        });
+        router.post("/SignIn", new LoginCheck().hasNotLogin,
+            (req, res) => {
+                // console.log("user save success 3333 " + req.session.user.userName);
+                console.log("on Receive " + req.body.userName);
+                // console.log("on Receive " + JSON.parse(req.body));
+                let user = req.body;
+                let userModel = new UserModel();
+                userModel.findUserByName(user.userName)
+                    .then(
+                        (models) => {
+                            if (null !== models && models.length > 0) {
+                                let model = models[0];
+                                console.log("model size=" + models.length);
+                                console.log("model pass=" + model.pass);
+                                if (models[0].pass === user.pass) {
+                                    req.session.user = model;
+                                    return res.send(new ResponseUtil({redirect: "/"}, null));
+                                } else {
+                                    return res.send(new ResponseUtil(null, {errorMsg: "用户名或密码错误", errorType: 2}));
+                                }
+                            } else {
+                                return res.send(new ResponseUtil(null, {errorMsg: "没有此用户", errorType: 1}));
+                            }
+                        }
+                    ).catch((e) => {
+                    console.error(e);
+                    return res.send(new ResponseUtil(null, {errorMsg: "没有此用户", errorType: 1}));
+                });
+            }
+        );
 
         router.post("/SignOut", (req, res) => {
             req.session.user = null;

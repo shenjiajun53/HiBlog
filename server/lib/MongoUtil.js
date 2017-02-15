@@ -80,7 +80,7 @@ class MongoUtil {
         // return model.save();   //promise 返回model
     }
 
-    findModelById(modelName, schema, id) {
+    findModelByKeyMap(modelName, schema, keymap) {
         let modelSchema = mongoose.Schema(schema);
 
         let Model;
@@ -89,7 +89,7 @@ class MongoUtil {
         } catch (error) {
             Model = mongoose.model(modelName, modelSchema);
         }
-        return Model.find({_id: id});
+        return Model.find(keymap);
         // return model.save();   //promise 返回model
     }
 }

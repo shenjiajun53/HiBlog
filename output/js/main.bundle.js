@@ -145,9 +145,11 @@
 	                return response.json();
 	            }).then(function (json) {
 	                console.log(JSON.stringify(json));
-	                _this2.setState({
-	                    hasLogin: json.hasLogin
-	                });
+	                if (json.result) {
+	                    _this2.setState({
+	                        hasLogin: json.result.hasLogin
+	                    });
+	                }
 	                console.log("state=" + _this2.state.hasLogin);
 	            }).catch(function (ex) {
 	                console.error('parsing failed', ex);
@@ -28352,7 +28354,7 @@
 	            }).then(function (json) {
 	                console.log(JSON.stringify(json));
 	                _this2.setState({
-	                    blogList: json.blogList
+	                    blogList: json.result.blogList
 	                });
 	            }).catch(function (ex) {
 	                console.error('parsing failed', ex);
@@ -62857,10 +62859,10 @@
 	                return response.json();
 	            }).then(function (json) {
 	                console.log(JSON.stringify(json));
-	                if (json.blogTitle) {
+	                if (json.result) {
 	                    _this2.setState({
-	                        blogTitle: json.blogTitle,
-	                        blogContent: json.blogContent
+	                        blogTitle: json.result.blogTitle,
+	                        blogContent: json.result.blogContent
 	                    });
 	                }
 	            }).catch(function (ex) {
@@ -62945,7 +62947,7 @@
 /* 638 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
+	"use strict";
 
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
@@ -62956,6 +62958,26 @@
 	var _react = __webpack_require__(1);
 
 	var _react2 = _interopRequireDefault(_react);
+
+	var _TextField = __webpack_require__(640);
+
+	var _TextField2 = _interopRequireDefault(_TextField);
+
+	var _Card = __webpack_require__(483);
+
+	var _Card2 = _interopRequireDefault(_Card);
+
+	var _SelectField = __webpack_require__(646);
+
+	var _SelectField2 = _interopRequireDefault(_SelectField);
+
+	var _RaisedButton = __webpack_require__(425);
+
+	var _RaisedButton2 = _interopRequireDefault(_RaisedButton);
+
+	var _MenuItem = __webpack_require__(523);
+
+	var _MenuItem2 = _interopRequireDefault(_MenuItem);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -62968,25 +62990,158 @@
 	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                */
 
 
+	var userNameTF = void 0;
+	var passTF = void 0;
+
 	var SignIn = function (_Component) {
 	    _inherits(SignIn, _Component);
 
 	    function SignIn(props) {
 	        _classCallCheck(this, SignIn);
 
-	        return _possibleConstructorReturn(this, (SignIn.__proto__ || Object.getPrototypeOf(SignIn)).call(this, props));
+	        var _this = _possibleConstructorReturn(this, (SignIn.__proto__ || Object.getPrototypeOf(SignIn)).call(this, props));
+
+	        _this.state = {
+	            selectedFileName: "",
+	            nameError: "",
+	            passError: ""
+	        };
+	        return _this;
 	    }
 
 	    _createClass(SignIn, [{
-	        key: 'render',
+	        key: "componentDidMount",
+	        value: function componentDidMount() {
+	            userNameTF = this.refs.userNameTF;
+	            passTF = this.refs.passTF;
+	        }
+	    }, {
+	        key: "onSignIn",
+	        value: function onSignIn() {
+	            var _this2 = this;
+
+	            var userNameStr = userNameTF.getValue();
+	            var passStr = passTF.getValue();
+
+	            var infoFinished = true;
+	            if ("" === userNameStr) {
+	                this.setState({
+	                    nameError: "不能为空"
+	                });
+	                infoFinished = false;
+	            }
+	            if ("" === passStr) {
+	                this.setState({
+	                    passError: "不能为空"
+	                });
+	                infoFinished = false;
+	            }
+	            if (!infoFinished) {
+	                return;
+	            }
+
+	            var body = {
+	                "userName": userNameStr,
+	                "pass": passStr
+	            };
+	            var url = "/api/SignIn";
+	            fetch(url, {
+	                method: "post",
+	                // body: data,
+	                body: JSON.stringify(body),
+	                headers: {
+	                    'Content-Type': 'application/json'
+	                    // 'Content-Type': 'application/x-www-form-urlencoded'
+	                },
+	                credentials: 'include' //很重要，设置session,cookie可用
+	            }).then(function (response) {
+	                return response.json();
+	            }).then(function (json) {
+	                console.log(JSON.stringify(json));
+	                if (json.result) {
+	                    if (json.result.redirect) {
+	                        window.location = json.result.redirect;
+	                    }
+	                } else if (json.error) {
+	                    _this2.setState({
+	                        nameError: json.error.errorMsg,
+	                        passError: json.error.errorMsg
+	                    });
+	                }
+	            }).catch(function (ex) {
+	                console.error('parsing failed', ex);
+	            });
+	        }
+	    }, {
+	        key: "render",
 	        value: function render() {
+	            var _this3 = this;
+
 	            return _react2.default.createElement(
-	                'div',
-	                null,
+	                "div",
+	                { style: { display: "flex", flexDirection: "column", alignItems: "center" } },
 	                _react2.default.createElement(
-	                    'h1',
+	                    "div",
 	                    null,
-	                    '\u767B\u5F55'
+	                    _react2.default.createElement(
+	                        _Card2.default,
+	                        { style: {
+	                                marginTop: "1em",
+	                                width: "20em"
+	                            } },
+	                        _react2.default.createElement(
+	                            "div",
+	                            { style: {
+	                                    padding: "1em",
+	                                    display: "flex",
+	                                    flexDirection: "column"
+	                                } },
+	                            _react2.default.createElement(
+	                                "div",
+	                                null,
+	                                "\u7528\u6237\u540D*"
+	                            ),
+	                            _react2.default.createElement(_TextField2.default, { style: { marginBottom: "1em", flex: 1 },
+	                                errorText: this.state.nameError,
+	                                onChange: function onChange(event, str) {
+	                                    if (_this3.state.nameError !== "") {
+	                                        _this3.setState({
+	                                            nameError: "",
+	                                            passError: ""
+	                                        });
+	                                    }
+	                                },
+	                                ref: "userNameTF",
+	                                id: "userNameTF",
+	                                name: "userNameTF" }),
+	                            _react2.default.createElement(
+	                                "div",
+	                                null,
+	                                "\u5BC6\u7801*"
+	                            ),
+	                            _react2.default.createElement(_TextField2.default, { style: { marginBottom: "1em" },
+	                                errorText: this.state.passError,
+	                                onChange: function onChange(event, str) {
+	                                    if (_this3.state.passError !== "") {
+	                                        _this3.setState({
+	                                            nameError: "",
+	                                            passError: ""
+	                                        });
+	                                    }
+	                                },
+	                                type: "password",
+	                                ref: "passTF",
+	                                id: "passTF",
+	                                name: "passTF" }),
+	                            _react2.default.createElement(_RaisedButton2.default, { onTouchTap: function onTouchTap() {
+	                                    return _this3.onSignIn();
+	                                },
+	                                primary: true,
+	                                label: "登录",
+	                                style: { width: "10em", alignSelf: "center" }
+	                            })
+	                        )
+	                    )
 	                )
 	            );
 	        }
@@ -63110,6 +63265,8 @@
 	    }, {
 	        key: "onSignUp",
 	        value: function onSignUp() {
+	            var _this2 = this;
+
 	            var userNameStr = userNameTF.getValue();
 	            var passStr = passTF.getValue();
 	            var passConfirmStr = passConfirmTF.getValue();
@@ -63147,14 +63304,6 @@
 
 	            console.info("upload =" + userNameStr + passStr + passConfirmStr + userIntroStr);
 
-	            console.log("url=" + location.href);
-
-	            // let request = new Request(location.href);
-	            // request.append("userNameStr", userNameStr);
-	            // request.append("passStr", passStr);
-	            // request.append("passConfirmStr", passConfirmStr);
-	            // request.append("userIntroStr", userIntroStr);
-
 	            var body = {
 	                "userName": userNameStr,
 	                "pass": passStr,
@@ -63169,9 +63318,6 @@
 	            };
 	            var data = "userName=shenjiajun&pass=12345&userIntro=啦啦啦";
 
-	            var url = "/api/SignUp";
-	            // let url = location.href;
-
 	            document.cookie = "cookie1=5006";
 
 	            var formData = new FormData();
@@ -63181,6 +63327,7 @@
 	            formData.append('passConfirm', passConfirmStr);
 	            formData.append('userIntro', userIntroStr);
 
+	            var url = "/api/SignUp";
 	            fetch(url, {
 	                method: "post",
 	                // body: data,
@@ -63194,8 +63341,16 @@
 	                return response.json();
 	            }).then(function (json) {
 	                console.log(JSON.stringify(json));
-	                if (json.redirect) {
-	                    window.location = json.redirect;
+	                if (json.result) {
+	                    var result = json.result;
+	                    if (result.redirect) {
+	                        window.location = result.redirect;
+	                    } else if (result.userOccupied) {
+	                        // window.alert("用户名已被占用");
+	                        _this2.setState({
+	                            nameError: "用户名已被占用"
+	                        });
+	                    }
 	                }
 	            }).catch(function (ex) {
 	                console.error('parsing failed', ex);
@@ -63204,7 +63359,7 @@
 	    }, {
 	        key: "render",
 	        value: function render() {
-	            var _this2 = this;
+	            var _this3 = this;
 
 	            return _react2.default.createElement(
 	                "div",
@@ -63238,8 +63393,8 @@
 	                            _react2.default.createElement(_TextField2.default, { style: { marginBottom: "1em", flex: 1 },
 	                                errorText: this.state.nameError,
 	                                onChange: function onChange(event, str) {
-	                                    if (_this2.state.nameError !== "") {
-	                                        _this2.setState({
+	                                    if (_this3.state.nameError !== "") {
+	                                        _this3.setState({
 	                                            nameError: ""
 	                                        });
 	                                    }
@@ -63255,8 +63410,8 @@
 	                            _react2.default.createElement(_TextField2.default, { style: { marginBottom: "1em" },
 	                                errorText: this.state.passError,
 	                                onChange: function onChange(event, str) {
-	                                    if (_this2.state.passError !== "") {
-	                                        _this2.setState({
+	                                    if (_this3.state.passError !== "") {
+	                                        _this3.setState({
 	                                            passError: ""
 	                                        });
 	                                    }
@@ -63273,8 +63428,8 @@
 	                            _react2.default.createElement(_TextField2.default, { style: { marginBottom: "1em" },
 	                                errorText: this.state.passConfirmError,
 	                                onChange: function onChange(event, str) {
-	                                    if (_this2.state.passConfirmError !== "") {
-	                                        _this2.setState({
+	                                    if (_this3.state.passConfirmError !== "") {
+	                                        _this3.setState({
 	                                            passConfirmError: ""
 	                                        });
 	                                    }
@@ -63290,7 +63445,7 @@
 	                                    value: this.state.selectedGender,
 	                                    style: { marginBottom: "1em" },
 	                                    onChange: function onChange(event, index, value) {
-	                                        return _this2.genderSelected(event, index, value);
+	                                        return _this3.genderSelected(event, index, value);
 	                                    }
 	                                },
 	                                _react2.default.createElement(_MenuItem2.default, { value: 1, primaryText: "\u7537" }),
@@ -63306,7 +63461,7 @@
 	                                    "\u5934\u50CF*"
 	                                ),
 	                                _react2.default.createElement(_RaisedButton2.default, { onTouchTap: function onTouchTap() {
-	                                        return _this2.onUpLoadClick();
+	                                        return _this3.onUpLoadClick();
 	                                    },
 	                                    label: "选择文件",
 	                                    secondary: true,
@@ -63325,7 +63480,7 @@
 	                                name: "uploadInput",
 	                                style: { display: "none" },
 	                                onChange: function onChange(event) {
-	                                    return _this2.avatarSelected(event);
+	                                    return _this3.avatarSelected(event);
 	                                }
 	                            }),
 	                            _react2.default.createElement(
@@ -63341,7 +63496,7 @@
 	                                id: "userIntroTF",
 	                                name: "userIntroTF" }),
 	                            _react2.default.createElement(_RaisedButton2.default, { onTouchTap: function onTouchTap() {
-	                                    return _this2.onSignUp();
+	                                    return _this3.onSignUp();
 	                                },
 	                                primary: true,
 	                                label: "注册",
@@ -65984,9 +66139,10 @@
 	                return response.json();
 	            }).then(function (json) {
 	                console.log(JSON.stringify(json));
-	                if (json.redirect) {
-	                    if (json.blogId) {
-	                        window.location = json.redirect + "/" + json.blogId;
+	                if (json.result) {
+	                    var result = json.result;
+	                    if (result.blogId) {
+	                        window.location = result.redirect + "/" + result.blogId;
 	                    }
 	                }
 	            }).catch(function (ex) {
