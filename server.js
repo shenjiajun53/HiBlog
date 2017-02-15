@@ -7,11 +7,12 @@ let path = require('path');
 let ejs = require('ejs');
 let bodyParser = require("body-parser");
 let MongoUtil = require("./server/lib/MongoUtil");
-var session = require('express-session');
-var MongoStore = require('connect-mongo')(session);
+let session = require('express-session');
+let MongoStore = require('connect-mongo')(session);
 let cookieParser=require("cookie-parser");
-var config = require('config-lite');
-var flash = require('connect-flash');
+let config = require('config-lite');
+let flash = require('connect-flash');
+
 let homeRouter = require('./routes/HomePageRouter');
 let userRouter = require('./routes/userInfo');
 // let signRouter = require("./server/signUp").signUp;

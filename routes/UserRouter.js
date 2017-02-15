@@ -6,6 +6,16 @@ let LoginCheck = require('../server/middlewares/LoginCheck');
 let BaseRouter = require("./BaseRouter");
 let router = express.Router();
 let UserModel = require("../server/models/UserModel");
+let multer = require('multer');
+let storage = multer.diskStorage({
+    destination: './uploadFiles/avatars',
+    filename: function (req, file, cb) {
+        console.log("fileName=" + file.filename);
+        cb(null, file.fieldname + '-' + Date.now())
+    }
+});
+// let upload = multer({dest: 'uploads/'});
+let upload = multer({storage: storage});
 
 class UserRouter extends BaseRouter {
     // constructor() {
@@ -14,22 +24,8 @@ class UserRouter extends BaseRouter {
     // }
 
     setUpRouter() {
-        router.post("/checkLogin", (req, res) => {
-            let hasLogin = new LoginCheck().checkLogin(req, res);
-            console.log("hasLogin=" + hasLogin);
-            res.json({
-                hasLogin: hasLogin
-            });
-        });
-
-        router.post("/SignOut", (req, res) => {
-            req.session.user = null;
-            req.flash('success', '登出成功');
-            // 登出成功后跳转到主页
-            return res.json({redirect: "/"});
-        });
-
         router.post("/SignUp", new LoginCheck().hasNotLogin,
+            upload.single('avatar'),
             (req, res) => {
                 // console.log("user save success 3333 " + req.session.user.userName);
                 console.log("on Receive " + req.body.userName);
@@ -54,6 +50,23 @@ class UserRouter extends BaseRouter {
                 });
             }
         );
+
+        router.post("/checkLogin", (req, res) => {
+            let hasLogin = new LoginCheck().checkLogin(req, res);
+            console.log("hasLogin=" + hasLogin);
+            res.json({
+                hasLogin: hasLogin
+            });
+        });
+
+        router.post("/SignOut", (req, res) => {
+            req.session.user = null;
+            req.flash('success', '登出成功');
+            // 登出成功后跳转到主页
+            return res.json({redirect: "/"});
+        });
+
+
     }
 
     getRouter() {

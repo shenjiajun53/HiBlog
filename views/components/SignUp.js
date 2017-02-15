@@ -14,13 +14,18 @@ let userNameTF;
 let passTF;
 let passConfirmTF;
 let userIntroTF;
+let file;
 class SignUp extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             selectedGender: 1,
             avatarUrl: "",
-            selectedFileName: ""
+            selectedFileName: "",
+            nameError: "",
+            passError: "",
+            passConfirmError: "",
+            userIntroError: ""
         }
     }
 
@@ -46,7 +51,7 @@ class SignUp extends React.Component {
 
     avatarSelected(event) {
         // console.info("event=" + uploadInput.files.length);
-        let file = uploadInput.files[0];
+        file = uploadInput.files[0];
         console.info("file=" + file.name);
         this.setState({
             selectedFileName: file.name
@@ -62,10 +67,41 @@ class SignUp extends React.Component {
         let passConfirmStr = passConfirmTF.getValue();
         let userIntroStr = userIntroTF.getValue();
 
+        let infoFinished = true;
+        if ("" === userNameStr) {
+            this.setState({
+                nameError: "不能为空"
+            });
+            infoFinished = false;
+        }
+        if ("" === passStr) {
+            this.setState({
+                passError: "不能为空"
+            });
+            infoFinished = false;
+        }
+        if ("" === passConfirmStr) {
+            this.setState({
+                passConfirmError: "不能为空"
+            });
+            infoFinished = false;
+        }
+        if (passConfirmStr !== passStr) {
+            this.setState({
+                passError: "密码不一致",
+                passConfirmError: "密码不一致"
+            });
+            infoFinished = false;
+        }
+        if (!infoFinished) {
+            return;
+        }
+
 
         console.info("upload =" + userNameStr + passStr + passConfirmStr + userIntroStr);
 
         console.log("url=" + location.href);
+
 
         // let request = new Request(location.href);
         // request.append("userNameStr", userNameStr);
@@ -92,12 +128,20 @@ class SignUp extends React.Component {
 
         document.cookie = "cookie1=5006";
 
+        let formData = new FormData();
+        formData.append('avatar', file);
+        formData.append('userName', userNameStr);
+        formData.append('pass', passStr);
+        formData.append('passConfirm', passConfirmStr);
+        formData.append('userIntro', userIntroStr);
+
+
         fetch(url, {
             method: "post",
             // body: data,
-            body: JSON.stringify(body),
+            body: formData,
             headers: {
-                'Content-Type': 'application/json'
+                // 'Content-Type': 'application/json'
                 // 'Content-Type': 'application/x-www-form-urlencoded'
             },
             credentials: 'include'     //很重要，设置session,cookie可用
@@ -136,6 +180,15 @@ class SignUp extends React.Component {
                                 用户名*
                             </div>
                             <TextField style={{marginBottom: "1em", flex: 1}}
+                                       errorText={this.state.nameError}
+                                       onChange={
+                                           (event, str) => {
+                                               if (this.state.nameError !== "") {
+                                                   this.setState({
+                                                       nameError: ""
+                                                   })
+                                               }
+                                           }}
                                        ref="userNameTF"
                                        id="userNameTF"
                                        name="userNameTF"/>
@@ -143,6 +196,15 @@ class SignUp extends React.Component {
                                 密码*
                             </div>
                             <TextField style={{marginBottom: "1em"}}
+                                       errorText={this.state.passError}
+                                       onChange={(event, str) => {
+                                           if (this.state.passError !== "") {
+                                               this.setState({
+                                                   passError: ""
+                                               })
+                                           }
+                                       }}
+                                       type="password"
                                        ref="passTF"
                                        id="passTF"
                                        name="passTF"/>
@@ -150,6 +212,15 @@ class SignUp extends React.Component {
                                 重复密码*
                             </div>
                             <TextField style={{marginBottom: "1em"}}
+                                       errorText={this.state.passConfirmError}
+                                       onChange={(event, str) => {
+                                           if (this.state.passConfirmError !== "") {
+                                               this.setState({
+                                                   passConfirmError: ""
+                                               })
+                                           }
+                                       }}
+                                       type="password"
                                        ref="passConfirmTF"
                                        id="passConfirmTF"
                                        name="passConfirmTF"/>
@@ -179,6 +250,7 @@ class SignUp extends React.Component {
                                    multiple="multiple"
                                    accept="image/*"
                                    ref="uploadInput"
+                                   name="uploadInput"
                                    style={{display: "none"}}
                                    onChange={(event) => this.avatarSelected(event)}
                             />
@@ -188,6 +260,7 @@ class SignUp extends React.Component {
                             <TextField style={{marginBottom: "1em"}}
                                        multiLine={true}
                                        rows={5}
+                                       errorText={this.state.userIntroError}
                                        ref="userIntroTF"
                                        id="userIntroTF"
                                        name="userIntroTF"/>
