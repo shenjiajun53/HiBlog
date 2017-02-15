@@ -10,13 +10,16 @@ let multer = require('multer');
 let storage = multer.diskStorage({
     destination: './uploadFiles/avatars',
     filename: function (req, file, cb) {
-        console.log("fileName=" + file.filename);
-        cb(null, file.fieldname + '-' + Date.now())
+        console.log("fileName=" + file.originalname);
+        fileName = Date.now() + '-' + file.originalname;
+        cb(null, fileName);
     }
 });
 // let upload = multer({dest: 'uploads/'});
 let upload = multer({storage: storage});
 
+
+let fileName;
 class UserRouter extends BaseRouter {
     // constructor() {
     //     super();
@@ -31,7 +34,7 @@ class UserRouter extends BaseRouter {
                 console.log("on Receive " + req.body.userName);
                 // console.log("on Receive " + JSON.parse(req.body));
                 let user = req.body;
-                let userModel = new UserModel(user.userName, user.pass, user.userIntro);
+                let userModel = new UserModel(user.userName, user.pass, user.userIntro, fileName);
                 userModel.createUser().then(
                     (model) => {
                         delete user.pass;
