@@ -28,12 +28,13 @@ class UserRouter extends BaseRouter {
     // }
 
     setUpRouter() {
-        router.post("/checkLogin", (req, res) => {
+        router.post("/getUserInfo", (req, res) => {
             let hasLogin = new LoginCheck().checkLogin(req, res);
             console.log("hasLogin=" + hasLogin);
             res.json(
                 new ResponseUtil({
-                    hasLogin: hasLogin
+                    hasLogin: hasLogin,
+                    user: req.session.user
                 }, null));
         });
 
@@ -50,6 +51,7 @@ class UserRouter extends BaseRouter {
                     (model) => {
                         delete user.pass;
                         req.session.user = model;
+                        req.session.user.pass = null;
                         // 写入 flash
                         console.log("保存成功 model id=" + req.session.user._id + " name=" + req.session.user.userName);
                         req.flash('success', '注册成功');
@@ -81,6 +83,7 @@ class UserRouter extends BaseRouter {
                                 console.log("model pass=" + model.pass);
                                 if (models[0].pass === user.pass) {
                                     req.session.user = model;
+                                    req.session.user.pass = null;
                                     return res.send(new ResponseUtil({redirect: "/"}, null));
                                 } else {
                                     return res.send(new ResponseUtil(null, {errorMsg: "用户名或密码错误", errorType: 2}));

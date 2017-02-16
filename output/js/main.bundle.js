@@ -137,7 +137,7 @@
 	        value: function componentWillMount() {
 	            var _this2 = this;
 
-	            var url = "/api/checkLogin";
+	            var url = "/api/getUserInfo";
 	            fetch(url, {
 	                method: "post",
 	                credentials: 'include' //很重要，设置session,cookie可用
@@ -147,7 +147,8 @@
 	                console.log(JSON.stringify(json));
 	                if (json.result) {
 	                    _this2.setState({
-	                        hasLogin: json.result.hasLogin
+	                        hasLogin: json.result.hasLogin,
+	                        user: json.result.user
 	                    });
 	                }
 	                console.log("state=" + _this2.state.hasLogin);
@@ -164,7 +165,7 @@
 	                _react2.default.createElement(
 	                    'div',
 	                    null,
-	                    _react2.default.createElement(_TopBar2.default, { hasLogin: this.state.hasLogin }),
+	                    _react2.default.createElement(_TopBar2.default, { hasLogin: this.state.hasLogin, user: this.state.user }),
 	                    this.props.children
 	                )
 	            );
@@ -41053,6 +41054,10 @@
 
 	var _AppBar2 = _interopRequireDefault(_AppBar);
 
+	var _Avatar = __webpack_require__(489);
+
+	var _Avatar2 = _interopRequireDefault(_Avatar);
+
 	var _Card = __webpack_require__(483);
 
 	var _Card2 = _interopRequireDefault(_Card);
@@ -41131,6 +41136,11 @@
 	        key: 'render',
 	        value: function render() {
 	            var _this2 = this;
+
+	            if (this.props.user.fileName) {
+	                var avatarPath = "../../uploadFiles/avatars" + this.props.user.fileName;
+	                console.log("avatarPath=" + avatarPath);
+	            }
 
 	            return _react2.default.createElement(
 	                _Card2.default,

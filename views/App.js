@@ -27,7 +27,7 @@ class App extends Component {
     }
 
     componentWillMount() {
-        let url = "/api/checkLogin";
+        let url = "/api/getUserInfo";
         fetch(url, {
             method: "post",
             credentials: 'include'     //很重要，设置session,cookie可用
@@ -40,7 +40,8 @@ class App extends Component {
                 console.log(JSON.stringify(json));
                 if (json.result) {
                     this.setState({
-                        hasLogin: json.result.hasLogin
+                        hasLogin: json.result.hasLogin,
+                        user: json.result.user
                     });
                 }
                 console.log("state=" + this.state.hasLogin);
@@ -55,7 +56,7 @@ class App extends Component {
         return (
             <MuiThemeProvider>
                 <div>
-                    <TopBar hasLogin={this.state.hasLogin}/>
+                    <TopBar hasLogin={this.state.hasLogin} user={this.state.user}/>
                     {this.props.children}
                 </div>
             </MuiThemeProvider>
