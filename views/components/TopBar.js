@@ -58,9 +58,14 @@ class TopBar extends React.Component {
     }
 
     render() {
-        if(this.props.user.fileName){
-            let avatarPath = "../../uploadFiles/avatars" + this.props.user.fileName;
-            console.log("avatarPath=" + avatarPath);
+        let avatarPath;
+        let showAvatar = "none";
+        if (this.props.user) {
+            if (this.props.user.fileName) {
+                avatarPath = "/uploadFiles/avatars/" + this.props.user.fileName;
+                showAvatar = "inline";
+                console.log("avatarPath=" + avatarPath);
+            }
         }
 
         return (
@@ -96,7 +101,10 @@ class TopBar extends React.Component {
                         onTouchTap={() => this.onTitleClick(ON_WRITE_CLICKED)}>
                         写文章
                     </FlatButton>
-                    {/*<Avatar src={avatarPath}/>*/}
+                    <Avatar src={avatarPath}
+                            style={{
+                                display: showAvatar
+                            }}/>
 
                     <div style={{
                         display: "flex",
@@ -106,6 +114,7 @@ class TopBar extends React.Component {
                     }}>
                         <span style={{flex: 1}}/>
                         <MyMenu
+                            user={this.props.user}
                             hasLogin={this.props.hasLogin}
                             style={{}}
                             ref="my_menu"/>

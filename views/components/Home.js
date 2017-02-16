@@ -2,11 +2,7 @@
  * Created by shenjiajun on 2017/1/29.
  */
 import React, {Component} from 'react';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import RaisedButton from 'material-ui/RaisedButton';
-import AppBar from 'material-ui/AppBar';
-import injectTapEventPlugin from 'react-tap-event-plugin';
-import TopBar from "./TopBar";
+import Card from "material-ui/Card"
 import moment from "moment";
 
 // injectTapEventPlugin();
@@ -31,7 +27,7 @@ class Home extends Component {
             }
         ).then(
             (json) => {
-                console.log(JSON.stringify(json));
+                // console.log(JSON.stringify(json));
                 this.setState({
                     blogList: json.result.blogList
                 })
@@ -57,14 +53,16 @@ class Home extends Component {
         if (null != this.state.blogList) {
             blogListView = this.state.blogList.map(
                 (blog) => {
-                    console.log("blog=" + blog.blogTitle);
+                    // console.log("blog=" + blog.blogTitle);
                     let time = blog.time;
                     let date = new Date(time);
                     let dateStr = moment(date).format("YYYY-MM-DD HH:mm:ss");
                     return (<div key={blog._id}>
-                        <h1>{blog.blogTitle}</h1>
-                        <div>{blog.blogContent}</div>
-                        <div>{dateStr}</div>
+                        <Card>
+                            <h1>{blog.blogTitle}</h1>
+                            <div>{blog.blogContent}</div>
+                            <div>{dateStr}</div>
+                        </Card>
                     </div>);
                 }
             );

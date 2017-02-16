@@ -29,6 +29,7 @@ app.engine('html', ejs.renderFile);
 // app.use配置
 app.use('/output', express.static(path.join(__dirname, '/output')));
 app.use('/views', express.static(path.join(__dirname, '/views')));
+app.use('/uploadFiles', express.static(path.join(__dirname, '/uploadFiles')));
 
 app.use(cookieParser());
 

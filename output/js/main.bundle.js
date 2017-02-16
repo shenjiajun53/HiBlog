@@ -60,10 +60,6 @@
 
 	var _reactDom2 = _interopRequireDefault(_reactDom);
 
-	var _logo = __webpack_require__(178);
-
-	var _logo2 = _interopRequireDefault(_logo);
-
 	__webpack_require__(218);
 
 	var _reactRouter = __webpack_require__(222);
@@ -72,15 +68,11 @@
 
 	var _Home2 = _interopRequireDefault(_Home);
 
-	var _BlogDetail = __webpack_require__(636);
-
-	var _BlogDetail2 = _interopRequireDefault(_BlogDetail);
-
 	var _SignIn = __webpack_require__(638);
 
 	var _SignIn2 = _interopRequireDefault(_SignIn);
 
-	var _SignUp = __webpack_require__(639);
+	var _SignUp = __webpack_require__(653);
 
 	var _SignUp2 = _interopRequireDefault(_SignUp);
 
@@ -100,6 +92,10 @@
 
 	var _TopBar2 = _interopRequireDefault(_TopBar);
 
+	var _BlogDetail = __webpack_require__(636);
+
+	var _BlogDetail2 = _interopRequireDefault(_BlogDetail);
+
 	var _reactTapEventPlugin = __webpack_require__(476);
 
 	var _reactTapEventPlugin2 = _interopRequireDefault(_reactTapEventPlugin);
@@ -118,8 +114,8 @@
 
 	(0, _reactTapEventPlugin2.default)();
 
-	var App = function (_Component) {
-	    _inherits(App, _Component);
+	var App = function (_React$Component) {
+	    _inherits(App, _React$Component);
 
 	    function App(props) {
 	        _classCallCheck(this, App);
@@ -127,7 +123,8 @@
 	        var _this = _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).call(this, props));
 
 	        _this.state = {
-	            hasLogin: false
+	            hasLogin: false,
+	            user: null
 	        };
 	        return _this;
 	    }
@@ -173,7 +170,7 @@
 	    }]);
 
 	    return App;
-	}(_react.Component);
+	}(_react2.default.Component);
 
 	(0, _reactDom.render)(_react2.default.createElement(
 	    _reactRouter.Router,
@@ -182,12 +179,12 @@
 	        _reactRouter.Route,
 	        { path: '/', component: App },
 	        _react2.default.createElement(_reactRouter.IndexRoute, { component: _Home2.default }),
-	        _react2.default.createElement(_reactRouter.Route, { path: 'BlogDetail/:blogId', component: _BlogDetail2.default }),
 	        _react2.default.createElement(_reactRouter.Route, { path: 'SignUp', component: _SignUp2.default }),
 	        _react2.default.createElement(_reactRouter.Route, { path: 'SignIn', component: _SignIn2.default }),
 	        _react2.default.createElement(_reactRouter.Route, { path: 'UserCenter', component: _UserCenter2.default }),
 	        _react2.default.createElement(_reactRouter.Route, { path: 'MyFollow', component: _MyFollow2.default }),
-	        _react2.default.createElement(_reactRouter.Route, { path: 'WriteBlog', component: _WriteBlog2.default })
+	        _react2.default.createElement(_reactRouter.Route, { path: 'WriteBlog', component: _WriteBlog2.default }),
+	        _react2.default.createElement(_reactRouter.Route, { path: 'BlogDetail/:blogId', component: _BlogDetail2.default })
 	    )
 	), document.getElementById('root'));
 
@@ -21628,718 +21625,28 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
 
 /***/ },
-/* 178 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	var React = __webpack_require__(1);
-	var helpers = __webpack_require__(179)(__webpack_require__(32));
-
-	module.exports = React.createClass({
-
-	    displayName: "Logo",
-
-	    getDefaultProps: function getDefaultProps() {
-	        return { "xmlns": "http://www.w3.org/2000/svg", "viewBox": "0 0 841.9 595.3" };
-	    },
-	    componentDidMount: function componentDidMount() {
-	        helpers.applyXmlAttributes(this);
-	    },
-	    render: function render() {
-	        var props = this.props;
-	        var children = props.children;
-
-	        return React.createElement(
-	            'svg',
-	            this.props,
-	            React.createElement(
-	                'g',
-	                { fill: '#61DAFB' },
-	                React.createElement('path', { d: 'M666.3 296.5c0-32.5-40.7-63.3-103.1-82.4 14.4-63.6 8-114.2-20.2-130.4-6.5-3.8-14.1-5.6-22.4-5.6v22.3c4.6 0 8.3.9 11.4 2.6 13.6 7.8 19.5 37.5 14.9 75.7-1.1 9.4-2.9 19.3-5.1 29.4-19.6-4.8-41-8.5-63.5-10.9-13.5-18.5-27.5-35.3-41.6-50 32.6-30.3 63.2-46.9 84-46.9V78c-27.5 0-63.5 19.6-99.9 53.6-36.4-33.8-72.4-53.2-99.9-53.2v22.3c20.7 0 51.4 16.5 84 46.6-14 14.7-28 31.4-41.3 49.9-22.6 2.4-44 6.1-63.6 11-2.3-10-4-19.7-5.2-29-4.7-38.2 1.1-67.9 14.6-75.8 3-1.8 6.9-2.6 11.5-2.6V78.5c-8.4 0-16 1.8-22.6 5.6-28.1 16.2-34.4 66.7-19.9 130.1-62.2 19.2-102.7 49.9-102.7 82.3 0 32.5 40.7 63.3 103.1 82.4-14.4 63.6-8 114.2 20.2 130.4 6.5 3.8 14.1 5.6 22.5 5.6 27.5 0 63.5-19.6 99.9-53.6 36.4 33.8 72.4 53.2 99.9 53.2 8.4 0 16-1.8 22.6-5.6 28.1-16.2 34.4-66.7 19.9-130.1 62-19.1 102.5-49.9 102.5-82.3zm-130.2-66.7c-3.7 12.9-8.3 26.2-13.5 39.5-4.1-8-8.4-16-13.1-24-4.6-8-9.5-15.8-14.4-23.4 14.2 2.1 27.9 4.7 41 7.9zm-45.8 106.5c-7.8 13.5-15.8 26.3-24.1 38.2-14.9 1.3-30 2-45.2 2-15.1 0-30.2-.7-45-1.9-8.3-11.9-16.4-24.6-24.2-38-7.6-13.1-14.5-26.4-20.8-39.8 6.2-13.4 13.2-26.8 20.7-39.9 7.8-13.5 15.8-26.3 24.1-38.2 14.9-1.3 30-2 45.2-2 15.1 0 30.2.7 45 1.9 8.3 11.9 16.4 24.6 24.2 38 7.6 13.1 14.5 26.4 20.8 39.8-6.3 13.4-13.2 26.8-20.7 39.9zm32.3-13c5.4 13.4 10 26.8 13.8 39.8-13.1 3.2-26.9 5.9-41.2 8 4.9-7.7 9.8-15.6 14.4-23.7 4.6-8 8.9-16.1 13-24.1zM421.2 430c-9.3-9.6-18.6-20.3-27.8-32 9 .4 18.2.7 27.5.7 9.4 0 18.7-.2 27.8-.7-9 11.7-18.3 22.4-27.5 32zm-74.4-58.9c-14.2-2.1-27.9-4.7-41-7.9 3.7-12.9 8.3-26.2 13.5-39.5 4.1 8 8.4 16 13.1 24 4.7 8 9.5 15.8 14.4 23.4zM420.7 163c9.3 9.6 18.6 20.3 27.8 32-9-.4-18.2-.7-27.5-.7-9.4 0-18.7.2-27.8.7 9-11.7 18.3-22.4 27.5-32zm-74 58.9c-4.9 7.7-9.8 15.6-14.4 23.7-4.6 8-8.9 16-13 24-5.4-13.4-10-26.8-13.8-39.8 13.1-3.1 26.9-5.8 41.2-7.9zm-90.5 125.2c-35.4-15.1-58.3-34.9-58.3-50.6 0-15.7 22.9-35.6 58.3-50.6 8.6-3.7 18-7 27.7-10.1 5.7 19.6 13.2 40 22.5 60.9-9.2 20.8-16.6 41.1-22.2 60.6-9.9-3.1-19.3-6.5-28-10.2zM310 490c-13.6-7.8-19.5-37.5-14.9-75.7 1.1-9.4 2.9-19.3 5.1-29.4 19.6 4.8 41 8.5 63.5 10.9 13.5 18.5 27.5 35.3 41.6 50-32.6 30.3-63.2 46.9-84 46.9-4.5-.1-8.3-1-11.3-2.7zm237.2-76.2c4.7 38.2-1.1 67.9-14.6 75.8-3 1.8-6.9 2.6-11.5 2.6-20.7 0-51.4-16.5-84-46.6 14-14.7 28-31.4 41.3-49.9 22.6-2.4 44-6.1 63.6-11 2.3 10.1 4.1 19.8 5.2 29.1zm38.5-66.7c-8.6 3.7-18 7-27.7 10.1-5.7-19.6-13.2-40-22.5-60.9 9.2-20.8 16.6-41.1 22.2-60.6 9.9 3.1 19.3 6.5 28.1 10.2 35.4 15.1 58.3 34.9 58.3 50.6-.1 15.7-23 35.6-58.4 50.6zM320.8 78.4z' }),
-	                React.createElement('path', { d: 'M520.5 78.1z' }),
-	                React.createElement('circle', { cx: '420.9', cy: '296.5', r: '45.7' })
-	            ),
-	            React.Children.map(children, function (c) {
-	                return c;
-	            })
-	        );
-	    }
-	});
-
-/***/ },
-/* 179 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var forEach  = __webpack_require__(180);
-	var ATTR_KEY = 'data-svgreactloader';
-
-	var MODULE = {
-	    /**
-	     * @param {HTMLElement}
-	     */
-	    applyAttributes: function (el) {
-	        var data = MODULE.hasXmlAttributes(el);
-	        if (data) {
-	            forEach(JSON.parse(data), function (args) {
-	                var method = 'setAttribute' + (args.length === 3 ? 'NS' : '');
-	                el[method].apply(el, args);
-	            });
-	        }
-	    },
-	    /**
-	     * @param {HTMLElement}
-	     */
-	    hasXmlAttributes: function (el) {
-	        return el && el.getAttribute(ATTR_KEY);
-	    },
-	    /**
-	     * @param {React.Component}
-	     */
-	    applyXmlAttributes: function (component) {
-	        var domEl = MODULE.reactDOM.findDOMNode(component);
-	        var fn = MODULE.applyAttributes;
-
-	        if (domEl) {
-	            fn(domEl);
-	            forEach(domEl.querySelectorAll('[' + ATTR_KEY + ']'), fn);
-	        }
-	    }
-	};
-
-	module.exports = function helpers (reactDOM) {
-	    if (!MODULE.reactDOM) {
-	        MODULE.reactDOM = reactDOM;
-	    }
-	    return MODULE;
-	};
-
-
-/***/ },
-/* 180 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var arrayEach = __webpack_require__(181),
-	    baseEach = __webpack_require__(182),
-	    castFunction = __webpack_require__(216),
-	    isArray = __webpack_require__(198);
-
-	/**
-	 * Iterates over elements of `collection` and invokes `iteratee` for each element.
-	 * The iteratee is invoked with three arguments: (value, index|key, collection).
-	 * Iteratee functions may exit iteration early by explicitly returning `false`.
-	 *
-	 * **Note:** As with other "Collections" methods, objects with a "length"
-	 * property are iterated like arrays. To avoid this behavior use `_.forIn`
-	 * or `_.forOwn` for object iteration.
-	 *
-	 * @static
-	 * @memberOf _
-	 * @since 0.1.0
-	 * @alias each
-	 * @category Collection
-	 * @param {Array|Object} collection The collection to iterate over.
-	 * @param {Function} [iteratee=_.identity] The function invoked per iteration.
-	 * @returns {Array|Object} Returns `collection`.
-	 * @see _.forEachRight
-	 * @example
-	 *
-	 * _.forEach([1, 2], function(value) {
-	 *   console.log(value);
-	 * });
-	 * // => Logs `1` then `2`.
-	 *
-	 * _.forEach({ 'a': 1, 'b': 2 }, function(value, key) {
-	 *   console.log(key);
-	 * });
-	 * // => Logs 'a' then 'b' (iteration order is not guaranteed).
-	 */
-	function forEach(collection, iteratee) {
-	  var func = isArray(collection) ? arrayEach : baseEach;
-	  return func(collection, castFunction(iteratee));
-	}
-
-	module.exports = forEach;
-
-
-/***/ },
-/* 181 */
-/***/ function(module, exports) {
-
-	/**
-	 * A specialized version of `_.forEach` for arrays without support for
-	 * iteratee shorthands.
-	 *
-	 * @private
-	 * @param {Array} [array] The array to iterate over.
-	 * @param {Function} iteratee The function invoked per iteration.
-	 * @returns {Array} Returns `array`.
-	 */
-	function arrayEach(array, iteratee) {
-	  var index = -1,
-	      length = array == null ? 0 : array.length;
-
-	  while (++index < length) {
-	    if (iteratee(array[index], index, array) === false) {
-	      break;
-	    }
-	  }
-	  return array;
-	}
-
-	module.exports = arrayEach;
-
-
-/***/ },
-/* 182 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var baseForOwn = __webpack_require__(183),
-	    createBaseEach = __webpack_require__(215);
-
-	/**
-	 * The base implementation of `_.forEach` without support for iteratee shorthands.
-	 *
-	 * @private
-	 * @param {Array|Object} collection The collection to iterate over.
-	 * @param {Function} iteratee The function invoked per iteration.
-	 * @returns {Array|Object} Returns `collection`.
-	 */
-	var baseEach = createBaseEach(baseForOwn);
-
-	module.exports = baseEach;
-
-
-/***/ },
-/* 183 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var baseFor = __webpack_require__(184),
-	    keys = __webpack_require__(186);
-
-	/**
-	 * The base implementation of `_.forOwn` without support for iteratee shorthands.
-	 *
-	 * @private
-	 * @param {Object} object The object to iterate over.
-	 * @param {Function} iteratee The function invoked per iteration.
-	 * @returns {Object} Returns `object`.
-	 */
-	function baseForOwn(object, iteratee) {
-	  return object && baseFor(object, iteratee, keys);
-	}
-
-	module.exports = baseForOwn;
-
-
-/***/ },
-/* 184 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var createBaseFor = __webpack_require__(185);
-
-	/**
-	 * The base implementation of `baseForOwn` which iterates over `object`
-	 * properties returned by `keysFunc` and invokes `iteratee` for each property.
-	 * Iteratee functions may exit iteration early by explicitly returning `false`.
-	 *
-	 * @private
-	 * @param {Object} object The object to iterate over.
-	 * @param {Function} iteratee The function invoked per iteration.
-	 * @param {Function} keysFunc The function to get the keys of `object`.
-	 * @returns {Object} Returns `object`.
-	 */
-	var baseFor = createBaseFor();
-
-	module.exports = baseFor;
-
-
-/***/ },
-/* 185 */
-/***/ function(module, exports) {
-
-	/**
-	 * Creates a base function for methods like `_.forIn` and `_.forOwn`.
-	 *
-	 * @private
-	 * @param {boolean} [fromRight] Specify iterating from right to left.
-	 * @returns {Function} Returns the new base function.
-	 */
-	function createBaseFor(fromRight) {
-	  return function(object, iteratee, keysFunc) {
-	    var index = -1,
-	        iterable = Object(object),
-	        props = keysFunc(object),
-	        length = props.length;
-
-	    while (length--) {
-	      var key = props[fromRight ? length : ++index];
-	      if (iteratee(iterable[key], key, iterable) === false) {
-	        break;
-	      }
-	    }
-	    return object;
-	  };
-	}
-
-	module.exports = createBaseFor;
-
-
-/***/ },
-/* 186 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var arrayLikeKeys = __webpack_require__(187),
-	    baseKeys = __webpack_require__(208),
-	    isArrayLike = __webpack_require__(212);
-
-	/**
-	 * Creates an array of the own enumerable property names of `object`.
-	 *
-	 * **Note:** Non-object values are coerced to objects. See the
-	 * [ES spec](http://ecma-international.org/ecma-262/7.0/#sec-object.keys)
-	 * for more details.
-	 *
-	 * @static
-	 * @since 0.1.0
-	 * @memberOf _
-	 * @category Object
-	 * @param {Object} object The object to query.
-	 * @returns {Array} Returns the array of property names.
-	 * @example
-	 *
-	 * function Foo() {
-	 *   this.a = 1;
-	 *   this.b = 2;
-	 * }
-	 *
-	 * Foo.prototype.c = 3;
-	 *
-	 * _.keys(new Foo);
-	 * // => ['a', 'b'] (iteration order is not guaranteed)
-	 *
-	 * _.keys('hi');
-	 * // => ['0', '1']
-	 */
-	function keys(object) {
-	  return isArrayLike(object) ? arrayLikeKeys(object) : baseKeys(object);
-	}
-
-	module.exports = keys;
-
-
-/***/ },
-/* 187 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var baseTimes = __webpack_require__(188),
-	    isArguments = __webpack_require__(189),
-	    isArray = __webpack_require__(198),
-	    isBuffer = __webpack_require__(199),
-	    isIndex = __webpack_require__(202),
-	    isTypedArray = __webpack_require__(203);
-
-	/** Used for built-in method references. */
-	var objectProto = Object.prototype;
-
-	/** Used to check objects for own properties. */
-	var hasOwnProperty = objectProto.hasOwnProperty;
-
-	/**
-	 * Creates an array of the enumerable property names of the array-like `value`.
-	 *
-	 * @private
-	 * @param {*} value The value to query.
-	 * @param {boolean} inherited Specify returning inherited property names.
-	 * @returns {Array} Returns the array of property names.
-	 */
-	function arrayLikeKeys(value, inherited) {
-	  var isArr = isArray(value),
-	      isArg = !isArr && isArguments(value),
-	      isBuff = !isArr && !isArg && isBuffer(value),
-	      isType = !isArr && !isArg && !isBuff && isTypedArray(value),
-	      skipIndexes = isArr || isArg || isBuff || isType,
-	      result = skipIndexes ? baseTimes(value.length, String) : [],
-	      length = result.length;
-
-	  for (var key in value) {
-	    if ((inherited || hasOwnProperty.call(value, key)) &&
-	        !(skipIndexes && (
-	           // Safari 9 has enumerable `arguments.length` in strict mode.
-	           key == 'length' ||
-	           // Node.js 0.10 has enumerable non-index properties on buffers.
-	           (isBuff && (key == 'offset' || key == 'parent')) ||
-	           // PhantomJS 2 has enumerable non-index properties on typed arrays.
-	           (isType && (key == 'buffer' || key == 'byteLength' || key == 'byteOffset')) ||
-	           // Skip index properties.
-	           isIndex(key, length)
-	        ))) {
-	      result.push(key);
-	    }
-	  }
-	  return result;
-	}
-
-	module.exports = arrayLikeKeys;
-
-
-/***/ },
-/* 188 */
-/***/ function(module, exports) {
-
-	/**
-	 * The base implementation of `_.times` without support for iteratee shorthands
-	 * or max array length checks.
-	 *
-	 * @private
-	 * @param {number} n The number of times to invoke `iteratee`.
-	 * @param {Function} iteratee The function invoked per iteration.
-	 * @returns {Array} Returns the array of results.
-	 */
-	function baseTimes(n, iteratee) {
-	  var index = -1,
-	      result = Array(n);
-
-	  while (++index < n) {
-	    result[index] = iteratee(index);
-	  }
-	  return result;
-	}
-
-	module.exports = baseTimes;
-
-
-/***/ },
-/* 189 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var baseIsArguments = __webpack_require__(190),
-	    isObjectLike = __webpack_require__(197);
-
-	/** Used for built-in method references. */
-	var objectProto = Object.prototype;
-
-	/** Used to check objects for own properties. */
-	var hasOwnProperty = objectProto.hasOwnProperty;
-
-	/** Built-in value references. */
-	var propertyIsEnumerable = objectProto.propertyIsEnumerable;
-
-	/**
-	 * Checks if `value` is likely an `arguments` object.
-	 *
-	 * @static
-	 * @memberOf _
-	 * @since 0.1.0
-	 * @category Lang
-	 * @param {*} value The value to check.
-	 * @returns {boolean} Returns `true` if `value` is an `arguments` object,
-	 *  else `false`.
-	 * @example
-	 *
-	 * _.isArguments(function() { return arguments; }());
-	 * // => true
-	 *
-	 * _.isArguments([1, 2, 3]);
-	 * // => false
-	 */
-	var isArguments = baseIsArguments(function() { return arguments; }()) ? baseIsArguments : function(value) {
-	  return isObjectLike(value) && hasOwnProperty.call(value, 'callee') &&
-	    !propertyIsEnumerable.call(value, 'callee');
-	};
-
-	module.exports = isArguments;
-
-
-/***/ },
-/* 190 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var baseGetTag = __webpack_require__(191),
-	    isObjectLike = __webpack_require__(197);
-
-	/** `Object#toString` result references. */
-	var argsTag = '[object Arguments]';
-
-	/**
-	 * The base implementation of `_.isArguments`.
-	 *
-	 * @private
-	 * @param {*} value The value to check.
-	 * @returns {boolean} Returns `true` if `value` is an `arguments` object,
-	 */
-	function baseIsArguments(value) {
-	  return isObjectLike(value) && baseGetTag(value) == argsTag;
-	}
-
-	module.exports = baseIsArguments;
-
-
-/***/ },
-/* 191 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var Symbol = __webpack_require__(192),
-	    getRawTag = __webpack_require__(195),
-	    objectToString = __webpack_require__(196);
-
-	/** `Object#toString` result references. */
-	var nullTag = '[object Null]',
-	    undefinedTag = '[object Undefined]';
-
-	/** Built-in value references. */
-	var symToStringTag = Symbol ? Symbol.toStringTag : undefined;
-
-	/**
-	 * The base implementation of `getTag` without fallbacks for buggy environments.
-	 *
-	 * @private
-	 * @param {*} value The value to query.
-	 * @returns {string} Returns the `toStringTag`.
-	 */
-	function baseGetTag(value) {
-	  if (value == null) {
-	    return value === undefined ? undefinedTag : nullTag;
-	  }
-	  return (symToStringTag && symToStringTag in Object(value))
-	    ? getRawTag(value)
-	    : objectToString(value);
-	}
-
-	module.exports = baseGetTag;
-
-
-/***/ },
-/* 192 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var root = __webpack_require__(193);
-
-	/** Built-in value references. */
-	var Symbol = root.Symbol;
-
-	module.exports = Symbol;
-
-
-/***/ },
-/* 193 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var freeGlobal = __webpack_require__(194);
-
-	/** Detect free variable `self`. */
-	var freeSelf = typeof self == 'object' && self && self.Object === Object && self;
-
-	/** Used as a reference to the global object. */
-	var root = freeGlobal || freeSelf || Function('return this')();
-
-	module.exports = root;
-
-
-/***/ },
-/* 194 */
-/***/ function(module, exports) {
-
-	/* WEBPACK VAR INJECTION */(function(global) {/** Detect free variable `global` from Node.js. */
-	var freeGlobal = typeof global == 'object' && global && global.Object === Object && global;
-
-	module.exports = freeGlobal;
-
-	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
-
-/***/ },
-/* 195 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var Symbol = __webpack_require__(192);
-
-	/** Used for built-in method references. */
-	var objectProto = Object.prototype;
-
-	/** Used to check objects for own properties. */
-	var hasOwnProperty = objectProto.hasOwnProperty;
-
-	/**
-	 * Used to resolve the
-	 * [`toStringTag`](http://ecma-international.org/ecma-262/7.0/#sec-object.prototype.tostring)
-	 * of values.
-	 */
-	var nativeObjectToString = objectProto.toString;
-
-	/** Built-in value references. */
-	var symToStringTag = Symbol ? Symbol.toStringTag : undefined;
-
-	/**
-	 * A specialized version of `baseGetTag` which ignores `Symbol.toStringTag` values.
-	 *
-	 * @private
-	 * @param {*} value The value to query.
-	 * @returns {string} Returns the raw `toStringTag`.
-	 */
-	function getRawTag(value) {
-	  var isOwn = hasOwnProperty.call(value, symToStringTag),
-	      tag = value[symToStringTag];
-
-	  try {
-	    value[symToStringTag] = undefined;
-	    var unmasked = true;
-	  } catch (e) {}
-
-	  var result = nativeObjectToString.call(value);
-	  if (unmasked) {
-	    if (isOwn) {
-	      value[symToStringTag] = tag;
-	    } else {
-	      delete value[symToStringTag];
-	    }
-	  }
-	  return result;
-	}
-
-	module.exports = getRawTag;
-
-
-/***/ },
-/* 196 */
-/***/ function(module, exports) {
-
-	/** Used for built-in method references. */
-	var objectProto = Object.prototype;
-
-	/**
-	 * Used to resolve the
-	 * [`toStringTag`](http://ecma-international.org/ecma-262/7.0/#sec-object.prototype.tostring)
-	 * of values.
-	 */
-	var nativeObjectToString = objectProto.toString;
-
-	/**
-	 * Converts `value` to a string using `Object.prototype.toString`.
-	 *
-	 * @private
-	 * @param {*} value The value to convert.
-	 * @returns {string} Returns the converted string.
-	 */
-	function objectToString(value) {
-	  return nativeObjectToString.call(value);
-	}
-
-	module.exports = objectToString;
-
-
-/***/ },
-/* 197 */
-/***/ function(module, exports) {
-
-	/**
-	 * Checks if `value` is object-like. A value is object-like if it's not `null`
-	 * and has a `typeof` result of "object".
-	 *
-	 * @static
-	 * @memberOf _
-	 * @since 4.0.0
-	 * @category Lang
-	 * @param {*} value The value to check.
-	 * @returns {boolean} Returns `true` if `value` is object-like, else `false`.
-	 * @example
-	 *
-	 * _.isObjectLike({});
-	 * // => true
-	 *
-	 * _.isObjectLike([1, 2, 3]);
-	 * // => true
-	 *
-	 * _.isObjectLike(_.noop);
-	 * // => false
-	 *
-	 * _.isObjectLike(null);
-	 * // => false
-	 */
-	function isObjectLike(value) {
-	  return value != null && typeof value == 'object';
-	}
-
-	module.exports = isObjectLike;
-
-
-/***/ },
-/* 198 */
-/***/ function(module, exports) {
-
-	/**
-	 * Checks if `value` is classified as an `Array` object.
-	 *
-	 * @static
-	 * @memberOf _
-	 * @since 0.1.0
-	 * @category Lang
-	 * @param {*} value The value to check.
-	 * @returns {boolean} Returns `true` if `value` is an array, else `false`.
-	 * @example
-	 *
-	 * _.isArray([1, 2, 3]);
-	 * // => true
-	 *
-	 * _.isArray(document.body.children);
-	 * // => false
-	 *
-	 * _.isArray('abc');
-	 * // => false
-	 *
-	 * _.isArray(_.noop);
-	 * // => false
-	 */
-	var isArray = Array.isArray;
-
-	module.exports = isArray;
-
-
-/***/ },
-/* 199 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/* WEBPACK VAR INJECTION */(function(module) {var root = __webpack_require__(193),
-	    stubFalse = __webpack_require__(201);
-
-	/** Detect free variable `exports`. */
-	var freeExports = typeof exports == 'object' && exports && !exports.nodeType && exports;
-
-	/** Detect free variable `module`. */
-	var freeModule = freeExports && typeof module == 'object' && module && !module.nodeType && module;
-
-	/** Detect the popular CommonJS extension `module.exports`. */
-	var moduleExports = freeModule && freeModule.exports === freeExports;
-
-	/** Built-in value references. */
-	var Buffer = moduleExports ? root.Buffer : undefined;
-
-	/* Built-in method references for those with the same name as other `lodash` methods. */
-	var nativeIsBuffer = Buffer ? Buffer.isBuffer : undefined;
-
-	/**
-	 * Checks if `value` is a buffer.
-	 *
-	 * @static
-	 * @memberOf _
-	 * @since 4.3.0
-	 * @category Lang
-	 * @param {*} value The value to check.
-	 * @returns {boolean} Returns `true` if `value` is a buffer, else `false`.
-	 * @example
-	 *
-	 * _.isBuffer(new Buffer(2));
-	 * // => true
-	 *
-	 * _.isBuffer(new Uint8Array(2));
-	 * // => false
-	 */
-	var isBuffer = nativeIsBuffer || stubFalse;
-
-	module.exports = isBuffer;
-
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(200)(module)))
-
-/***/ },
+/* 178 */,
+/* 179 */,
+/* 180 */,
+/* 181 */,
+/* 182 */,
+/* 183 */,
+/* 184 */,
+/* 185 */,
+/* 186 */,
+/* 187 */,
+/* 188 */,
+/* 189 */,
+/* 190 */,
+/* 191 */,
+/* 192 */,
+/* 193 */,
+/* 194 */,
+/* 195 */,
+/* 196 */,
+/* 197 */,
+/* 198 */,
+/* 199 */,
 /* 200 */
 /***/ function(module, exports) {
 
@@ -22356,544 +21663,23 @@
 
 
 /***/ },
-/* 201 */
-/***/ function(module, exports) {
-
-	/**
-	 * This method returns `false`.
-	 *
-	 * @static
-	 * @memberOf _
-	 * @since 4.13.0
-	 * @category Util
-	 * @returns {boolean} Returns `false`.
-	 * @example
-	 *
-	 * _.times(2, _.stubFalse);
-	 * // => [false, false]
-	 */
-	function stubFalse() {
-	  return false;
-	}
-
-	module.exports = stubFalse;
-
-
-/***/ },
-/* 202 */
-/***/ function(module, exports) {
-
-	/** Used as references for various `Number` constants. */
-	var MAX_SAFE_INTEGER = 9007199254740991;
-
-	/** Used to detect unsigned integer values. */
-	var reIsUint = /^(?:0|[1-9]\d*)$/;
-
-	/**
-	 * Checks if `value` is a valid array-like index.
-	 *
-	 * @private
-	 * @param {*} value The value to check.
-	 * @param {number} [length=MAX_SAFE_INTEGER] The upper bounds of a valid index.
-	 * @returns {boolean} Returns `true` if `value` is a valid index, else `false`.
-	 */
-	function isIndex(value, length) {
-	  length = length == null ? MAX_SAFE_INTEGER : length;
-	  return !!length &&
-	    (typeof value == 'number' || reIsUint.test(value)) &&
-	    (value > -1 && value % 1 == 0 && value < length);
-	}
-
-	module.exports = isIndex;
-
-
-/***/ },
-/* 203 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var baseIsTypedArray = __webpack_require__(204),
-	    baseUnary = __webpack_require__(206),
-	    nodeUtil = __webpack_require__(207);
-
-	/* Node.js helper references. */
-	var nodeIsTypedArray = nodeUtil && nodeUtil.isTypedArray;
-
-	/**
-	 * Checks if `value` is classified as a typed array.
-	 *
-	 * @static
-	 * @memberOf _
-	 * @since 3.0.0
-	 * @category Lang
-	 * @param {*} value The value to check.
-	 * @returns {boolean} Returns `true` if `value` is a typed array, else `false`.
-	 * @example
-	 *
-	 * _.isTypedArray(new Uint8Array);
-	 * // => true
-	 *
-	 * _.isTypedArray([]);
-	 * // => false
-	 */
-	var isTypedArray = nodeIsTypedArray ? baseUnary(nodeIsTypedArray) : baseIsTypedArray;
-
-	module.exports = isTypedArray;
-
-
-/***/ },
-/* 204 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var baseGetTag = __webpack_require__(191),
-	    isLength = __webpack_require__(205),
-	    isObjectLike = __webpack_require__(197);
-
-	/** `Object#toString` result references. */
-	var argsTag = '[object Arguments]',
-	    arrayTag = '[object Array]',
-	    boolTag = '[object Boolean]',
-	    dateTag = '[object Date]',
-	    errorTag = '[object Error]',
-	    funcTag = '[object Function]',
-	    mapTag = '[object Map]',
-	    numberTag = '[object Number]',
-	    objectTag = '[object Object]',
-	    regexpTag = '[object RegExp]',
-	    setTag = '[object Set]',
-	    stringTag = '[object String]',
-	    weakMapTag = '[object WeakMap]';
-
-	var arrayBufferTag = '[object ArrayBuffer]',
-	    dataViewTag = '[object DataView]',
-	    float32Tag = '[object Float32Array]',
-	    float64Tag = '[object Float64Array]',
-	    int8Tag = '[object Int8Array]',
-	    int16Tag = '[object Int16Array]',
-	    int32Tag = '[object Int32Array]',
-	    uint8Tag = '[object Uint8Array]',
-	    uint8ClampedTag = '[object Uint8ClampedArray]',
-	    uint16Tag = '[object Uint16Array]',
-	    uint32Tag = '[object Uint32Array]';
-
-	/** Used to identify `toStringTag` values of typed arrays. */
-	var typedArrayTags = {};
-	typedArrayTags[float32Tag] = typedArrayTags[float64Tag] =
-	typedArrayTags[int8Tag] = typedArrayTags[int16Tag] =
-	typedArrayTags[int32Tag] = typedArrayTags[uint8Tag] =
-	typedArrayTags[uint8ClampedTag] = typedArrayTags[uint16Tag] =
-	typedArrayTags[uint32Tag] = true;
-	typedArrayTags[argsTag] = typedArrayTags[arrayTag] =
-	typedArrayTags[arrayBufferTag] = typedArrayTags[boolTag] =
-	typedArrayTags[dataViewTag] = typedArrayTags[dateTag] =
-	typedArrayTags[errorTag] = typedArrayTags[funcTag] =
-	typedArrayTags[mapTag] = typedArrayTags[numberTag] =
-	typedArrayTags[objectTag] = typedArrayTags[regexpTag] =
-	typedArrayTags[setTag] = typedArrayTags[stringTag] =
-	typedArrayTags[weakMapTag] = false;
-
-	/**
-	 * The base implementation of `_.isTypedArray` without Node.js optimizations.
-	 *
-	 * @private
-	 * @param {*} value The value to check.
-	 * @returns {boolean} Returns `true` if `value` is a typed array, else `false`.
-	 */
-	function baseIsTypedArray(value) {
-	  return isObjectLike(value) &&
-	    isLength(value.length) && !!typedArrayTags[baseGetTag(value)];
-	}
-
-	module.exports = baseIsTypedArray;
-
-
-/***/ },
-/* 205 */
-/***/ function(module, exports) {
-
-	/** Used as references for various `Number` constants. */
-	var MAX_SAFE_INTEGER = 9007199254740991;
-
-	/**
-	 * Checks if `value` is a valid array-like length.
-	 *
-	 * **Note:** This method is loosely based on
-	 * [`ToLength`](http://ecma-international.org/ecma-262/7.0/#sec-tolength).
-	 *
-	 * @static
-	 * @memberOf _
-	 * @since 4.0.0
-	 * @category Lang
-	 * @param {*} value The value to check.
-	 * @returns {boolean} Returns `true` if `value` is a valid length, else `false`.
-	 * @example
-	 *
-	 * _.isLength(3);
-	 * // => true
-	 *
-	 * _.isLength(Number.MIN_VALUE);
-	 * // => false
-	 *
-	 * _.isLength(Infinity);
-	 * // => false
-	 *
-	 * _.isLength('3');
-	 * // => false
-	 */
-	function isLength(value) {
-	  return typeof value == 'number' &&
-	    value > -1 && value % 1 == 0 && value <= MAX_SAFE_INTEGER;
-	}
-
-	module.exports = isLength;
-
-
-/***/ },
-/* 206 */
-/***/ function(module, exports) {
-
-	/**
-	 * The base implementation of `_.unary` without support for storing metadata.
-	 *
-	 * @private
-	 * @param {Function} func The function to cap arguments for.
-	 * @returns {Function} Returns the new capped function.
-	 */
-	function baseUnary(func) {
-	  return function(value) {
-	    return func(value);
-	  };
-	}
-
-	module.exports = baseUnary;
-
-
-/***/ },
-/* 207 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/* WEBPACK VAR INJECTION */(function(module) {var freeGlobal = __webpack_require__(194);
-
-	/** Detect free variable `exports`. */
-	var freeExports = typeof exports == 'object' && exports && !exports.nodeType && exports;
-
-	/** Detect free variable `module`. */
-	var freeModule = freeExports && typeof module == 'object' && module && !module.nodeType && module;
-
-	/** Detect the popular CommonJS extension `module.exports`. */
-	var moduleExports = freeModule && freeModule.exports === freeExports;
-
-	/** Detect free variable `process` from Node.js. */
-	var freeProcess = moduleExports && freeGlobal.process;
-
-	/** Used to access faster Node.js helpers. */
-	var nodeUtil = (function() {
-	  try {
-	    return freeProcess && freeProcess.binding && freeProcess.binding('util');
-	  } catch (e) {}
-	}());
-
-	module.exports = nodeUtil;
-
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(200)(module)))
-
-/***/ },
-/* 208 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var isPrototype = __webpack_require__(209),
-	    nativeKeys = __webpack_require__(210);
-
-	/** Used for built-in method references. */
-	var objectProto = Object.prototype;
-
-	/** Used to check objects for own properties. */
-	var hasOwnProperty = objectProto.hasOwnProperty;
-
-	/**
-	 * The base implementation of `_.keys` which doesn't treat sparse arrays as dense.
-	 *
-	 * @private
-	 * @param {Object} object The object to query.
-	 * @returns {Array} Returns the array of property names.
-	 */
-	function baseKeys(object) {
-	  if (!isPrototype(object)) {
-	    return nativeKeys(object);
-	  }
-	  var result = [];
-	  for (var key in Object(object)) {
-	    if (hasOwnProperty.call(object, key) && key != 'constructor') {
-	      result.push(key);
-	    }
-	  }
-	  return result;
-	}
-
-	module.exports = baseKeys;
-
-
-/***/ },
-/* 209 */
-/***/ function(module, exports) {
-
-	/** Used for built-in method references. */
-	var objectProto = Object.prototype;
-
-	/**
-	 * Checks if `value` is likely a prototype object.
-	 *
-	 * @private
-	 * @param {*} value The value to check.
-	 * @returns {boolean} Returns `true` if `value` is a prototype, else `false`.
-	 */
-	function isPrototype(value) {
-	  var Ctor = value && value.constructor,
-	      proto = (typeof Ctor == 'function' && Ctor.prototype) || objectProto;
-
-	  return value === proto;
-	}
-
-	module.exports = isPrototype;
-
-
-/***/ },
-/* 210 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var overArg = __webpack_require__(211);
-
-	/* Built-in method references for those with the same name as other `lodash` methods. */
-	var nativeKeys = overArg(Object.keys, Object);
-
-	module.exports = nativeKeys;
-
-
-/***/ },
-/* 211 */
-/***/ function(module, exports) {
-
-	/**
-	 * Creates a unary function that invokes `func` with its argument transformed.
-	 *
-	 * @private
-	 * @param {Function} func The function to wrap.
-	 * @param {Function} transform The argument transform.
-	 * @returns {Function} Returns the new function.
-	 */
-	function overArg(func, transform) {
-	  return function(arg) {
-	    return func(transform(arg));
-	  };
-	}
-
-	module.exports = overArg;
-
-
-/***/ },
-/* 212 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var isFunction = __webpack_require__(213),
-	    isLength = __webpack_require__(205);
-
-	/**
-	 * Checks if `value` is array-like. A value is considered array-like if it's
-	 * not a function and has a `value.length` that's an integer greater than or
-	 * equal to `0` and less than or equal to `Number.MAX_SAFE_INTEGER`.
-	 *
-	 * @static
-	 * @memberOf _
-	 * @since 4.0.0
-	 * @category Lang
-	 * @param {*} value The value to check.
-	 * @returns {boolean} Returns `true` if `value` is array-like, else `false`.
-	 * @example
-	 *
-	 * _.isArrayLike([1, 2, 3]);
-	 * // => true
-	 *
-	 * _.isArrayLike(document.body.children);
-	 * // => true
-	 *
-	 * _.isArrayLike('abc');
-	 * // => true
-	 *
-	 * _.isArrayLike(_.noop);
-	 * // => false
-	 */
-	function isArrayLike(value) {
-	  return value != null && isLength(value.length) && !isFunction(value);
-	}
-
-	module.exports = isArrayLike;
-
-
-/***/ },
-/* 213 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var baseGetTag = __webpack_require__(191),
-	    isObject = __webpack_require__(214);
-
-	/** `Object#toString` result references. */
-	var asyncTag = '[object AsyncFunction]',
-	    funcTag = '[object Function]',
-	    genTag = '[object GeneratorFunction]',
-	    proxyTag = '[object Proxy]';
-
-	/**
-	 * Checks if `value` is classified as a `Function` object.
-	 *
-	 * @static
-	 * @memberOf _
-	 * @since 0.1.0
-	 * @category Lang
-	 * @param {*} value The value to check.
-	 * @returns {boolean} Returns `true` if `value` is a function, else `false`.
-	 * @example
-	 *
-	 * _.isFunction(_);
-	 * // => true
-	 *
-	 * _.isFunction(/abc/);
-	 * // => false
-	 */
-	function isFunction(value) {
-	  if (!isObject(value)) {
-	    return false;
-	  }
-	  // The use of `Object#toString` avoids issues with the `typeof` operator
-	  // in Safari 9 which returns 'object' for typed arrays and other constructors.
-	  var tag = baseGetTag(value);
-	  return tag == funcTag || tag == genTag || tag == asyncTag || tag == proxyTag;
-	}
-
-	module.exports = isFunction;
-
-
-/***/ },
-/* 214 */
-/***/ function(module, exports) {
-
-	/**
-	 * Checks if `value` is the
-	 * [language type](http://www.ecma-international.org/ecma-262/7.0/#sec-ecmascript-language-types)
-	 * of `Object`. (e.g. arrays, functions, objects, regexes, `new Number(0)`, and `new String('')`)
-	 *
-	 * @static
-	 * @memberOf _
-	 * @since 0.1.0
-	 * @category Lang
-	 * @param {*} value The value to check.
-	 * @returns {boolean} Returns `true` if `value` is an object, else `false`.
-	 * @example
-	 *
-	 * _.isObject({});
-	 * // => true
-	 *
-	 * _.isObject([1, 2, 3]);
-	 * // => true
-	 *
-	 * _.isObject(_.noop);
-	 * // => true
-	 *
-	 * _.isObject(null);
-	 * // => false
-	 */
-	function isObject(value) {
-	  var type = typeof value;
-	  return value != null && (type == 'object' || type == 'function');
-	}
-
-	module.exports = isObject;
-
-
-/***/ },
-/* 215 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var isArrayLike = __webpack_require__(212);
-
-	/**
-	 * Creates a `baseEach` or `baseEachRight` function.
-	 *
-	 * @private
-	 * @param {Function} eachFunc The function to iterate over a collection.
-	 * @param {boolean} [fromRight] Specify iterating from right to left.
-	 * @returns {Function} Returns the new base function.
-	 */
-	function createBaseEach(eachFunc, fromRight) {
-	  return function(collection, iteratee) {
-	    if (collection == null) {
-	      return collection;
-	    }
-	    if (!isArrayLike(collection)) {
-	      return eachFunc(collection, iteratee);
-	    }
-	    var length = collection.length,
-	        index = fromRight ? length : -1,
-	        iterable = Object(collection);
-
-	    while ((fromRight ? index-- : ++index < length)) {
-	      if (iteratee(iterable[index], index, iterable) === false) {
-	        break;
-	      }
-	    }
-	    return collection;
-	  };
-	}
-
-	module.exports = createBaseEach;
-
-
-/***/ },
-/* 216 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var identity = __webpack_require__(217);
-
-	/**
-	 * Casts `value` to `identity` if it's not a function.
-	 *
-	 * @private
-	 * @param {*} value The value to inspect.
-	 * @returns {Function} Returns cast function.
-	 */
-	function castFunction(value) {
-	  return typeof value == 'function' ? value : identity;
-	}
-
-	module.exports = castFunction;
-
-
-/***/ },
-/* 217 */
-/***/ function(module, exports) {
-
-	/**
-	 * This method returns the first argument it receives.
-	 *
-	 * @static
-	 * @since 0.1.0
-	 * @memberOf _
-	 * @category Util
-	 * @param {*} value Any value.
-	 * @returns {*} Returns `value`.
-	 * @example
-	 *
-	 * var object = { 'a': 1 };
-	 *
-	 * console.log(_.identity(object) === object);
-	 * // => true
-	 */
-	function identity(value) {
-	  return value;
-	}
-
-	module.exports = identity;
-
-
-/***/ },
+/* 201 */,
+/* 202 */,
+/* 203 */,
+/* 204 */,
+/* 205 */,
+/* 206 */,
+/* 207 */,
+/* 208 */,
+/* 209 */,
+/* 210 */,
+/* 211 */,
+/* 212 */,
+/* 213 */,
+/* 214 */,
+/* 215 */,
+/* 216 */,
+/* 217 */,
 /* 218 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -28277,7 +27063,7 @@
 /* 277 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
+	"use strict";
 
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
@@ -28289,25 +27075,9 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _MuiThemeProvider = __webpack_require__(278);
+	var _Card = __webpack_require__(485);
 
-	var _MuiThemeProvider2 = _interopRequireDefault(_MuiThemeProvider);
-
-	var _RaisedButton = __webpack_require__(425);
-
-	var _RaisedButton2 = _interopRequireDefault(_RaisedButton);
-
-	var _AppBar = __webpack_require__(457);
-
-	var _AppBar2 = _interopRequireDefault(_AppBar);
-
-	var _reactTapEventPlugin = __webpack_require__(476);
-
-	var _reactTapEventPlugin2 = _interopRequireDefault(_reactTapEventPlugin);
-
-	var _TopBar = __webpack_require__(482);
-
-	var _TopBar2 = _interopRequireDefault(_TopBar);
+	var _Card2 = _interopRequireDefault(_Card);
 
 	var _moment = __webpack_require__(526);
 
@@ -28340,7 +27110,7 @@
 	    }
 
 	    _createClass(Home, [{
-	        key: 'componentDidMount',
+	        key: "componentDidMount",
 	        value: function componentDidMount() {
 	            var _this2 = this;
 
@@ -28353,7 +27123,7 @@
 	            }).then(function (response) {
 	                return response.json();
 	            }).then(function (json) {
-	                console.log(JSON.stringify(json));
+	                // console.log(JSON.stringify(json));
 	                _this2.setState({
 	                    blogList: json.result.blogList
 	                });
@@ -28362,7 +27132,7 @@
 	            });
 	        }
 	    }, {
-	        key: 'render',
+	        key: "render",
 	        value: function render() {
 	            var blogListView = void 0;
 
@@ -28377,33 +27147,37 @@
 
 	            if (null != this.state.blogList) {
 	                blogListView = this.state.blogList.map(function (blog) {
-	                    console.log("blog=" + blog.blogTitle);
+	                    // console.log("blog=" + blog.blogTitle);
 	                    var time = blog.time;
 	                    var date = new Date(time);
 	                    var dateStr = (0, _moment2.default)(date).format("YYYY-MM-DD HH:mm:ss");
 	                    return _react2.default.createElement(
-	                        'div',
+	                        "div",
 	                        { key: blog._id },
 	                        _react2.default.createElement(
-	                            'h1',
+	                            _Card2.default,
 	                            null,
-	                            blog.blogTitle
-	                        ),
-	                        _react2.default.createElement(
-	                            'div',
-	                            null,
-	                            blog.blogContent
-	                        ),
-	                        _react2.default.createElement(
-	                            'div',
-	                            null,
-	                            dateStr
+	                            _react2.default.createElement(
+	                                "h1",
+	                                null,
+	                                blog.blogTitle
+	                            ),
+	                            _react2.default.createElement(
+	                                "div",
+	                                null,
+	                                blog.blogContent
+	                            ),
+	                            _react2.default.createElement(
+	                                "div",
+	                                null,
+	                                dateStr
+	                            )
 	                        )
 	                    );
 	                });
 	            }
 	            return _react2.default.createElement(
-	                'div',
+	                "div",
 	                null,
 	                blogListView
 	            );
@@ -41054,11 +39828,11 @@
 
 	var _AppBar2 = _interopRequireDefault(_AppBar);
 
-	var _Avatar = __webpack_require__(489);
+	var _Avatar = __webpack_require__(483);
 
 	var _Avatar2 = _interopRequireDefault(_Avatar);
 
-	var _Card = __webpack_require__(483);
+	var _Card = __webpack_require__(485);
 
 	var _Card2 = _interopRequireDefault(_Card);
 
@@ -41137,9 +39911,14 @@
 	        value: function render() {
 	            var _this2 = this;
 
-	            if (this.props.user.fileName) {
-	                var avatarPath = "../../uploadFiles/avatars" + this.props.user.fileName;
-	                console.log("avatarPath=" + avatarPath);
+	            var avatarPath = void 0;
+	            var showAvatar = "none";
+	            if (this.props.user) {
+	                if (this.props.user.fileName) {
+	                    avatarPath = "/uploadFiles/avatars/" + this.props.user.fileName;
+	                    showAvatar = "inline";
+	                    console.log("avatarPath=" + avatarPath);
+	                }
 	            }
 
 	            return _react2.default.createElement(
@@ -41194,6 +39973,10 @@
 	                            } },
 	                        '\u5199\u6587\u7AE0'
 	                    ),
+	                    _react2.default.createElement(_Avatar2.default, { src: avatarPath,
+	                        style: {
+	                            display: showAvatar
+	                        } }),
 	                    _react2.default.createElement(
 	                        'div',
 	                        { style: {
@@ -41204,6 +39987,7 @@
 	                            } },
 	                        _react2.default.createElement('span', { style: { flex: 1 } }),
 	                        _react2.default.createElement(_MyMenu2.default, {
+	                            user: this.props.user,
 	                            hasLogin: this.props.hasLogin,
 	                            style: {},
 	                            ref: 'my_menu' })
@@ -41227,13 +40011,204 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
+	exports.default = undefined;
+
+	var _Avatar = __webpack_require__(484);
+
+	var _Avatar2 = _interopRequireDefault(_Avatar);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	exports.default = _Avatar2.default;
+
+/***/ },
+/* 484 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _extends2 = __webpack_require__(427);
+
+	var _extends3 = _interopRequireDefault(_extends2);
+
+	var _objectWithoutProperties2 = __webpack_require__(432);
+
+	var _objectWithoutProperties3 = _interopRequireDefault(_objectWithoutProperties2);
+
+	var _getPrototypeOf = __webpack_require__(279);
+
+	var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
+
+	var _classCallCheck2 = __webpack_require__(305);
+
+	var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
+
+	var _createClass2 = __webpack_require__(306);
+
+	var _createClass3 = _interopRequireDefault(_createClass2);
+
+	var _possibleConstructorReturn2 = __webpack_require__(310);
+
+	var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
+
+	var _inherits2 = __webpack_require__(357);
+
+	var _inherits3 = _interopRequireDefault(_inherits2);
+
+	var _simpleAssign = __webpack_require__(433);
+
+	var _simpleAssign2 = _interopRequireDefault(_simpleAssign);
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function getStyles(props, context) {
+	  var backgroundColor = props.backgroundColor,
+	      color = props.color,
+	      size = props.size;
+	  var avatar = context.muiTheme.avatar;
+
+
+	  var styles = {
+	    root: {
+	      color: color || avatar.color,
+	      backgroundColor: backgroundColor || avatar.backgroundColor,
+	      userSelect: 'none',
+	      display: 'inline-flex',
+	      alignItems: 'center',
+	      justifyContent: 'center',
+	      fontSize: size / 2,
+	      borderRadius: '50%',
+	      height: size,
+	      width: size
+	    },
+	    icon: {
+	      color: color || avatar.color,
+	      width: size * 0.6,
+	      height: size * 0.6,
+	      fontSize: size * 0.6,
+	      margin: size * 0.2
+	    }
+	  };
+
+	  return styles;
+	}
+
+	var Avatar = function (_Component) {
+	  (0, _inherits3.default)(Avatar, _Component);
+
+	  function Avatar() {
+	    (0, _classCallCheck3.default)(this, Avatar);
+	    return (0, _possibleConstructorReturn3.default)(this, (Avatar.__proto__ || (0, _getPrototypeOf2.default)(Avatar)).apply(this, arguments));
+	  }
+
+	  (0, _createClass3.default)(Avatar, [{
+	    key: 'render',
+	    value: function render() {
+	      var _props = this.props,
+	          backgroundColor = _props.backgroundColor,
+	          icon = _props.icon,
+	          src = _props.src,
+	          style = _props.style,
+	          className = _props.className,
+	          other = (0, _objectWithoutProperties3.default)(_props, ['backgroundColor', 'icon', 'src', 'style', 'className']);
+	      var prepareStyles = this.context.muiTheme.prepareStyles;
+
+	      var styles = getStyles(this.props, this.context);
+
+	      if (src) {
+	        return _react2.default.createElement('img', (0, _extends3.default)({
+	          style: prepareStyles((0, _simpleAssign2.default)(styles.root, style))
+	        }, other, {
+	          src: src,
+	          className: className
+	        }));
+	      } else {
+	        return _react2.default.createElement(
+	          'div',
+	          (0, _extends3.default)({}, other, {
+	            style: prepareStyles((0, _simpleAssign2.default)(styles.root, style)),
+	            className: className
+	          }),
+	          icon && _react2.default.cloneElement(icon, {
+	            color: styles.icon.color,
+	            style: (0, _simpleAssign2.default)(styles.icon, icon.props.style)
+	          }),
+	          this.props.children
+	        );
+	      }
+	    }
+	  }]);
+	  return Avatar;
+	}(_react.Component);
+
+	Avatar.muiName = 'Avatar';
+	Avatar.defaultProps = {
+	  size: 40
+	};
+	Avatar.contextTypes = {
+	  muiTheme: _react.PropTypes.object.isRequired
+	};
+	process.env.NODE_ENV !== "production" ? Avatar.propTypes = {
+	  /**
+	   * The backgroundColor of the avatar. Does not apply to image avatars.
+	   */
+	  backgroundColor: _react.PropTypes.string,
+	  /**
+	   * Can be used, for instance, to render a letter inside the avatar.
+	   */
+	  children: _react.PropTypes.node,
+	  /**
+	   * The css class name of the root `div` or `img` element.
+	   */
+	  className: _react.PropTypes.string,
+	  /**
+	   * The icon or letter's color.
+	   */
+	  color: _react.PropTypes.string,
+	  /**
+	   * This is the SvgIcon or FontIcon to be used inside the avatar.
+	   */
+	  icon: _react.PropTypes.element,
+	  /**
+	   * This is the size of the avatar in pixels.
+	   */
+	  size: _react.PropTypes.number,
+	  /**
+	   * If passed in, this component will render an img element. Otherwise, a div will be rendered.
+	   */
+	  src: _react.PropTypes.string,
+	  /**
+	   * Override the inline-styles of the root element.
+	   */
+	  style: _react.PropTypes.object
+	} : void 0;
+	exports.default = Avatar;
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
+
+/***/ },
+/* 485 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
 	exports.default = exports.CardExpandable = exports.CardActions = exports.CardText = exports.CardMedia = exports.CardTitle = exports.CardHeader = exports.Card = undefined;
 
-	var _Card2 = __webpack_require__(484);
+	var _Card2 = __webpack_require__(486);
 
 	var _Card3 = _interopRequireDefault(_Card2);
 
-	var _CardHeader2 = __webpack_require__(488);
+	var _CardHeader2 = __webpack_require__(490);
 
 	var _CardHeader3 = _interopRequireDefault(_CardHeader2);
 
@@ -41253,7 +40228,7 @@
 
 	var _CardActions3 = _interopRequireDefault(_CardActions2);
 
-	var _CardExpandable2 = __webpack_require__(485);
+	var _CardExpandable2 = __webpack_require__(487);
 
 	var _CardExpandable3 = _interopRequireDefault(_CardExpandable2);
 
@@ -41269,7 +40244,7 @@
 	exports.default = _Card3.default;
 
 /***/ },
-/* 484 */
+/* 486 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -41318,7 +40293,7 @@
 
 	var _Paper2 = _interopRequireDefault(_Paper);
 
-	var _CardExpandable = __webpack_require__(485);
+	var _CardExpandable = __webpack_require__(487);
 
 	var _CardExpandable2 = _interopRequireDefault(_CardExpandable);
 
@@ -41489,7 +40464,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
 
 /***/ },
-/* 485 */
+/* 487 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -41526,11 +40501,11 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _keyboardArrowUp = __webpack_require__(486);
+	var _keyboardArrowUp = __webpack_require__(488);
 
 	var _keyboardArrowUp2 = _interopRequireDefault(_keyboardArrowUp);
 
-	var _keyboardArrowDown = __webpack_require__(487);
+	var _keyboardArrowDown = __webpack_require__(489);
 
 	var _keyboardArrowDown2 = _interopRequireDefault(_keyboardArrowDown);
 
@@ -41596,7 +40571,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
 
 /***/ },
-/* 486 */
+/* 488 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -41633,7 +40608,7 @@
 	exports.default = HardwareKeyboardArrowUp;
 
 /***/ },
-/* 487 */
+/* 489 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -41670,7 +40645,7 @@
 	exports.default = HardwareKeyboardArrowDown;
 
 /***/ },
-/* 488 */
+/* 490 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -41715,7 +40690,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _Avatar = __webpack_require__(489);
+	var _Avatar = __webpack_require__(483);
 
 	var _Avatar2 = _interopRequireDefault(_Avatar);
 
@@ -41894,197 +40869,6 @@
 	  titleStyle: _react.PropTypes.object
 	} : void 0;
 	exports.default = CardHeader;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
-
-/***/ },
-/* 489 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	exports.default = undefined;
-
-	var _Avatar = __webpack_require__(490);
-
-	var _Avatar2 = _interopRequireDefault(_Avatar);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	exports.default = _Avatar2.default;
-
-/***/ },
-/* 490 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _extends2 = __webpack_require__(427);
-
-	var _extends3 = _interopRequireDefault(_extends2);
-
-	var _objectWithoutProperties2 = __webpack_require__(432);
-
-	var _objectWithoutProperties3 = _interopRequireDefault(_objectWithoutProperties2);
-
-	var _getPrototypeOf = __webpack_require__(279);
-
-	var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
-
-	var _classCallCheck2 = __webpack_require__(305);
-
-	var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
-
-	var _createClass2 = __webpack_require__(306);
-
-	var _createClass3 = _interopRequireDefault(_createClass2);
-
-	var _possibleConstructorReturn2 = __webpack_require__(310);
-
-	var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
-
-	var _inherits2 = __webpack_require__(357);
-
-	var _inherits3 = _interopRequireDefault(_inherits2);
-
-	var _simpleAssign = __webpack_require__(433);
-
-	var _simpleAssign2 = _interopRequireDefault(_simpleAssign);
-
-	var _react = __webpack_require__(1);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function getStyles(props, context) {
-	  var backgroundColor = props.backgroundColor,
-	      color = props.color,
-	      size = props.size;
-	  var avatar = context.muiTheme.avatar;
-
-
-	  var styles = {
-	    root: {
-	      color: color || avatar.color,
-	      backgroundColor: backgroundColor || avatar.backgroundColor,
-	      userSelect: 'none',
-	      display: 'inline-flex',
-	      alignItems: 'center',
-	      justifyContent: 'center',
-	      fontSize: size / 2,
-	      borderRadius: '50%',
-	      height: size,
-	      width: size
-	    },
-	    icon: {
-	      color: color || avatar.color,
-	      width: size * 0.6,
-	      height: size * 0.6,
-	      fontSize: size * 0.6,
-	      margin: size * 0.2
-	    }
-	  };
-
-	  return styles;
-	}
-
-	var Avatar = function (_Component) {
-	  (0, _inherits3.default)(Avatar, _Component);
-
-	  function Avatar() {
-	    (0, _classCallCheck3.default)(this, Avatar);
-	    return (0, _possibleConstructorReturn3.default)(this, (Avatar.__proto__ || (0, _getPrototypeOf2.default)(Avatar)).apply(this, arguments));
-	  }
-
-	  (0, _createClass3.default)(Avatar, [{
-	    key: 'render',
-	    value: function render() {
-	      var _props = this.props,
-	          backgroundColor = _props.backgroundColor,
-	          icon = _props.icon,
-	          src = _props.src,
-	          style = _props.style,
-	          className = _props.className,
-	          other = (0, _objectWithoutProperties3.default)(_props, ['backgroundColor', 'icon', 'src', 'style', 'className']);
-	      var prepareStyles = this.context.muiTheme.prepareStyles;
-
-	      var styles = getStyles(this.props, this.context);
-
-	      if (src) {
-	        return _react2.default.createElement('img', (0, _extends3.default)({
-	          style: prepareStyles((0, _simpleAssign2.default)(styles.root, style))
-	        }, other, {
-	          src: src,
-	          className: className
-	        }));
-	      } else {
-	        return _react2.default.createElement(
-	          'div',
-	          (0, _extends3.default)({}, other, {
-	            style: prepareStyles((0, _simpleAssign2.default)(styles.root, style)),
-	            className: className
-	          }),
-	          icon && _react2.default.cloneElement(icon, {
-	            color: styles.icon.color,
-	            style: (0, _simpleAssign2.default)(styles.icon, icon.props.style)
-	          }),
-	          this.props.children
-	        );
-	      }
-	    }
-	  }]);
-	  return Avatar;
-	}(_react.Component);
-
-	Avatar.muiName = 'Avatar';
-	Avatar.defaultProps = {
-	  size: 40
-	};
-	Avatar.contextTypes = {
-	  muiTheme: _react.PropTypes.object.isRequired
-	};
-	process.env.NODE_ENV !== "production" ? Avatar.propTypes = {
-	  /**
-	   * The backgroundColor of the avatar. Does not apply to image avatars.
-	   */
-	  backgroundColor: _react.PropTypes.string,
-	  /**
-	   * Can be used, for instance, to render a letter inside the avatar.
-	   */
-	  children: _react.PropTypes.node,
-	  /**
-	   * The css class name of the root `div` or `img` element.
-	   */
-	  className: _react.PropTypes.string,
-	  /**
-	   * The icon or letter's color.
-	   */
-	  color: _react.PropTypes.string,
-	  /**
-	   * This is the SvgIcon or FontIcon to be used inside the avatar.
-	   */
-	  icon: _react.PropTypes.element,
-	  /**
-	   * This is the size of the avatar in pixels.
-	   */
-	  size: _react.PropTypes.number,
-	  /**
-	   * If passed in, this component will render an img element. Otherwise, a div will be rendered.
-	   */
-	  src: _react.PropTypes.string,
-	  /**
-	   * Override the inline-styles of the root element.
-	   */
-	  style: _react.PropTypes.object
-	} : void 0;
-	exports.default = Avatar;
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
 
 /***/ },
@@ -62969,15 +61753,15 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _TextField = __webpack_require__(640);
+	var _TextField = __webpack_require__(639);
 
 	var _TextField2 = _interopRequireDefault(_TextField);
 
-	var _Card = __webpack_require__(483);
+	var _Card = __webpack_require__(485);
 
 	var _Card2 = _interopRequireDefault(_Card);
 
-	var _SelectField = __webpack_require__(646);
+	var _SelectField = __webpack_require__(645);
 
 	var _SelectField2 = _interopRequireDefault(_SelectField);
 
@@ -63166,368 +61950,6 @@
 /* 639 */
 /***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
-
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-	var _react = __webpack_require__(1);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _TextField = __webpack_require__(640);
-
-	var _TextField2 = _interopRequireDefault(_TextField);
-
-	var _Card = __webpack_require__(483);
-
-	var _Card2 = _interopRequireDefault(_Card);
-
-	var _SelectField = __webpack_require__(646);
-
-	var _SelectField2 = _interopRequireDefault(_SelectField);
-
-	var _RaisedButton = __webpack_require__(425);
-
-	var _RaisedButton2 = _interopRequireDefault(_RaisedButton);
-
-	var _MenuItem = __webpack_require__(523);
-
-	var _MenuItem2 = _interopRequireDefault(_MenuItem);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /**
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * Created by shenjiajun on 2017/1/29.
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                */
-
-
-	var uploadInput = void 0;
-	var userNameTF = void 0;
-	var passTF = void 0;
-	var passConfirmTF = void 0;
-	var userIntroTF = void 0;
-	var file = void 0;
-
-	var SignUp = function (_React$Component) {
-	    _inherits(SignUp, _React$Component);
-
-	    function SignUp(props) {
-	        _classCallCheck(this, SignUp);
-
-	        var _this = _possibleConstructorReturn(this, (SignUp.__proto__ || Object.getPrototypeOf(SignUp)).call(this, props));
-
-	        _this.state = {
-	            selectedGender: 1,
-	            avatarUrl: "",
-	            selectedFileName: "",
-	            nameError: "",
-	            passError: "",
-	            passConfirmError: "",
-	            userIntroError: ""
-	        };
-	        return _this;
-	    }
-
-	    _createClass(SignUp, [{
-	        key: "componentDidMount",
-	        value: function componentDidMount() {
-	            uploadInput = this.refs.uploadInput;
-	            userNameTF = this.refs.userNameTF;
-	            passTF = this.refs.passTF;
-	            passConfirmTF = this.refs.passConfirmTF;
-	            userIntroTF = this.refs.userIntroTF;
-	        }
-	    }, {
-	        key: "genderSelected",
-	        value: function genderSelected(event, index, value) {
-	            // console.log("genderSelected="+value);
-	            this.setState({
-	                selectedGender: value
-	            });
-	        }
-	    }, {
-	        key: "onUpLoadClick",
-	        value: function onUpLoadClick() {
-	            // console.info("onUpLoadClick=");
-	            uploadInput.click();
-	        }
-	    }, {
-	        key: "avatarSelected",
-	        value: function avatarSelected(event) {
-	            // console.info("event=" + uploadInput.files.length);
-	            file = uploadInput.files[0];
-	            console.info("file=" + file.name);
-	            this.setState({
-	                selectedFileName: file.name
-	            });
-	            // let objectURL = window.URL.createObjectURL(file);
-	            // console.info("event=" + objectURL);
-	            // window.URL.revokeObjectURL(objectURL);
-	        }
-	    }, {
-	        key: "onSignUp",
-	        value: function onSignUp() {
-	            var _this2 = this;
-
-	            var userNameStr = userNameTF.getValue();
-	            var passStr = passTF.getValue();
-	            var passConfirmStr = passConfirmTF.getValue();
-	            var userIntroStr = userIntroTF.getValue();
-
-	            var infoFinished = true;
-	            if ("" === userNameStr) {
-	                this.setState({
-	                    nameError: "不能为空"
-	                });
-	                infoFinished = false;
-	            }
-	            if ("" === passStr) {
-	                this.setState({
-	                    passError: "不能为空"
-	                });
-	                infoFinished = false;
-	            }
-	            if ("" === passConfirmStr) {
-	                this.setState({
-	                    passConfirmError: "不能为空"
-	                });
-	                infoFinished = false;
-	            }
-	            if (passConfirmStr !== passStr) {
-	                this.setState({
-	                    passError: "密码不一致",
-	                    passConfirmError: "密码不一致"
-	                });
-	                infoFinished = false;
-	            }
-	            if (!infoFinished) {
-	                return;
-	            }
-
-	            console.info("upload =" + userNameStr + passStr + passConfirmStr + userIntroStr);
-
-	            var body = {
-	                "userName": userNameStr,
-	                "pass": passStr,
-	                "passConfirm": passConfirmStr,
-	                "userIntro": userIntroStr
-	            };
-	            var demoBody = {
-	                "userName": "shenjiajun",
-	                "pass": "12345",
-	                "passConfirm": "12345",
-	                "userIntro": "啦啦啦"
-	            };
-	            var data = "userName=shenjiajun&pass=12345&userIntro=啦啦啦";
-
-	            document.cookie = "cookie1=5006";
-
-	            var formData = new FormData();
-	            formData.append('avatar', file);
-	            formData.append('userName', userNameStr);
-	            formData.append('pass', passStr);
-	            formData.append('passConfirm', passConfirmStr);
-	            formData.append('userIntro', userIntroStr);
-
-	            var url = "/api/SignUp";
-	            fetch(url, {
-	                method: "post",
-	                // body: data,
-	                body: formData,
-	                headers: {
-	                    // 'Content-Type': 'application/json'
-	                    // 'Content-Type': 'application/x-www-form-urlencoded'
-	                },
-	                credentials: 'include' //很重要，设置session,cookie可用
-	            }).then(function (response) {
-	                return response.json();
-	            }).then(function (json) {
-	                console.log(JSON.stringify(json));
-	                if (json.result) {
-	                    var result = json.result;
-	                    if (result.redirect) {
-	                        window.location = result.redirect;
-	                    } else if (result.userOccupied) {
-	                        // window.alert("用户名已被占用");
-	                        _this2.setState({
-	                            nameError: "用户名已被占用"
-	                        });
-	                    }
-	                }
-	            }).catch(function (ex) {
-	                console.error('parsing failed', ex);
-	            });
-	        }
-	    }, {
-	        key: "render",
-	        value: function render() {
-	            var _this3 = this;
-
-	            return _react2.default.createElement(
-	                "div",
-	                { style: { display: "flex", flexDirection: "column", alignItems: "center" } },
-	                _react2.default.createElement(
-	                    "h1",
-	                    { style: { display: "none" } },
-	                    "\u6CE8\u518C"
-	                ),
-	                _react2.default.createElement(
-	                    "div",
-	                    null,
-	                    _react2.default.createElement(
-	                        _Card2.default,
-	                        { style: {
-	                                marginTop: "1em",
-	                                width: "20em"
-	                            } },
-	                        _react2.default.createElement(
-	                            "div",
-	                            { style: {
-	                                    padding: "1em",
-	                                    display: "flex",
-	                                    flexDirection: "column"
-	                                } },
-	                            _react2.default.createElement(
-	                                "div",
-	                                null,
-	                                "\u7528\u6237\u540D*"
-	                            ),
-	                            _react2.default.createElement(_TextField2.default, { style: { marginBottom: "1em", flex: 1 },
-	                                errorText: this.state.nameError,
-	                                onChange: function onChange(event, str) {
-	                                    if (_this3.state.nameError !== "") {
-	                                        _this3.setState({
-	                                            nameError: ""
-	                                        });
-	                                    }
-	                                },
-	                                ref: "userNameTF",
-	                                id: "userNameTF",
-	                                name: "userNameTF" }),
-	                            _react2.default.createElement(
-	                                "div",
-	                                null,
-	                                "\u5BC6\u7801*"
-	                            ),
-	                            _react2.default.createElement(_TextField2.default, { style: { marginBottom: "1em" },
-	                                errorText: this.state.passError,
-	                                onChange: function onChange(event, str) {
-	                                    if (_this3.state.passError !== "") {
-	                                        _this3.setState({
-	                                            passError: ""
-	                                        });
-	                                    }
-	                                },
-	                                type: "password",
-	                                ref: "passTF",
-	                                id: "passTF",
-	                                name: "passTF" }),
-	                            _react2.default.createElement(
-	                                "div",
-	                                null,
-	                                "\u91CD\u590D\u5BC6\u7801*"
-	                            ),
-	                            _react2.default.createElement(_TextField2.default, { style: { marginBottom: "1em" },
-	                                errorText: this.state.passConfirmError,
-	                                onChange: function onChange(event, str) {
-	                                    if (_this3.state.passConfirmError !== "") {
-	                                        _this3.setState({
-	                                            passConfirmError: ""
-	                                        });
-	                                    }
-	                                },
-	                                type: "password",
-	                                ref: "passConfirmTF",
-	                                id: "passConfirmTF",
-	                                name: "passConfirmTF" }),
-	                            _react2.default.createElement(
-	                                _SelectField2.default,
-	                                {
-	                                    floatingLabelText: "\u6027\u522B*",
-	                                    value: this.state.selectedGender,
-	                                    style: { marginBottom: "1em" },
-	                                    onChange: function onChange(event, index, value) {
-	                                        return _this3.genderSelected(event, index, value);
-	                                    }
-	                                },
-	                                _react2.default.createElement(_MenuItem2.default, { value: 1, primaryText: "\u7537" }),
-	                                _react2.default.createElement(_MenuItem2.default, { value: 2, primaryText: "\u5973" }),
-	                                _react2.default.createElement(_MenuItem2.default, { value: 3, primaryText: "\u4FDD\u5BC6" })
-	                            ),
-	                            _react2.default.createElement(
-	                                "div",
-	                                { style: { marginBottom: "1em" } },
-	                                _react2.default.createElement(
-	                                    "span",
-	                                    null,
-	                                    "\u5934\u50CF*"
-	                                ),
-	                                _react2.default.createElement(_RaisedButton2.default, { onTouchTap: function onTouchTap() {
-	                                        return _this3.onUpLoadClick();
-	                                    },
-	                                    label: "选择文件",
-	                                    secondary: true,
-	                                    style: { marginLeft: "0.5em" }
-	                                })
-	                            ),
-	                            _react2.default.createElement(
-	                                "div",
-	                                { style: { marginBottom: "1em" } },
-	                                this.state.selectedFileName
-	                            ),
-	                            _react2.default.createElement("input", { type: "file",
-	                                multiple: "multiple",
-	                                accept: "image/*",
-	                                ref: "uploadInput",
-	                                name: "uploadInput",
-	                                style: { display: "none" },
-	                                onChange: function onChange(event) {
-	                                    return _this3.avatarSelected(event);
-	                                }
-	                            }),
-	                            _react2.default.createElement(
-	                                "div",
-	                                null,
-	                                "\u4E2A\u4EBA\u7B80\u4ECB*"
-	                            ),
-	                            _react2.default.createElement(_TextField2.default, { style: { marginBottom: "1em" },
-	                                multiLine: true,
-	                                rows: 5,
-	                                errorText: this.state.userIntroError,
-	                                ref: "userIntroTF",
-	                                id: "userIntroTF",
-	                                name: "userIntroTF" }),
-	                            _react2.default.createElement(_RaisedButton2.default, { onTouchTap: function onTouchTap() {
-	                                    return _this3.onSignUp();
-	                                },
-	                                primary: true,
-	                                label: "注册",
-	                                style: { width: "10em", alignSelf: "center" }
-	                            })
-	                        )
-	                    )
-	                )
-	            );
-	        }
-	    }]);
-
-	    return SignUp;
-	}(_react2.default.Component);
-
-	exports.default = SignUp;
-
-/***/ },
-/* 640 */
-/***/ function(module, exports, __webpack_require__) {
-
 	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
@@ -63535,7 +61957,7 @@
 	});
 	exports.default = undefined;
 
-	var _TextField = __webpack_require__(641);
+	var _TextField = __webpack_require__(640);
 
 	var _TextField2 = _interopRequireDefault(_TextField);
 
@@ -63544,7 +61966,7 @@
 	exports.default = _TextField2.default;
 
 /***/ },
-/* 641 */
+/* 640 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -63601,19 +62023,19 @@
 
 	var _transitions2 = _interopRequireDefault(_transitions);
 
-	var _EnhancedTextarea = __webpack_require__(642);
+	var _EnhancedTextarea = __webpack_require__(641);
 
 	var _EnhancedTextarea2 = _interopRequireDefault(_EnhancedTextarea);
 
-	var _TextFieldHint = __webpack_require__(643);
+	var _TextFieldHint = __webpack_require__(642);
 
 	var _TextFieldHint2 = _interopRequireDefault(_TextFieldHint);
 
-	var _TextFieldLabel = __webpack_require__(644);
+	var _TextFieldLabel = __webpack_require__(643);
 
 	var _TextFieldLabel2 = _interopRequireDefault(_TextFieldLabel);
 
-	var _TextFieldUnderline = __webpack_require__(645);
+	var _TextFieldUnderline = __webpack_require__(644);
 
 	var _TextFieldUnderline2 = _interopRequireDefault(_TextFieldUnderline);
 
@@ -64125,7 +62547,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
 
 /***/ },
-/* 642 */
+/* 641 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -64371,7 +62793,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
 
 /***/ },
-/* 643 */
+/* 642 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -64453,7 +62875,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
 
 /***/ },
-/* 644 */
+/* 643 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -64572,7 +62994,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
 
 /***/ },
-/* 645 */
+/* 644 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -64710,7 +63132,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
 
 /***/ },
-/* 646 */
+/* 645 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -64720,7 +63142,7 @@
 	});
 	exports.default = undefined;
 
-	var _SelectField = __webpack_require__(647);
+	var _SelectField = __webpack_require__(646);
 
 	var _SelectField2 = _interopRequireDefault(_SelectField);
 
@@ -64729,7 +63151,7 @@
 	exports.default = _SelectField2.default;
 
 /***/ },
-/* 647 */
+/* 646 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -64774,11 +63196,11 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _TextField = __webpack_require__(640);
+	var _TextField = __webpack_require__(639);
 
 	var _TextField2 = _interopRequireDefault(_TextField);
 
-	var _DropDownMenu = __webpack_require__(648);
+	var _DropDownMenu = __webpack_require__(647);
 
 	var _DropDownMenu2 = _interopRequireDefault(_DropDownMenu);
 
@@ -65020,7 +63442,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
 
 /***/ },
-/* 648 */
+/* 647 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -65030,7 +63452,7 @@
 	});
 	exports.default = exports.MenuItem = exports.DropDownMenu = undefined;
 
-	var _DropDownMenu2 = __webpack_require__(649);
+	var _DropDownMenu2 = __webpack_require__(648);
 
 	var _DropDownMenu3 = _interopRequireDefault(_DropDownMenu2);
 
@@ -65045,7 +63467,7 @@
 	exports.default = _DropDownMenu3.default;
 
 /***/ },
-/* 649 */
+/* 648 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -65098,7 +63520,7 @@
 
 	var _transitions2 = _interopRequireDefault(_transitions);
 
-	var _arrowDropDown = __webpack_require__(650);
+	var _arrowDropDown = __webpack_require__(649);
 
 	var _arrowDropDown2 = _interopRequireDefault(_arrowDropDown);
 
@@ -65106,7 +63528,7 @@
 
 	var _Menu2 = _interopRequireDefault(_Menu);
 
-	var _ClearFix = __webpack_require__(651);
+	var _ClearFix = __webpack_require__(650);
 
 	var _ClearFix2 = _interopRequireDefault(_ClearFix);
 
@@ -65114,7 +63536,7 @@
 
 	var _Popover2 = _interopRequireDefault(_Popover);
 
-	var _PopoverAnimationVertical = __webpack_require__(653);
+	var _PopoverAnimationVertical = __webpack_require__(652);
 
 	var _PopoverAnimationVertical2 = _interopRequireDefault(_PopoverAnimationVertical);
 
@@ -65545,7 +63967,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
 
 /***/ },
-/* 650 */
+/* 649 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -65582,7 +64004,7 @@
 	exports.default = NavigationArrowDropDown;
 
 /***/ },
-/* 651 */
+/* 650 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -65603,7 +64025,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _BeforeAfterWrapper = __webpack_require__(652);
+	var _BeforeAfterWrapper = __webpack_require__(651);
 
 	var _BeforeAfterWrapper2 = _interopRequireDefault(_BeforeAfterWrapper);
 
@@ -65650,7 +64072,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
 
 /***/ },
-/* 652 */
+/* 651 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -65806,7 +64228,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
 
 /***/ },
-/* 653 */
+/* 652 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -65955,6 +64377,368 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
 
 /***/ },
+/* 653 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _TextField = __webpack_require__(639);
+
+	var _TextField2 = _interopRequireDefault(_TextField);
+
+	var _Card = __webpack_require__(485);
+
+	var _Card2 = _interopRequireDefault(_Card);
+
+	var _SelectField = __webpack_require__(645);
+
+	var _SelectField2 = _interopRequireDefault(_SelectField);
+
+	var _RaisedButton = __webpack_require__(425);
+
+	var _RaisedButton2 = _interopRequireDefault(_RaisedButton);
+
+	var _MenuItem = __webpack_require__(523);
+
+	var _MenuItem2 = _interopRequireDefault(_MenuItem);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /**
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * Created by shenjiajun on 2017/1/29.
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                */
+
+
+	var uploadInput = void 0;
+	var userNameTF = void 0;
+	var passTF = void 0;
+	var passConfirmTF = void 0;
+	var userIntroTF = void 0;
+	var file = void 0;
+
+	var SignUp = function (_React$Component) {
+	    _inherits(SignUp, _React$Component);
+
+	    function SignUp(props) {
+	        _classCallCheck(this, SignUp);
+
+	        var _this = _possibleConstructorReturn(this, (SignUp.__proto__ || Object.getPrototypeOf(SignUp)).call(this, props));
+
+	        _this.state = {
+	            selectedGender: 1,
+	            avatarUrl: "",
+	            selectedFileName: "",
+	            nameError: "",
+	            passError: "",
+	            passConfirmError: "",
+	            userIntroError: ""
+	        };
+	        return _this;
+	    }
+
+	    _createClass(SignUp, [{
+	        key: "componentDidMount",
+	        value: function componentDidMount() {
+	            uploadInput = this.refs.uploadInput;
+	            userNameTF = this.refs.userNameTF;
+	            passTF = this.refs.passTF;
+	            passConfirmTF = this.refs.passConfirmTF;
+	            userIntroTF = this.refs.userIntroTF;
+	        }
+	    }, {
+	        key: "genderSelected",
+	        value: function genderSelected(event, index, value) {
+	            // console.log("genderSelected="+value);
+	            this.setState({
+	                selectedGender: value
+	            });
+	        }
+	    }, {
+	        key: "onUpLoadClick",
+	        value: function onUpLoadClick() {
+	            // console.info("onUpLoadClick=");
+	            uploadInput.click();
+	        }
+	    }, {
+	        key: "avatarSelected",
+	        value: function avatarSelected(event) {
+	            // console.info("event=" + uploadInput.files.length);
+	            file = uploadInput.files[0];
+	            console.info("file=" + file.name);
+	            this.setState({
+	                selectedFileName: file.name
+	            });
+	            // let objectURL = window.URL.createObjectURL(file);
+	            // console.info("event=" + objectURL);
+	            // window.URL.revokeObjectURL(objectURL);
+	        }
+	    }, {
+	        key: "onSignUp",
+	        value: function onSignUp() {
+	            var _this2 = this;
+
+	            var userNameStr = userNameTF.getValue();
+	            var passStr = passTF.getValue();
+	            var passConfirmStr = passConfirmTF.getValue();
+	            var userIntroStr = userIntroTF.getValue();
+
+	            var infoFinished = true;
+	            if ("" === userNameStr) {
+	                this.setState({
+	                    nameError: "不能为空"
+	                });
+	                infoFinished = false;
+	            }
+	            if ("" === passStr) {
+	                this.setState({
+	                    passError: "不能为空"
+	                });
+	                infoFinished = false;
+	            }
+	            if ("" === passConfirmStr) {
+	                this.setState({
+	                    passConfirmError: "不能为空"
+	                });
+	                infoFinished = false;
+	            }
+	            if (passConfirmStr !== passStr) {
+	                this.setState({
+	                    passError: "密码不一致",
+	                    passConfirmError: "密码不一致"
+	                });
+	                infoFinished = false;
+	            }
+	            if (!infoFinished) {
+	                return;
+	            }
+
+	            console.info("upload =" + userNameStr + passStr + passConfirmStr + userIntroStr);
+
+	            var body = {
+	                "userName": userNameStr,
+	                "pass": passStr,
+	                "passConfirm": passConfirmStr,
+	                "userIntro": userIntroStr
+	            };
+	            var demoBody = {
+	                "userName": "shenjiajun",
+	                "pass": "12345",
+	                "passConfirm": "12345",
+	                "userIntro": "啦啦啦"
+	            };
+	            var data = "userName=shenjiajun&pass=12345&userIntro=啦啦啦";
+
+	            document.cookie = "cookie1=5006";
+
+	            var formData = new FormData();
+	            formData.append('avatar', file);
+	            formData.append('userName', userNameStr);
+	            formData.append('pass', passStr);
+	            formData.append('passConfirm', passConfirmStr);
+	            formData.append('userIntro', userIntroStr);
+
+	            var url = "/api/SignUp";
+	            fetch(url, {
+	                method: "post",
+	                // body: data,
+	                body: formData,
+	                headers: {
+	                    // 'Content-Type': 'application/json'
+	                    // 'Content-Type': 'application/x-www-form-urlencoded'
+	                },
+	                credentials: 'include' //很重要，设置session,cookie可用
+	            }).then(function (response) {
+	                return response.json();
+	            }).then(function (json) {
+	                console.log(JSON.stringify(json));
+	                if (json.result) {
+	                    var result = json.result;
+	                    if (result.redirect) {
+	                        window.location = result.redirect;
+	                    } else if (result.userOccupied) {
+	                        // window.alert("用户名已被占用");
+	                        _this2.setState({
+	                            nameError: "用户名已被占用"
+	                        });
+	                    }
+	                }
+	            }).catch(function (ex) {
+	                console.error('parsing failed', ex);
+	            });
+	        }
+	    }, {
+	        key: "render",
+	        value: function render() {
+	            var _this3 = this;
+
+	            return _react2.default.createElement(
+	                "div",
+	                { style: { display: "flex", flexDirection: "column", alignItems: "center" } },
+	                _react2.default.createElement(
+	                    "h1",
+	                    { style: { display: "none" } },
+	                    "\u6CE8\u518C"
+	                ),
+	                _react2.default.createElement(
+	                    "div",
+	                    null,
+	                    _react2.default.createElement(
+	                        _Card2.default,
+	                        { style: {
+	                                marginTop: "1em",
+	                                width: "20em"
+	                            } },
+	                        _react2.default.createElement(
+	                            "div",
+	                            { style: {
+	                                    padding: "1em",
+	                                    display: "flex",
+	                                    flexDirection: "column"
+	                                } },
+	                            _react2.default.createElement(
+	                                "div",
+	                                null,
+	                                "\u7528\u6237\u540D*"
+	                            ),
+	                            _react2.default.createElement(_TextField2.default, { style: { marginBottom: "1em", flex: 1 },
+	                                errorText: this.state.nameError,
+	                                onChange: function onChange(event, str) {
+	                                    if (_this3.state.nameError !== "") {
+	                                        _this3.setState({
+	                                            nameError: ""
+	                                        });
+	                                    }
+	                                },
+	                                ref: "userNameTF",
+	                                id: "userNameTF",
+	                                name: "userNameTF" }),
+	                            _react2.default.createElement(
+	                                "div",
+	                                null,
+	                                "\u5BC6\u7801*"
+	                            ),
+	                            _react2.default.createElement(_TextField2.default, { style: { marginBottom: "1em" },
+	                                errorText: this.state.passError,
+	                                onChange: function onChange(event, str) {
+	                                    if (_this3.state.passError !== "") {
+	                                        _this3.setState({
+	                                            passError: ""
+	                                        });
+	                                    }
+	                                },
+	                                type: "password",
+	                                ref: "passTF",
+	                                id: "passTF",
+	                                name: "passTF" }),
+	                            _react2.default.createElement(
+	                                "div",
+	                                null,
+	                                "\u91CD\u590D\u5BC6\u7801*"
+	                            ),
+	                            _react2.default.createElement(_TextField2.default, { style: { marginBottom: "1em" },
+	                                errorText: this.state.passConfirmError,
+	                                onChange: function onChange(event, str) {
+	                                    if (_this3.state.passConfirmError !== "") {
+	                                        _this3.setState({
+	                                            passConfirmError: ""
+	                                        });
+	                                    }
+	                                },
+	                                type: "password",
+	                                ref: "passConfirmTF",
+	                                id: "passConfirmTF",
+	                                name: "passConfirmTF" }),
+	                            _react2.default.createElement(
+	                                _SelectField2.default,
+	                                {
+	                                    floatingLabelText: "\u6027\u522B*",
+	                                    value: this.state.selectedGender,
+	                                    style: { marginBottom: "1em" },
+	                                    onChange: function onChange(event, index, value) {
+	                                        return _this3.genderSelected(event, index, value);
+	                                    }
+	                                },
+	                                _react2.default.createElement(_MenuItem2.default, { value: 1, primaryText: "\u7537" }),
+	                                _react2.default.createElement(_MenuItem2.default, { value: 2, primaryText: "\u5973" }),
+	                                _react2.default.createElement(_MenuItem2.default, { value: 3, primaryText: "\u4FDD\u5BC6" })
+	                            ),
+	                            _react2.default.createElement(
+	                                "div",
+	                                { style: { marginBottom: "1em" } },
+	                                _react2.default.createElement(
+	                                    "span",
+	                                    null,
+	                                    "\u5934\u50CF*"
+	                                ),
+	                                _react2.default.createElement(_RaisedButton2.default, { onTouchTap: function onTouchTap() {
+	                                        return _this3.onUpLoadClick();
+	                                    },
+	                                    label: "选择文件",
+	                                    secondary: true,
+	                                    style: { marginLeft: "0.5em" }
+	                                })
+	                            ),
+	                            _react2.default.createElement(
+	                                "div",
+	                                { style: { marginBottom: "1em" } },
+	                                this.state.selectedFileName
+	                            ),
+	                            _react2.default.createElement("input", { type: "file",
+	                                multiple: "multiple",
+	                                accept: "image/*",
+	                                ref: "uploadInput",
+	                                name: "uploadInput",
+	                                style: { display: "none" },
+	                                onChange: function onChange(event) {
+	                                    return _this3.avatarSelected(event);
+	                                }
+	                            }),
+	                            _react2.default.createElement(
+	                                "div",
+	                                null,
+	                                "\u4E2A\u4EBA\u7B80\u4ECB*"
+	                            ),
+	                            _react2.default.createElement(_TextField2.default, { style: { marginBottom: "1em" },
+	                                multiLine: true,
+	                                rows: 5,
+	                                errorText: this.state.userIntroError,
+	                                ref: "userIntroTF",
+	                                id: "userIntroTF",
+	                                name: "userIntroTF" }),
+	                            _react2.default.createElement(_RaisedButton2.default, { onTouchTap: function onTouchTap() {
+	                                    return _this3.onSignUp();
+	                                },
+	                                primary: true,
+	                                label: "注册",
+	                                style: { width: "10em", alignSelf: "center" }
+	                            })
+	                        )
+	                    )
+	                )
+	            );
+	        }
+	    }]);
+
+	    return SignUp;
+	}(_react2.default.Component);
+
+	exports.default = SignUp;
+
+/***/ },
 /* 654 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -66082,11 +64866,11 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _TextField = __webpack_require__(640);
+	var _TextField = __webpack_require__(639);
 
 	var _TextField2 = _interopRequireDefault(_TextField);
 
-	var _Card = __webpack_require__(483);
+	var _Card = __webpack_require__(485);
 
 	var _Card2 = _interopRequireDefault(_Card);
 
