@@ -27,7 +27,10 @@ class Home extends Component {
             }
         ).then(
             (json) => {
-                // console.log(JSON.stringify(json));
+                console.log("response=" + JSON.stringify(json));
+                for (let i = 0; i < json.result.blogList.length; i++) {
+                    console.log("response user=" + JSON.stringify(json.result.blogList[i].user));
+                }
                 this.setState({
                     blogList: json.result.blogList
                 })

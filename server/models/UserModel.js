@@ -42,7 +42,8 @@ class UserModel {
     }
 
     findUserById(_id) {
-
+        let mongoUtil = new MongoUtil();
+        return mongoUtil.findModelByKeyMap(modelName, userSechma, {_id, _id});
     }
 }
 

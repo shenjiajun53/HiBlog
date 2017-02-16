@@ -6,6 +6,7 @@ let LoginCheck = require('../server/middlewares/LoginCheck');
 let BaseRouter = require("./BaseRouter");
 let router = express.Router();
 let BlogModel = require("../server/models/BlogModel");
+let UserModel = require("../server/models/UserModel");
 let ResponseUtil = require("../server/lib/ResponseUtil");
 
 class HomePageRouter extends BaseRouter {
@@ -23,12 +24,32 @@ class HomePageRouter extends BaseRouter {
         });
 
         router.get("/api/getAllBlogs", (req, res) => {
+            let blogList = new Array();
             let blogModel = new BlogModel();
-            blogModel.findBlogs().then((models) => {
-                console.log(models);
-                return res.send(new ResponseUtil({
-                    blogList: models
-                }, null));
+            blogModel.findBlogs().then((blogModels) => {
+                console.log("blogModels size=" + blogModels.length);
+                for (let i = 0; i < blogModels.length; i++) {
+                    console.log("find user" + i);
+                    let userModel = new UserModel();
+                    userModel.findUserById(blogModels[i].author)
+                        .then((userModels) => {
+                            console.log("i=" + i + " size=" + blogModels.length);
+                            if (null !== userModels && userModels.length > 0) {
+                                let user = userModels[0];
+                                // console.log("user=" + user);
+                                let blog = blogModels[i];
+                                blog.user = user;
+                                // console.log("blogModels=" + blogModels[i]);
+                                blogList.push(blog);
+                                console.log("blogModels=" + blogModels[i].user);
+                                if (i >= blogModels.length - 1) {
+                                    return res.send(new ResponseUtil({
+                                        blogList: blogList
+                                    }, null));
+                                }
+                            }
+                        })
+                }
             }).catch((e) => {
                 console.error(e);
             });
