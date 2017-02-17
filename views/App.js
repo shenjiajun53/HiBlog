@@ -15,6 +15,8 @@ import BlogDetail from "./components/BlogDetail";
 
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+// import lightBaseTheme from 'material-ui/styles/baseThemes/lightBaseTheme';
+// import getMuiTheme from 'material-ui/styles/getMuiTheme';
 
 injectTapEventPlugin();
 class App extends React.Component {

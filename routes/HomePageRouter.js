@@ -26,23 +26,32 @@ class HomePageRouter extends BaseRouter {
         router.get("/api/getAllBlogs", (req, res) => {
             let blogList = new Array();
             let blogModel = new BlogModel();
-            blogModel.findBlogs().then((blogModels) => {
-                console.log("blogModels size=" + blogModels.length);
-                for (let i = 0; i < blogModels.length; i++) {
-                    console.log("find user" + i);
+            let index = 0;
+            blogModel.findBlogs().then((blogResults) => {
+                console.log("blogResults size=" + blogResults.length);
+                for (let i = 0; i < blogResults.length; i++) {
                     let userModel = new UserModel();
-                    userModel.findUserById(blogModels[i].author)
-                        .then((userModels) => {
-                            console.log("i=" + i + " size=" + blogModels.length);
-                            if (null !== userModels && userModels.length > 0) {
-                                let user = userModels[0];
-                                // console.log("user=" + user);
-                                let blog = blogModels[i];
+                    userModel.findUserById(blogResults[i].author)
+                        .then((userResults) => {
+                            if (null !== userResults && userResults.length > 0) {
+                                userResults[0].pass = "";
+                                let user = JSON.parse(JSON.stringify(userResults[0])); //clone
+                                let blog = JSON.parse(JSON.stringify(blogResults[i]));
                                 blog.user = user;
-                                // console.log("blogModels=" + blogModels[i]);
                                 blogList.push(blog);
-                                console.log("blogModels=" + blogModels[i].user);
-                                if (i >= blogModels.length - 1) {
+                                index++;
+                                console.log("blogResult=" + JSON.stringify(blog));
+                                console.log("blogResult.user=" + JSON.stringify(blog.user));
+                                if (index >= blogResults.length - 1) {
+                                    blogList = blogList.sort((a, b) => {
+                                        if (a._id > b._id) {
+                                            return -1;
+                                        } else if (a._id < b._id) {
+                                            return 1;
+                                        } else {
+                                            return 0;
+                                        }
+                                    });
                                     return res.send(new ResponseUtil({
                                         blogList: blogList
                                     }, null));

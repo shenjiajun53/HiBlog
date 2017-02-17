@@ -96,6 +96,15 @@ class TopBar extends React.Component {
                         onTouchTap={() => this.onTitleClick(ON_MINE_CLICKED)}>
                         我的
                     </FlatButton>
+
+
+                    <div style={{
+                        display: "flex",
+                        flex: 1,
+                        flexDirection: "row",
+                        justifyContent: "right",
+                    }}>
+                    </div>
                     <FlatButton
                         style={{color: "#ffffff", marginRight: "10px"}}
                         onTouchTap={() => this.onTitleClick(ON_WRITE_CLICKED)}>
@@ -105,20 +114,11 @@ class TopBar extends React.Component {
                             style={{
                                 display: showAvatar
                             }}/>
-
-                    <div style={{
-                        display: "flex",
-                        flex: 1,
-                        flexDirection: "row",
-                        justifyContent: "right",
-                    }}>
-                        <span style={{flex: 1}}/>
-                        <MyMenu
-                            user={this.props.user}
-                            hasLogin={this.props.hasLogin}
-                            style={{}}
-                            ref="my_menu"/>
-                    </div>
+                    <MyMenu
+                        user={this.props.user}
+                        hasLogin={this.props.hasLogin}
+                        style={{}}
+                        ref="my_menu"/>
                 </div>
             </Card>
         );

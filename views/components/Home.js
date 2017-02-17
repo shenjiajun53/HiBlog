@@ -3,7 +3,11 @@
  */
 import React, {Component} from 'react';
 import Card from "material-ui/Card"
+import Avatar from "material-ui/Avatar";
+import TouchRipple from "material-ui/internal/TouchRipple";
+
 import moment from "moment";
+import colors from "../utils/colors"
 
 // injectTapEventPlugin();
 class Home extends Component {
@@ -28,9 +32,6 @@ class Home extends Component {
         ).then(
             (json) => {
                 console.log("response=" + JSON.stringify(json));
-                for (let i = 0; i < json.result.blogList.length; i++) {
-                    console.log("response user=" + JSON.stringify(json.result.blogList[i].user));
-                }
                 this.setState({
                     blogList: json.result.blogList
                 })
@@ -39,6 +40,11 @@ class Home extends Component {
             (ex) => {
                 console.error('parsing failed', ex);
             });
+    }
+
+    onCardClick(blog) {
+        // console.log("blogId=" + blog._id);
+        window.location = "/BlogDetail/" + blog._id;
     }
 
     render() {
@@ -56,17 +62,48 @@ class Home extends Component {
         if (null != this.state.blogList) {
             blogListView = this.state.blogList.map(
                 (blog) => {
+                    let avatarPath;
+                    let showAvatarImg = "none";
+                    let showAvatarName = "flex";
+                    if (blog.user) {
+                        if (blog.user.fileName) {
+                            avatarPath = "/uploadFiles/avatars/" + blog.user.fileName;
+                            showAvatarImg = "flex";
+                            showAvatarName = "none";
+                            console.log("avatarPath=" + avatarPath);
+                        }
+                    }
                     // console.log("blog=" + blog.blogTitle);
                     let time = blog.time;
                     let date = new Date(time);
                     let dateStr = moment(date).format("YYYY-MM-DD HH:mm:ss");
-                    return (<div key={blog._id}>
-                        <Card>
-                            <h1>{blog.blogTitle}</h1>
-                            <div>{blog.blogContent}</div>
-                            <div>{dateStr}</div>
+                    return (
+
+                        <Card key={blog._id}
+                              style={{
+                                  marginTop: "10px",
+                                  marginBottom: "10px",
+                                  padding: "10px"
+                              }}
+                              onTouchTap={() => this.onCardClick(blog)}>
+                            <div style={{
+                                display: "flex",
+                                flexDirection: "column",
+                            }}>
+                                <div style={{display: "flex", flexDirection: "row", alignItems: "center"}}>
+                                    <Avatar src={avatarPath} style={{display: showAvatarImg}}
+                                            backgroundColor={colors.accent}/>
+                                    <Avatar style={{display: showAvatarName}}
+                                            backgroundColor={colors.accent}>
+                                        {blog.user.userName[0]}
+                                    </Avatar>
+                                    <span style={{marginLeft: "10px"}}>{dateStr}</span>
+                                </div>
+                                <h1 >{blog.blogTitle}</h1>
+                                <div>{blog.blogContent}</div>
+                            </div>
                         </Card>
-                    </div>);
+                    );
                 }
             );
         }
