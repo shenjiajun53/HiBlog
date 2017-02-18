@@ -3,7 +3,7 @@
  */
 import React, {Component} from 'react';
 
-class BlogDetail extends React.Component {
+class MyFollow extends React.Component {
     render() {
         return (
             <div>
@@ -12,4 +12,4 @@ class BlogDetail extends React.Component {
         );
     }
 }
-export default BlogDetail;
+export default MyFollow;

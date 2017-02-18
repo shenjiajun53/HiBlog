@@ -1,5 +1,5 @@
 /**
- * Created by shenjiajun on 2017/1/29.
+ * Created by Administrator on 2017/2/18.
  */
 import React, {Component} from 'react';
 import Card from "material-ui/Card"
@@ -10,7 +10,7 @@ import moment from "moment";
 import colors from "../utils/colors"
 
 // injectTapEventPlugin();
-class Home extends Component {
+class MyBlogs extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -18,12 +18,22 @@ class Home extends Component {
         }
     }
 
-    componentDidMount() {
-        let url = "/api/getAllBlogs";
+    getBlogs() {
+        console.log("user=" + JSON.stringify(this.props.user));
+        let url = "/api/getBlogsByUser";
         console.log("url=" + url);
 
+        let body = {
+            user: this.props.user
+        };
+
         fetch(url, {
-            method: "get",
+            method: "post",
+            body: JSON.stringify(body),
+            headers: {
+                'Content-Type': 'application/json'
+                // 'Content-Type': 'application/x-www-form-urlencoded'
+            },
             credentials: 'include'     //很重要，设置session,cookie可用
         }).then(
             (response) => {
@@ -31,7 +41,7 @@ class Home extends Component {
             }
         ).then(
             (json) => {
-                console.log("response=" + JSON.stringify(json));
+                // console.log("response=" + JSON.stringify(json));
                 this.setState({
                     blogList: json.result.blogList
                 })
@@ -42,13 +52,18 @@ class Home extends Component {
             });
     }
 
+
     onCardClick(blog) {
         // console.log("blogId=" + blog._id);
         window.location = "/BlogDetail/" + blog._id;
     }
 
     render() {
+        // console.log("onRender");
         let blogListView;
+        if (null === this.state.blogList && null !== this.props.user) {
+            this.getBlogs();
+        }
 
         // if(null != this.state.blogList){
         //     for (let i = 0; i < this.state.blogList.length; i++) {
@@ -70,7 +85,7 @@ class Home extends Component {
                             avatarPath = "/uploadFiles/avatars/" + blog.user.fileName;
                             showAvatarImg = "flex";
                             showAvatarName = "none";
-                            console.log("avatarPath=" + avatarPath);
+                            // console.log("avatarPath=" + avatarPath);
                         }
                     }
                     // console.log("blog=" + blog.blogTitle);
@@ -117,4 +132,4 @@ class Home extends Component {
         );
     }
 }
-export default Home;
+export default MyBlogs;

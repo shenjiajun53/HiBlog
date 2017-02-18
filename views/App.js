@@ -12,6 +12,9 @@ import MyFollow from "./components/MyFollow";
 import WriteBlog from "./components/WriteBlog";
 import TopBar from "./components/TopBar";
 import BlogDetail from "./components/BlogDetail";
+import Settings from "./components/Settings";
+import Favorites from "./components/Favorites";
+import MyBlogs from "./components/MyBlogs";
 
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
@@ -46,7 +49,7 @@ class App extends React.Component {
                         user: json.result.user
                     });
                 }
-                console.log("state=" + this.state.hasLogin);
+                // console.log("state=" + this.state.hasLogin);
             }
         ).catch(
             (ex) => {
@@ -55,11 +58,14 @@ class App extends React.Component {
     }
 
     render() {
+        console.log('app render');
+        // console.log('chileren=' + this.props.children.name);
         return (
             <MuiThemeProvider>
                 <div>
+
                     <TopBar hasLogin={this.state.hasLogin} user={this.state.user}/>
-                    {this.props.children}
+                    {React.cloneElement(this.props.children, {user: this.state.user})}
                 </div>
             </MuiThemeProvider>
         );
@@ -76,6 +82,9 @@ render(
             <Route path="MyFollow" component={MyFollow}/>
             <Route path="WriteBlog" component={WriteBlog}/>
             <Route path="BlogDetail/:blogId" component={BlogDetail}/>
+            <Route path="Settings" component={Settings}/>
+            <Route path="Favorites" component={Favorites}/>
+            <Route path="MyBlogs" component={MyBlogs}/>
         </Route>
     </Router>
     ,

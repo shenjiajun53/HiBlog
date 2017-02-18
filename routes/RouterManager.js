@@ -2,8 +2,6 @@
  * Created by Administrator on 2017/2/11.
  */
 let HomePageRouter = require("./HomePageRouter");
-let SignUpRouter = require("./SignUpRouter");
-let SignInRouter = require("./SignInRouter");
 let UserRouter = require("./UserRouter");
 let BlogRouter = require("./BlogRouter");
 let LoginCheck = require('../server/middlewares/LoginCheck');
@@ -22,8 +20,6 @@ class RouterManager {
         this.app.use("/", new HomePageRouter().getRouter());
         this.app.use("/api", new UserRouter().getRouter());
         this.app.use("/api", new BlogRouter().getRouter());
-        // this.app.use("/SignUp", new LoginCheck().hasNotLogin, new SignUpRouter().getRouter());
-        // this.app.use("/SignIn", new SignInRouter().getRouter());
     }
 }
 

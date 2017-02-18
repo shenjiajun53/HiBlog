@@ -16,12 +16,12 @@ class BlogRouter extends BaseRouter {
     // }
 
     setUpRouter() {
-        router.post("/sendBlog", new LoginCheck().hasLogin, (req, res) => {
+        router.post("/sendBlog", (req, res) => {
             console.log("on Receive " + req.body.blogTitle);
             // console.log("on Receive " + JSON.parse(req.body));
             let rawBlog = req.body;
             let blog = {
-                author: req.session.user._id,
+                userId: req.session.user._id,
                 blogTitle: rawBlog.blogTitle,
                 blogContent: rawBlog.blogContent
             };
@@ -48,7 +48,7 @@ class BlogRouter extends BaseRouter {
             blogModel.findBlogById(req.query.blogId).then((blogResults) => {
                 console.log("blogResults size=" + blogResults.length);
                 let userModel = new UserModel();
-                userModel.findUserById(blogResults[0].author)
+                userModel.findUserById(blogResults[0].userId)
                     .then((userResults) => {
                         if (null !== userResults && userResults.length > 0) {
                             userResults[0].pass = "";
@@ -61,6 +61,29 @@ class BlogRouter extends BaseRouter {
                         }
                     })
 
+            }).catch((e) => {
+                console.error(e);
+            });
+        });
+
+        router.post("/getBlogsByUser", (req, res) => {
+            let user = req.body.user;
+            console.log("user=" + JSON.stringify(user));
+            let blogList = new Array();
+            let blogModel = new BlogModel();
+            let index = 0;
+            blogModel.findBlogByUser(user._id).then((blogResults) => {
+                console.log("blogResults size=" + blogResults.length);
+                for (let i = 0; i < blogResults.length; i++) {
+                    let blog = JSON.parse(JSON.stringify(blogResults[i]));
+                    blog.user = user;
+                    blogList.push(blog);
+                    if (i >= blogResults.length - 1) {
+                        return res.send(new ResponseUtil({
+                            blogList: blogList
+                        }, null));
+                    }
+                }
             }).catch((e) => {
                 console.error(e);
             });

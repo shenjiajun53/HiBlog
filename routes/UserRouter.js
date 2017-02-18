@@ -38,7 +38,7 @@ class UserRouter extends BaseRouter {
                 }, null));
         });
 
-        router.post("/SignUp", new LoginCheck().hasNotLogin,
+        router.post("/SignUp", new LoginCheck().ifLoginReturn,
             upload.single('avatar'),
             new LoginCheck().userNameHasOccupied,
             (req, res) => {
@@ -67,7 +67,7 @@ class UserRouter extends BaseRouter {
             }
         );
 
-        router.post("/SignIn", new LoginCheck().hasNotLogin,
+        router.post("/SignIn", new LoginCheck().ifLoginReturn,
             (req, res) => {
                 // console.log("user save success 3333 " + req.session.user.userName);
                 console.log("on Receive " + req.body.userName);

@@ -45,8 +45,8 @@ export default class MyMenu extends React.Component {
             case "SignIn":
                 window.location.pathname = '/SignIn';
                 break;
-            case "UserCenter":
-                window.location.pathname = '/UserCenter';
+            case "MyBlogs":
+                window.location.pathname = '/MyBlogs';
                 break;
             case "MyFollow":
                 window.location.pathname = '/MyFollow';
@@ -96,8 +96,7 @@ export default class MyMenu extends React.Component {
                     anchorOrigin={{horizontal: 'right', vertical: 'top'}}
                     targetOrigin={{horizontal: 'right', vertical: 'top'}}
                 >
-                    <MenuItem primaryText="我的主页" onTouchTap={() => this.onItemClick("UserCenter")}/>
-                    <MenuItem primaryText="关注" onTouchTap={() => this.onItemClick("MyFollow")}/>
+                    <MenuItem primaryText="我的主页" onTouchTap={() => this.onItemClick("MyBlogs")}/>
                     <MenuItem primaryText="收藏" onTouchTap={() => this.onItemClick("Favorites")}/>
                     <MenuItem primaryText="设置" onTouchTap={() => this.onItemClick("Settings")}/>
                     <MenuItem primaryText="退出" onTouchTap={() => this.SignOut()}/>

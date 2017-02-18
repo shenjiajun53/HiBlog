@@ -58,13 +58,15 @@ class TopBar extends React.Component {
     }
 
     render() {
+        console.log('topbar render');
+
         let avatarPath;
         let showAvatar = "none";
         if (this.props.user) {
             if (this.props.user.fileName) {
                 avatarPath = "/uploadFiles/avatars/" + this.props.user.fileName;
                 showAvatar = "inline";
-                console.log("avatarPath=" + avatarPath);
+                // console.log("avatarPath=" + avatarPath);
             }
         }
 
@@ -90,11 +92,6 @@ class TopBar extends React.Component {
                         style={{color: "#ffffff", marginRight: "10px"}}
                         onTouchTap={() => this.onTitleClick(ON_CARE_CLICKED)}>
                         关注
-                    </FlatButton>
-                    <FlatButton
-                        style={{color: "#ffffff", marginRight: "10px"}}
-                        onTouchTap={() => this.onTitleClick(ON_MINE_CLICKED)}>
-                        我的
                     </FlatButton>
 
 

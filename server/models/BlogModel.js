@@ -4,7 +4,7 @@
 let MongoUtil = require("../lib/MongoUtil");
 
 let blogSechma = {
-    author: String,
+    userId: String,
     blogTitle: String,
     blogContent: String,
     time: Number
@@ -21,7 +21,7 @@ class BlogModel {
 
     createBlog() {
         let blogValue = {
-            author: this.blog.author,
+            userId: this.blog.userId,
             blogTitle: this.blog.blogTitle,
             blogContent: this.blog.blogContent,
             time: Date.now()
@@ -37,7 +37,7 @@ class BlogModel {
 
     findBlogByUser(userId) {
         let mongoUtil = new MongoUtil();
-        return mongoUtil.findModelByKeyMap(modelName, blogSechma, {"_id": userId});
+        return mongoUtil.findModelByKeyMap(modelName, blogSechma, {"userId": userId});
     }
 
     findBlogById(blogId) {

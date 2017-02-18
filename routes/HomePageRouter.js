@@ -31,7 +31,7 @@ class HomePageRouter extends BaseRouter {
                 console.log("blogResults size=" + blogResults.length);
                 for (let i = 0; i < blogResults.length; i++) {
                     let userModel = new UserModel();
-                    userModel.findUserById(blogResults[i].author)
+                    userModel.findUserById(blogResults[i].userId)
                         .then((userResults) => {
                             if (null !== userResults && userResults.length > 0) {
                                 userResults[0].pass = "";
@@ -42,7 +42,7 @@ class HomePageRouter extends BaseRouter {
                                 index++;
                                 console.log("blogResult=" + JSON.stringify(blog));
                                 console.log("blogResult.user=" + JSON.stringify(blog.user));
-                                if (index >= blogResults.length - 1) {
+                                if (index >= blogResults.length) {
                                     blogList = blogList.sort((a, b) => {
                                         if (a._id > b._id) {
                                             return -1;

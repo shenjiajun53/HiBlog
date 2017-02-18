@@ -96,6 +96,18 @@
 
 	var _BlogDetail2 = _interopRequireDefault(_BlogDetail);
 
+	var _Settings = __webpack_require__(619);
+
+	var _Settings2 = _interopRequireDefault(_Settings);
+
+	var _Favorites = __webpack_require__(620);
+
+	var _Favorites2 = _interopRequireDefault(_Favorites);
+
+	var _MyBlogs = __webpack_require__(621);
+
+	var _MyBlogs2 = _interopRequireDefault(_MyBlogs);
+
 	var _reactTapEventPlugin = __webpack_require__(613);
 
 	var _reactTapEventPlugin2 = _interopRequireDefault(_reactTapEventPlugin);
@@ -151,7 +163,7 @@
 	                        user: json.result.user
 	                    });
 	                }
-	                console.log("state=" + _this2.state.hasLogin);
+	                // console.log("state=" + this.state.hasLogin);
 	            }).catch(function (ex) {
 	                console.error('parsing failed', ex);
 	            });
@@ -159,6 +171,8 @@
 	    }, {
 	        key: 'render',
 	        value: function render() {
+	            console.log('app render');
+	            // console.log('chileren=' + this.props.children.name);
 	            return _react2.default.createElement(
 	                _MuiThemeProvider2.default,
 	                null,
@@ -166,7 +180,7 @@
 	                    'div',
 	                    null,
 	                    _react2.default.createElement(_TopBar2.default, { hasLogin: this.state.hasLogin, user: this.state.user }),
-	                    this.props.children
+	                    _react2.default.cloneElement(this.props.children, { user: this.state.user })
 	                )
 	            );
 	        }
@@ -187,7 +201,10 @@
 	        _react2.default.createElement(_reactRouter.Route, { path: 'UserCenter', component: _UserCenter2.default }),
 	        _react2.default.createElement(_reactRouter.Route, { path: 'MyFollow', component: _MyFollow2.default }),
 	        _react2.default.createElement(_reactRouter.Route, { path: 'WriteBlog', component: _WriteBlog2.default }),
-	        _react2.default.createElement(_reactRouter.Route, { path: 'BlogDetail/:blogId', component: _BlogDetail2.default })
+	        _react2.default.createElement(_reactRouter.Route, { path: 'BlogDetail/:blogId', component: _BlogDetail2.default }),
+	        _react2.default.createElement(_reactRouter.Route, { path: 'Settings', component: _Settings2.default }),
+	        _react2.default.createElement(_reactRouter.Route, { path: 'Favorites', component: _Favorites2.default }),
+	        _react2.default.createElement(_reactRouter.Route, { path: 'MyBlogs', component: _MyBlogs2.default })
 	    )
 	), document.getElementById('root'));
 
@@ -27159,9 +27176,18 @@
 	                                    blog.user.userName[0]
 	                                ),
 	                                _react2.default.createElement(
-	                                    "span",
-	                                    { style: { marginLeft: "10px" } },
-	                                    dateStr
+	                                    "div",
+	                                    null,
+	                                    _react2.default.createElement(
+	                                        "div",
+	                                        { style: { marginLeft: "10px" } },
+	                                        blog.user.userName
+	                                    ),
+	                                    _react2.default.createElement(
+	                                        "div",
+	                                        { style: { marginLeft: "10px" } },
+	                                        dateStr
+	                                    )
 	                                )
 	                            ),
 	                            _react2.default.createElement(
@@ -57383,16 +57409,16 @@
 	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                */
 
 
-	var BlogDetail = function (_React$Component) {
-	    _inherits(BlogDetail, _React$Component);
+	var MyFollow = function (_React$Component) {
+	    _inherits(MyFollow, _React$Component);
 
-	    function BlogDetail() {
-	        _classCallCheck(this, BlogDetail);
+	    function MyFollow() {
+	        _classCallCheck(this, MyFollow);
 
-	        return _possibleConstructorReturn(this, (BlogDetail.__proto__ || Object.getPrototypeOf(BlogDetail)).apply(this, arguments));
+	        return _possibleConstructorReturn(this, (MyFollow.__proto__ || Object.getPrototypeOf(MyFollow)).apply(this, arguments));
 	    }
 
-	    _createClass(BlogDetail, [{
+	    _createClass(MyFollow, [{
 	        key: 'render',
 	        value: function render() {
 	            return _react2.default.createElement(
@@ -57407,10 +57433,10 @@
 	        }
 	    }]);
 
-	    return BlogDetail;
+	    return MyFollow;
 	}(_react2.default.Component);
 
-	exports.default = BlogDetail;
+	exports.default = MyFollow;
 
 /***/ },
 /* 551 */
@@ -57675,13 +57701,15 @@
 	        value: function render() {
 	            var _this2 = this;
 
+	            console.log('topbar render');
+
 	            var avatarPath = void 0;
 	            var showAvatar = "none";
 	            if (this.props.user) {
 	                if (this.props.user.fileName) {
 	                    avatarPath = "/uploadFiles/avatars/" + this.props.user.fileName;
 	                    showAvatar = "inline";
-	                    console.log("avatarPath=" + avatarPath);
+	                    // console.log("avatarPath=" + avatarPath);
 	                }
 	            }
 
@@ -57718,15 +57746,6 @@
 	                                return _this2.onTitleClick(ON_CARE_CLICKED);
 	                            } },
 	                        '\u5173\u6CE8'
-	                    ),
-	                    _react2.default.createElement(
-	                        _FlatButton2.default,
-	                        {
-	                            style: { color: "#ffffff", marginRight: "10px" },
-	                            onTouchTap: function onTouchTap() {
-	                                return _this2.onTitleClick(ON_MINE_CLICKED);
-	                            } },
-	                        '\u6211\u7684'
 	                    ),
 	                    _react2.default.createElement('div', { style: {
 	                            display: "flex",
@@ -64153,8 +64172,8 @@
 	                case "SignIn":
 	                    window.location.pathname = '/SignIn';
 	                    break;
-	                case "UserCenter":
-	                    window.location.pathname = '/UserCenter';
+	                case "MyBlogs":
+	                    window.location.pathname = '/MyBlogs';
 	                    break;
 	                case "MyFollow":
 	                    window.location.pathname = '/MyFollow';
@@ -64211,10 +64230,7 @@
 	                        targetOrigin: { horizontal: 'right', vertical: 'top' }
 	                    },
 	                    _react2.default.createElement(_MenuItem2.default, { primaryText: '\u6211\u7684\u4E3B\u9875', onTouchTap: function onTouchTap() {
-	                            return _this2.onItemClick("UserCenter");
-	                        } }),
-	                    _react2.default.createElement(_MenuItem2.default, { primaryText: '\u5173\u6CE8', onTouchTap: function onTouchTap() {
-	                            return _this2.onItemClick("MyFollow");
+	                            return _this2.onItemClick("MyBlogs");
 	                        } }),
 	                    _react2.default.createElement(_MenuItem2.default, { primaryText: '\u6536\u85CF', onTouchTap: function onTouchTap() {
 	                            return _this2.onItemClick("Favorites");
@@ -65397,6 +65413,325 @@
 	};
 
 	module.exports = keyOf;
+
+/***/ },
+/* 619 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /**
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * Created by Administrator on 2017/2/18.
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                */
+
+
+	var Settings = function (_React$Component) {
+	    _inherits(Settings, _React$Component);
+
+	    function Settings() {
+	        _classCallCheck(this, Settings);
+
+	        return _possibleConstructorReturn(this, (Settings.__proto__ || Object.getPrototypeOf(Settings)).apply(this, arguments));
+	    }
+
+	    _createClass(Settings, [{
+	        key: 'render',
+	        value: function render() {
+	            return _react2.default.createElement(
+	                'div',
+	                null,
+	                _react2.default.createElement(
+	                    'h1',
+	                    null,
+	                    '\u8BBE\u7F6E'
+	                )
+	            );
+	        }
+	    }]);
+
+	    return Settings;
+	}(_react2.default.Component);
+
+	exports.default = Settings;
+
+/***/ },
+/* 620 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /**
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * Created by Administrator on 2017/2/18.
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                */
+
+
+	var Favorites = function (_React$Component) {
+	    _inherits(Favorites, _React$Component);
+
+	    function Favorites() {
+	        _classCallCheck(this, Favorites);
+
+	        return _possibleConstructorReturn(this, (Favorites.__proto__ || Object.getPrototypeOf(Favorites)).apply(this, arguments));
+	    }
+
+	    _createClass(Favorites, [{
+	        key: 'render',
+	        value: function render() {
+	            return _react2.default.createElement(
+	                'div',
+	                null,
+	                _react2.default.createElement(
+	                    'h1',
+	                    null,
+	                    '\u6536\u85CF'
+	                )
+	            );
+	        }
+	    }]);
+
+	    return Favorites;
+	}(_react2.default.Component);
+
+	exports.default = Favorites;
+
+/***/ },
+/* 621 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _Card = __webpack_require__(238);
+
+	var _Card2 = _interopRequireDefault(_Card);
+
+	var _Avatar = __webpack_require__(386);
+
+	var _Avatar2 = _interopRequireDefault(_Avatar);
+
+	var _TouchRipple = __webpack_require__(368);
+
+	var _TouchRipple2 = _interopRequireDefault(_TouchRipple);
+
+	var _moment = __webpack_require__(392);
+
+	var _moment2 = _interopRequireDefault(_moment);
+
+	var _colors = __webpack_require__(503);
+
+	var _colors2 = _interopRequireDefault(_colors);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /**
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * Created by Administrator on 2017/2/18.
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                */
+
+
+	// injectTapEventPlugin();
+	var MyBlogs = function (_Component) {
+	    _inherits(MyBlogs, _Component);
+
+	    function MyBlogs(props) {
+	        _classCallCheck(this, MyBlogs);
+
+	        var _this = _possibleConstructorReturn(this, (MyBlogs.__proto__ || Object.getPrototypeOf(MyBlogs)).call(this, props));
+
+	        _this.state = {
+	            blogList: null
+	        };
+	        return _this;
+	    }
+
+	    _createClass(MyBlogs, [{
+	        key: "getBlogs",
+	        value: function getBlogs() {
+	            var _this2 = this;
+
+	            console.log("user=" + JSON.stringify(this.props.user));
+	            var url = "/api/getBlogsByUser";
+	            console.log("url=" + url);
+
+	            var body = {
+	                user: this.props.user
+	            };
+
+	            fetch(url, {
+	                method: "post",
+	                body: JSON.stringify(body),
+	                headers: {
+	                    'Content-Type': 'application/json'
+	                    // 'Content-Type': 'application/x-www-form-urlencoded'
+	                },
+	                credentials: 'include' //很重要，设置session,cookie可用
+	            }).then(function (response) {
+	                return response.json();
+	            }).then(function (json) {
+	                // console.log("response=" + JSON.stringify(json));
+	                _this2.setState({
+	                    blogList: json.result.blogList
+	                });
+	            }).catch(function (ex) {
+	                console.error('parsing failed', ex);
+	            });
+	        }
+	    }, {
+	        key: "onCardClick",
+	        value: function onCardClick(blog) {
+	            // console.log("blogId=" + blog._id);
+	            window.location = "/BlogDetail/" + blog._id;
+	        }
+	    }, {
+	        key: "render",
+	        value: function render() {
+	            var _this3 = this;
+
+	            // console.log("onRender");
+	            var blogListView = void 0;
+	            if (null === this.state.blogList && null !== this.props.user) {
+	                this.getBlogs();
+	            }
+
+	            // if(null != this.state.blogList){
+	            //     for (let i = 0; i < this.state.blogList.length; i++) {
+	            //         blogListView.push(<div key={this.state.blogList[i]._id}>
+	            //             <h1>{this.state.blogList[i].blogTitle}</h1>
+	            //             <div>{this.state.blogList[i].blogContent}</div>
+	            //         </div>);
+	            //     }
+	            // }
+
+	            if (null != this.state.blogList) {
+	                blogListView = this.state.blogList.map(function (blog) {
+	                    var avatarPath = void 0;
+	                    var showAvatarImg = "none";
+	                    var showAvatarName = "flex";
+	                    if (blog.user) {
+	                        if (blog.user.fileName) {
+	                            avatarPath = "/uploadFiles/avatars/" + blog.user.fileName;
+	                            showAvatarImg = "flex";
+	                            showAvatarName = "none";
+	                            // console.log("avatarPath=" + avatarPath);
+	                        }
+	                    }
+	                    // console.log("blog=" + blog.blogTitle);
+	                    var time = blog.time;
+	                    var date = new Date(time);
+	                    var dateStr = (0, _moment2.default)(date).format("YYYY-MM-DD HH:mm:ss");
+	                    return _react2.default.createElement(
+	                        _Card2.default,
+	                        { key: blog._id,
+	                            style: {
+	                                marginTop: "10px",
+	                                marginBottom: "10px",
+	                                padding: "10px"
+	                            },
+	                            onTouchTap: function onTouchTap() {
+	                                return _this3.onCardClick(blog);
+	                            } },
+	                        _react2.default.createElement(
+	                            "div",
+	                            { style: {
+	                                    display: "flex",
+	                                    flexDirection: "column"
+	                                } },
+	                            _react2.default.createElement(
+	                                "div",
+	                                { style: { display: "flex", flexDirection: "row", alignItems: "center" } },
+	                                _react2.default.createElement(_Avatar2.default, { src: avatarPath, style: { display: showAvatarImg },
+	                                    backgroundColor: _colors2.default.accent }),
+	                                _react2.default.createElement(
+	                                    _Avatar2.default,
+	                                    { style: { display: showAvatarName },
+	                                        backgroundColor: _colors2.default.accent },
+	                                    blog.user.userName[0]
+	                                ),
+	                                _react2.default.createElement(
+	                                    "div",
+	                                    null,
+	                                    _react2.default.createElement(
+	                                        "div",
+	                                        { style: { marginLeft: "10px" } },
+	                                        blog.user.userName
+	                                    ),
+	                                    _react2.default.createElement(
+	                                        "div",
+	                                        { style: { marginLeft: "10px" } },
+	                                        dateStr
+	                                    )
+	                                )
+	                            ),
+	                            _react2.default.createElement(
+	                                "h1",
+	                                null,
+	                                blog.blogTitle
+	                            ),
+	                            _react2.default.createElement(
+	                                "div",
+	                                null,
+	                                blog.blogContent
+	                            )
+	                        )
+	                    );
+	                });
+	            }
+	            return _react2.default.createElement(
+	                "div",
+	                null,
+	                blogListView
+	            );
+	        }
+	    }]);
+
+	    return MyBlogs;
+	}(_react.Component);
+
+	exports.default = MyBlogs;
 
 /***/ }
 /******/ ]);
