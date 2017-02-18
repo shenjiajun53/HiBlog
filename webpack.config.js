@@ -29,8 +29,7 @@ module.exports = {
             {
                 test: /\.css$/,
                 loader: 'style-loader!css-loader'
-            },
-            {test: /\.svg$/, loader: 'babel?presets[]=es2015,presets[]=react!svg-react'}
+            }
         ]
     },
     // 其他解决方案配置
