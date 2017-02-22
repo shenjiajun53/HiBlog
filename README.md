@@ -10,6 +10,17 @@ github地址：https://github.com/shenjiajun53/HiBlog
 想想对服务端，前端都不了解真是挺无知的。
 之前看同事有自己的博客站，百度了下，发现要做那种个人网站真是很简单，只不过那根本就是个静态网站，太辣鸡，所以我决定自己撸个博客网站。
 
+
+主页
+
+![webstorm.png](./screenshot/home_page.png)
+
+
+注册页
+
+![webstorm.png](./screenshot/register_page.png)
+
+
 ## 下面就是技术选型啦：
 ### 前端：
 要用就用潮的，三个著名框架Angular，React，Vue
@@ -23,6 +34,26 @@ Vue的语法更像常规的前端开发，React默认支持es6，风格跟Androi
 python没有花括号，知乎上都嘲笑写python要用游标卡尺，不考虑
 PHP开发比Java更快，而且现在快跟Java平分秋色了吧，可以考虑。
 Node技术还是挺新的，各种文章资料会比较少，坑也可能比较多。但我真是不高兴再学一门语言了，所以哈哈，就选Node了。
+
+## 运行
+1.git clone
+2.安装mongo，然后在安装目录下新建文件夹，比如“D:\data\db”，然后打开“D:\MongoDB\Server\3.4\bin\mongod.exe”开启服务，会有个命令行窗口保持运行
+3.建议安装一个mongo可视化工具，Robomongo，默认连接localhost：27017，能连接上就说明好了
+4.进入项目目录下，执行命令
+```
+npm install
+```
+安装相关依赖库
+5.执行
+```
+node server.js
+```
+开启服务。
+或者，比如我用的Webstorm，可以点击左下角npm按钮，点击start-dev-serpervisor或者点击start-dev-nodemon,都可以
+
+![webstorm.png](./screenshot/npm_button.png)
+
+6.打开浏览器，输入 localhost:5006
 
 
 ## 下面开始：
