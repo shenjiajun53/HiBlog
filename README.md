@@ -37,13 +37,17 @@ Node技术还是挺新的，各种文章资料会比较少，坑也可能比较�
 
 ## 运行
 1.git clone
+
 2.安装mongo，然后在安装目录下新建文件夹，比如“D:\data\db”，然后打开“D:\MongoDB\Server\3.4\bin\mongod.exe”开启服务，会有个命令行窗口保持运行
+
 3.建议安装一个mongo可视化工具，Robomongo，默认连接localhost：27017，能连接上就说明好了
+
 4.进入项目目录下，执行命令
 ```
 npm install
 ```
 安装相关依赖库
+
 5.执行
 ```
 node server.js
