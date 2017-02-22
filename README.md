@@ -151,7 +151,8 @@ npm i
 
 看下我的目录结构
 
-![2017-02-18.png](http://upload-images.jianshu.io/upload_images/2929229-64a1c39cf89989a6.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![2017-02-18.png](./screenshot/github_screenshot.png)
+
 看下我的github页面，右边就是我在最上面介绍的github插件，工欲善其事必先利其器。
 
 新建文件webpack.config.js，webpack工具会识别到这个文件里的脚本，然后把React代码打包，很重要，不然不管是React的JSX或者ES6，浏览器都读不懂。
